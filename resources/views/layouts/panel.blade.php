@@ -87,7 +87,7 @@
         <!-- navegation -->
         <ul class="nav text-uppercase">
           <li class="nav-item">
-            <a class="nav-link active text-black" aria-current="page" href="#"><i class="fas fa-solar-panel"></i> Panel</a>
+            <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="#">Panel</a>
           </li>
         </ul>
 
@@ -121,7 +121,6 @@
         </div>
       </nav>
     <!-- Header -->
-        <!-- Header -->
     <div class="header bg-gradient-primary-dorado pb-8 pt-5 pt-md-8">
       <div class="container-fluid">
         <div class="header-body">
@@ -215,7 +214,6 @@
         </div>
       </div>
     </div>
-
     <!-- Page content -->
     <div class="container-fluid mt--7">
       @yield('content')
