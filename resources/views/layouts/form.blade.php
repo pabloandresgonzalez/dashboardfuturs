@@ -65,18 +65,18 @@
       </div>
     </nav>
     <!-- Header -->
-    <div class="header bg-gradient-primary-formulario py-6 py-lg-7">
+    <div class="header bg-gradient-primary-dorado py-6 py-lg-7">
       <div class="container">
         <div class="header-body text-center mb-7">
           <div class="row justify-content-center">
             <div class="col-lg-5 col-md-6">
-              <h1 class="text-white">
-                @yield('title', 'Welcome!')
-              </h1>
-              <p class="text-lead text-light">
-                @yield('subtitle')
-              </p>
-            </div>
+              <div class="card-profile-image">
+                  <a href="https://www.lifearluxury.com">
+                    <img src="{{ asset('img/brand/iconfuturs.PNG') }}"/>
+                  </a>
+                </div>
+            </div></h1><br><br><br>
+            
           </div>
         </div>
       </div>
