@@ -28,10 +28,10 @@
                 <div class="card" style="width: 18rem;">
                   <img class="card-img-top" src="{{ asset('img/brand/membresia1.PNG') }}" alt="Card image cap">
                   <div class="card-body" style="text-align: center;">
-                    <h4 class="card-title">100 Usd</h4> 
+                    <h4 class="card-title">100 USDT</h4> 
                     <span> <p class="card-text">
                     50 Pts X Ref.<br></p></span><br>
-                    <h5 class="card-title">5 % de Administración</h5>                   
+                    <h5 class="card-title">5 % de Administración</h5>
                     <a href="#" class="btn btn-outline-success btn-lg btn-block">Comprar</a><br>  
                   </div>
                 </div>
@@ -43,9 +43,9 @@
                 <div class="card" style="width: 18rem;">
                   <img class="card-img-top" src="{{ asset('img/brand/membresia2.PNG') }}"  alt="Card image cap">
                   <div class="card-body" style="text-align: center;">
-                    <h4 class="card-title">250 Usd</h4> 
+                    <h4 class="card-title">250 USDT</h4> 
                     <span> <p class="card-text">
-                    125 puntos<br></p></span><br>
+                    125 Pts X Ref.<br></p></span><br>
                     <h5 class="card-title">5 % de Administración</h5>                   
                     <a href="#" class="btn btn-outline-success btn-lg btn-block">Comprar</a><br>
                   </div>
@@ -58,10 +58,10 @@
                 <div class="card" style="width: 18rem;">
                   <img class="card-img-top" src="{{ asset('img/brand/membresia3.PNG') }}" alt="Card image cap">
                   <div class="card-body" style="text-align: center;">
-                    <h4 class="card-title">500 Usd</h4> 
+                    <h4 class="card-title">500 USDT</h4> 
                     <span> <p class="card-text">
-                    250 puntos<br></p></span><br>
-                    <h5 class="card-title">5 % de Administración</h5>                     
+                    250 Pts X Ref.<br></p></span><br>
+                    <h5 class="card-title">5 % de Administración</h5>
                     <a href="#" class="btn btn-outline-success btn-lg btn-block">Comprar</a><br>
                   </div>
                 </div>
@@ -84,10 +84,10 @@
                 <div class="card" style="width: 18rem;">
                   <img class="card-img-top" src="{{ asset('img/brand/membresia4.PNG') }}" alt="Card image cap">
                   <div class="card-body" style="text-align: center;">
-                    <h4 class="card-title">1000 Usd</h4> 
+                    <h4 class="card-title">1000 USDT</h4> 
                     <span> <p class="card-text">
-                    500 puntos<br></p></span><br>
-                    <h5 class="card-title">5 % de Administración</h5>                    
+                    500 Pts X Ref.<br></p></span><br>
+                    <h5 class="card-title">5 % de Administración</h5>
                     <a href="#" class="btn btn-outline-success btn-lg btn-block">Comprar</a><br>
                   </div>
                 </div>
@@ -99,9 +99,9 @@
                 <div class="card" style="width: 18rem;">
                   <img class="card-img-top" src="{{ asset('img/brand/membresia5.PNG') }}"  alt="Card image cap">
                   <div class="card-body" style="text-align: center;">
-                    <h4 class="card-title">2000 Usd</h4> 
+                    <h4 class="card-title">2000 USDT</h4> 
                     <span> <p class="card-text">
-                    1000 puntos<br></p></span><br>
+                    1000 Pts X Ref.<br></p></span><br>
                     <h5 class="card-title">5 % de Administración</h5>                     
                     <a href="#" class="btn btn-outline-success btn-lg btn-block">Comprar</a><br>
                   </div>
@@ -114,9 +114,9 @@
                 <div class="card" style="width: 18rem;">
                   <img class="card-img-top" src="{{ asset('img/brand/membresia6.PNG') }}" alt="Card image cap">
                   <div class="card-body" style="text-align: center;">
-                    <h4 class="card-title">2000 Usd</h4> 
+                    <h4 class="card-title">3000 USDT</h4> 
                     <span> <p class="card-text">
-                    1000 puntos<br></p></span><br>
+                    1500 Pts X Ref.s<br></p></span><br>
                     <h5 class="card-title">5 % de Administración</h5>                    
                     <a href="#" class="btn btn-outline-success btn-lg btn-block">Comprar</a><br>
                   </div>
@@ -140,9 +140,9 @@
                 <div class="card" style="width: 18rem;">
                   <img class="card-img-top" src="{{ asset('img/brand/membresia7.PNG') }}" alt="Card image cap">
                   <div class="card-body" style="text-align: center;">                    
-                    <h4 class="card-title">3000 Usd</h4> 
+                    <h4 class="card-title">4000 USDT</h4> 
                     <span> <p class="card-text">
-                    1500 puntos<br></p></span><br>
+                    1000 Pts X Ref.<br></p></span><br>
                     <h5 class="card-title">5 % de Administración</h5>                   
                     <a href="#" class="btn btn-outline-success btn-lg btn-block">Comprar</a><br>
                   </div>
@@ -155,9 +155,9 @@
                 <div class="card" style="width: 18rem;">
                   <img class="card-img-top" src="{{ asset('img/brand/membresia6.PNG') }}" alt="Card image cap">
                   <div class="card-body" style="text-align: center;">
-                    <h4 class="card-title">5000 Usd</h4> 
+                    <h4 class="card-title">5000 USDT</h4> 
                     <span> <p class="card-text">
-                    2500 puntos<br></p></span><br>
+                    2500 Pts X Ref.<br></p></span><br>
                     <h5 class="card-title">5 % de Administración</h5>                    
                     <a href="#" class="btn btn-outline-success btn-lg btn-block">Comprar</a><br>
                   </div>
