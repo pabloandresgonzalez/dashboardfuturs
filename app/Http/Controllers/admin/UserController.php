@@ -97,45 +97,6 @@ class UserController extends Controller
     }
 
 
-    private function perfomrValidationUpdate(Request $request)
-    {
-
-      $rules = [
-        'name' => 'required|string|max:255',
-        'lastname' => 'required|string|max:255',
-        'typeDoc' => 'required|string|max:255',
-        'numberDoc' => 'string|max:255',
-        'role' => 'required|string|max:255',
-        'phone' => 'required|string|max:255',
-        'cellphone' => 'required|string|max:255',
-        'country' => 'required|string|max:255',
-        'level' => 'required|string|max:255',
-        'isActive' => 'required|string|max:255',
-        'ownerId' => 'string|max:255',
-        'email' => 'string|max:255',
-      ];
-
-      $messages =[
-
-        'name.required' => 'Es necesario ingresar el nombre',
-        'lastname.required' => 'Es necesario ingresar el apellido',
-        'typeDoc.required' => 'Es necesario ingresar el tipo de documento',
-        'numberDoc.required' => 'Es necesario ingresar el numero docuemnto',
-        'role.required' => 'Es necesario ingresar el tipo de rol',
-        'phone.required' => 'Es necesario ingresar el telefono',
-        'cellphone.required' => 'Es necesario ingresar el numero de movil',
-        'country.required' => 'Es necesario ingresar el país',
-        'level.required' => 'Es necesario ingresar el nivel',
-        'isActive.required' => 'Es necesario ingresar el estado',
-        'ownerId' => 'Es necesario ingresar el Código de referido',
-        'email' => 'Es necesario ingresar el email',
-        'password' => 'Es necesario ingresar el password',
-      ];
-
-    $this->validate($request, $rules, $messages);
-
-    }
-
     public function store(Request $request)
     {
       //dd($request->all());
@@ -191,7 +152,7 @@ class UserController extends Controller
       $user->save(); //INSERT EN BD
 
 
-      return redirect('user')->with([
+      return redirect('home')->with([
                 'message' => 'El usuario '.$user->name.' fue creado correctamente!'
         ]);
 
@@ -226,7 +187,7 @@ class UserController extends Controller
           'ownerId' => 'required|string|max:255',
           'email' => 'required|string|max:255',
           'photo' => 'file',
-          'photo' => 'file',
+          'photodoc' => 'file',
         ]);
 
 
@@ -284,8 +245,8 @@ class UserController extends Controller
         $user->save();
 
 
-        return redirect('user')->with([
-                'message' => 'El usuario '.$user->name.' fue actualizado correctamente!'
+        return redirect('home')->with([
+                'message' => $user->name.', tu informacion fue actualizada correctamente!'
         ]);
 
     }
@@ -293,6 +254,7 @@ class UserController extends Controller
 
     public function indexperfil()
     {
+
       //Conseguir usuario identificado
         $user = \Auth::user();
 
@@ -301,6 +263,5 @@ class UserController extends Controller
       ]);
 
     }
-
 
 }

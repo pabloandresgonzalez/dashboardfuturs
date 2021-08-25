@@ -31,10 +31,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     Route::get('/user/avatardoc/{filename?}', [App\Http\Controllers\admin\UserController::class, 'getImageDoc'])->name('user.avatardoc');
 
 
-    //Users perfil
+    //Users perfil updatephoto
     Route::get('/user/indexperfil', [App\Http\Controllers\admin\UserController::class, 'indexperfil']);
-    Route::put('/user/{user}/editperfil', [App\Http\Controllers\admin\UserController::class, 'editperfil']);//form edit
-    // Route::post('/user', [App\Http\Controllers\admin\UserController::class, 'storeperfil']);// envio form
+    //Route::get('/user/{user}/editperfil', [App\Http\Controllers\admin\UserController::class, 'editperfil']);//form edit
+    //Route::post('/user/{user}', [App\Http\Controllers\admin\UserController::class, 'updatephoto']);// envio form
 
 
     //Membresias
