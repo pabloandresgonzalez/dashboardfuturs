@@ -16,6 +16,15 @@
   <link href="{{ asset('vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
   <!-- Argon CSS -->
   <link href="{{ asset('css/argon.css?v=1.0.0') }}" rel="stylesheet">
+
+  <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+          setTimeout(function() {
+              $(".alert").fadeOut(6000);
+          });
+      });
+  </script>
 </head>
 
 <body class="bg-default">
@@ -49,7 +58,7 @@
           <!-- Navbar items -->
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="{{ route('register') }}">
+              <a class="nav-link nav-link-icon" href="{{ route('consulta') }}">
                 <i class="ni ni-circle-08"></i>
                 <span class="nav-link-inner--text">Register</span>
               </a>
