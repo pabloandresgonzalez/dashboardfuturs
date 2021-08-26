@@ -32,7 +32,7 @@
                     <span> <p class="card-text">
                     50 Pts X Ref.<br></p></span><br>
                     <h5 class="card-title">5 % de Administración</h5>
-                    <a href="#" class="btn btn-outline-success btn-lg btn-block">Comprar</a><br>  
+                    <a data-toggle="modal" data-target="#modal-form" href="#" class="badge badge-warning"><i class="ni ni-cart"></i>&nbsp; Selecionar</a><br>  
                   </div>
                 </div>
               </div>
@@ -47,7 +47,7 @@
                     <span> <p class="card-text">
                     125 Pts X Ref.<br></p></span><br>
                     <h5 class="card-title">5 % de Administración</h5>                   
-                    <a href="#" class="btn btn-outline-success btn-lg btn-block">Comprar</a><br>
+                    <a data-toggle="modal" data-target="#modal-form" href="#" class="badge badge-warning"><i class="ni ni-cart"></i>&nbsp; Selecionar</a><br>
                   </div>
                 </div>
               </div>
@@ -62,7 +62,7 @@
                     <span> <p class="card-text">
                     250 Pts X Ref.<br></p></span><br>
                     <h5 class="card-title">5 % de Administración</h5>
-                    <a href="#" class="btn btn-outline-success btn-lg btn-block">Comprar</a><br>
+                    <a data-toggle="modal" data-target="#modal-form" href="#" class="badge badge-warning"><i class="ni ni-cart"></i>&nbsp; Selecionar</a><br>
                   </div>
                 </div>
               </div>
@@ -88,7 +88,7 @@
                     <span> <p class="card-text">
                     500 Pts X Ref.<br></p></span><br>
                     <h5 class="card-title">5 % de Administración</h5>
-                    <a href="#" class="btn btn-outline-success btn-lg btn-block">Comprar</a><br>
+                    <a data-toggle="modal" data-target="#modal-form" href="#" class="badge badge-warning"><i class="ni ni-cart"></i>&nbsp; Selecionar</a><br>
                   </div>
                 </div>
               </div>
@@ -103,7 +103,7 @@
                     <span> <p class="card-text">
                     1000 Pts X Ref.<br></p></span><br>
                     <h5 class="card-title">5 % de Administración</h5>                     
-                    <a href="#" class="btn btn-outline-success btn-lg btn-block">Comprar</a><br>
+                    <a data-toggle="modal" data-target="#modal-form" href="#" class="badge badge-warning"><i class="ni ni-cart"></i>&nbsp; Selecionar</a><br>
                   </div>
                 </div>
               </div>
@@ -118,7 +118,7 @@
                     <span> <p class="card-text">
                     1500 Pts X Ref.s<br></p></span><br>
                     <h5 class="card-title">5 % de Administración</h5>                    
-                    <a href="#" class="btn btn-outline-success btn-lg btn-block">Comprar</a><br>
+                    <a data-toggle="modal" data-target="#modal-form" href="#" class="badge badge-warning"><i class="ni ni-cart"></i>&nbsp; Selecionar</a><br>
                   </div>
                 </div>
               </div>
@@ -144,7 +144,7 @@
                     <span> <p class="card-text">
                     1000 Pts X Ref.<br></p></span><br>
                     <h5 class="card-title">5 % de Administración</h5>                   
-                    <a href="#" class="btn btn-outline-success btn-lg btn-block">Comprar</a><br>
+                    <a data-toggle="modal" data-target="#modal-form" href="#" class="badge badge-warning"><i class="ni ni-cart"></i>&nbsp; Selecionar</a><br>
                   </div>
                 </div>
               </div>
@@ -159,7 +159,7 @@
                     <span> <p class="card-text">
                     2500 Pts X Ref.<br></p></span><br>
                     <h5 class="card-title">5 % de Administración</h5>                    
-                    <a href="#" class="btn btn-outline-success btn-lg btn-block">Comprar</a><br>
+                    <a data-toggle="modal" data-target="#modal-form" href="#" class="badge badge-warning"><i class="ni ni-cart"></i>&nbsp; Selecionar</a><br>
                   </div>
                 </div>
               </div>
@@ -169,6 +169,37 @@
           </div>
         </div>
       </div>
+
+    <div class="col-md-4">
+
+      <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+      <div class="modal-dialog modal- modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+          
+          <div class="modal-body p-0">
+              
+                  
+            <div class="card bg-secondary shadow border-0">
+                <div class="card-header bg-transparent pb-5">
+                    <div class="text-muted text-center mt-2 mb-3"><small>Depósito USDT</small><br><br>
+                      <img src="{{ asset('img/brand/qrusdt.PNG') }}">                      
+                    </div> 
+                </div>
+                <div class="card-body px-lg-5 py-lg-5">
+                    <div class="text-center text-muted mb-4">
+                        <small>TVDHJ4U95TJFBJng1kwPB9NxDsXCEQ4gV1</small>
+                    </div>
+                    <a href="/membresiasuser" class="btn btn-outline-success btn-lg btn-block"><i class="ni ni-check-bold"></i>&nbsp; Comprar</a><br>              
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
       <br>
         <hr class="my-3">
            <h5> &nbsp; &nbsp; &nbsp;De la misma forma que pagues tu paquete, así mismo será tu pago. Ejemplo: si compras con Dash tus pagos serán en Dash<br><h5/>
