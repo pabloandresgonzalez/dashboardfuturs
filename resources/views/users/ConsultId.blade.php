@@ -7,7 +7,7 @@
       <!-- Table -->
       <div class="row justify-content-center">
         <div class="col-lg-6 col-md-8">
-          <div class="card bg-gradient-primary-dorado shadow border-0">
+          <div class="card bg-secondary shadow border-0">
             <div class="card-body px-lg-5 py-lg-5">
               <div class="text-center text-muted mb-4">
 
@@ -39,8 +39,8 @@
                 </div>
 
 
-                <div class="col-12">
-                  <button type="submit" class="btn btn-primary mt-4">Ir a Registro</button>
+                <div class="col-12"><br>
+                  <button type="submit" class="btn btn-outline-default">Ir a Registro</button>
                 </div>
               </form>
             </div>
