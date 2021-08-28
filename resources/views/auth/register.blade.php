@@ -368,7 +368,7 @@
                     </div>
                     <input class="form-control" placeholder="Contraseña" type="password" name="password" required autocomplete="new-password">
                   </div>
-                </div>
+                </div><br><br>
                 <div class="col-md-6">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
