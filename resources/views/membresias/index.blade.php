@@ -50,7 +50,7 @@
                     <form action="" method="POST">
                       @csrf
                       @method('DELETE')
-                      <a href="" class="btn btn-outline-secondary"><i class="ni ni-settings"></i> Editar</a>
+                      <a href="{{ url('/membresias/'.$membresia->id.'/edit') }}" class="btn btn-outline-secondary"><i class="ni ni-settings"></i> Editar</a>
                     </form>
                   </td>
                   <td>
@@ -97,7 +97,7 @@
                               <form action="" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <a href="" class="btn btn-outline-secondary"><i class="ni ni-settings"></i> Editar</a>
+                                <a href="{{ url('/membresias/'.$membresia->id.'/edit') }}" class="btn btn-outline-secondary"><i class="ni ni-settings"></i> Editar</a>
                               </form>
                             </td>
                                 <button type="button" class="btn btn-link ml-auto" data-dismiss="modal">Close</button>

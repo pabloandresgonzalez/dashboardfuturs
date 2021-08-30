@@ -27,7 +27,20 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-pin-3"></i></span>
                     </div>
-                    <input class="form-control" placeholder="Código referido" id="ownerId" type="text" name="ownerId" value="{{ old('ownerId') }}" required autocomplete="ownerId" autofocus>
+                    
+
+                    <?php
+                      if( isset($_GET["ownerId"]) ){
+                        $consulta = ($_GET['ownerId']);
+                        
+                        echo('<input class="form-control" placeholder="Código referido" id="ownerId" type="text" name="ownerId" value="'.$consulta.'" autocomplete="ownerId" autofocus>');
+                      }else{
+
+                        echo('<input class="form-control" placeholder="Código referido" id="ownerId" type="text" name="ownerId" value="Código referido" autocomplete="ownerId" autofocus>');
+                      }
+
+                    ?>
+                    
                   </div>
                 </div>
 
