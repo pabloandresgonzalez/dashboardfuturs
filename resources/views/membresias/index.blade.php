@@ -6,7 +6,7 @@
           <div class="card-header border-0">
             <div class="row align-items-center">
               <div class="col">
-                <h3 class="mb-0">Membresía</h3>
+                <h3 class="mb-0">Membresías</h3>
               </div>
               @if(session('message'))
                     <div class="alert alert-success">
@@ -14,10 +14,10 @@
                     </div>
               @endif
 
-            </div>
+        </div>
           </div>
           <div class="card-body">
-            <div class="col-md-6">
+        <div class="col-md-6">
           <a href="/membresias/create" class="btn btn-outline-default">
           <i class="ni ni-trophy"></i> Nueva membresía
           </a>
@@ -54,7 +54,7 @@
                     </form>
                   </td>
                   <td>
-                      <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#modal-default"><i class="ni ni-bullet-list-67"></i> Detalle</button>
+                      <a href="{{ url('/membresias/'.$membresia->id.'/detail') }}" class="btn btn-outline-secondary"><i class="ni ni-bullet-list-67"></i> Detalle</a>
                   </td>
                 </tr>
                 @endforeach
@@ -97,7 +97,7 @@
                               <form action="" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <a href="{{ url('/membresias/'.$membresia->id.'/edit') }}" class="btn btn-outline-secondary"><i class="ni ni-settings"></i> Editar</a>
+                                <a href="" class="btn btn-outline-secondary"><i class="ni ni-settings"></i> Editar</a>
                               </form>
                             </td>
                                 <button type="button" class="btn btn-link ml-auto" data-dismiss="modal">Close</button>
@@ -127,5 +127,13 @@
         </div>
     </div>
   </div>
+
+    <br>
+        <hr class="my-3">
+           
+
+        <main class="py-4">
+            @yield('content')
+        </main>
 
 @endsection

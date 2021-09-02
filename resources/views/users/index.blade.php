@@ -14,6 +14,7 @@
                     </div>
               @endif
 
+
             </div>
           </div>
           <div class="card-body">
@@ -81,7 +82,7 @@
                     </form>
                   </td>
                   <td>
-                      <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#modal-default"><i class="ni ni-bullet-list-67"></i> Detalle</button>
+                      <a href="{{ url('/user/'.$user->id.'/detail') }}" class="btn btn-outline-secondary"><i class="ni ni-bullet-list-67"></i> Detalle</a>
                   </td>
                 </tr>
                 @endforeach
@@ -169,11 +170,15 @@
                 </div>
 
           </div>
-
-
-          <div class="col-md-4">
-        </div>
+          
     </div>
   </div>
+
+  <br>
+        <hr class="my-3">
+
+        <main class="py-4">
+            @yield('content')
+        </main>
 
 @endsection

@@ -8,11 +8,16 @@
                 <div class="card-header">Mi cuenta</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                   @if($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                      <ul>
+                      @foreach ($errors->all() as $error)
+                      <li>{{ $error }}
+                      </li>
+                      @endforeach
+                      <ul>
+                    </div>
+                  @endif
 
                     <!-- Page content -->
 
@@ -30,7 +35,30 @@
             </div>
             <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
               <div class="d-flex justify-content-between">
-                <a href="#" class="btn btn-sm btn-info mr-4"><i class="ni ni-email-83"></i> ar_luxury</a>
+                <a href="#" class="btn btn-sm btn-info mr-4" data-toggle="modal" data-target="#exampleModal"><i class="ni ni-tag"></i> Link</a>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Link para registro</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        https://dashboard.lifearluxury.com/register?{{ $user->id }}
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
                 <a href="#" class="btn btn-sm btn-default float-right"><i class="ni ni-chat-round"></i> Mensaje</a>
               </div>
             </div>
@@ -39,7 +67,7 @@
                 <div class="col">
                   <div class="card-profile-stats d-flex justify-content-center mt-md-5">
                     <div>
-                      <span class="heading">22</span>
+                      <span class="heading">x</span>
                       <span class="description">Referidos</span>
                     </div>
                   </div>
@@ -57,7 +85,7 @@
                 </div>
                 <hr class="my-4" />
 
-                <a href="#">Noticias</a>
+                <a href="/home">Noticias</a>
               </div>
             </div>
           </div>
@@ -75,9 +103,9 @@
               </div>
             </div>
             <div class="card-body">
-      <form class="row g-3" action="{{ url('user/'.$user->id) }}" enctype="multipart/form-data" method="post">
-      @csrf
-      @method('PUT')
+    <form class="row g-3" action="{{ url('user/'.$user->id) }}" enctype="multipart/form-data" method="post">
+    @csrf
+    @method('PUT')
 
 
 
@@ -504,7 +532,7 @@
           </div>
         </div>
 
-      </form>
+  </form>
             </div>
           </div>
         </div>

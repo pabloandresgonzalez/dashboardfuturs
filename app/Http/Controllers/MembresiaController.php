@@ -7,6 +7,7 @@ use App\Models\Membresia;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
+use App\Models\Membership;
 
 class MembresiaController extends Controller
 {
@@ -56,7 +57,6 @@ class MembresiaController extends Controller
 
     public function store(Request $request)
     {
-        //dd($request->all());
 
         $this->perfomrValidationCreate($request);
 
@@ -94,6 +94,8 @@ class MembresiaController extends Controller
         $membresias = Membresia::orderBy('id', 'Desc')->paginate(10);
         $data = ['membresias' => $membresias];
 
+        
+
         return view('membresias.indexuser', compact('membresias'));
 
     }
@@ -112,10 +114,7 @@ class MembresiaController extends Controller
 
     public function update(Request $request, $id)
     {
-        //dd($request->all());
         
-      
-
         //Validacion del formulario
         $validate = $this->validate($request, [
             'name' => 'required|string|min:4|max:255',
@@ -152,5 +151,22 @@ class MembresiaController extends Controller
 
     }
 
+    public function createMemberchip()
+    {  
+        
+        return view('memberchip.index');        
+
+    }
+
+    public function detail($id) {
+
+      $membresia = Membresia::find($id);
+
+      return view('membresias.detail', [
+          'membresia' => $membresia
+      ]);
+    }
+
 
 }
+

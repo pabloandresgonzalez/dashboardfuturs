@@ -18,27 +18,59 @@ class UserController extends Controller
       $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
+
+      /*
+      $nombre = $request->get('buscarpor');
+
+      $users = User::where('name', 'LIKE', "%$nombre%")
+      ->orwhere('lastname', 'LIKE', "%$nombre%")
+      ->orwhere('role', 'LIKE', "%$nombre%")
+      ->orwhere('email', 'LIKE', "%$nombre%")
+      ->orderBy('id', 'desc')
+      ->paginate(3);
+
+      return view('users.index', [
+      'users' => $users
+      ]);
+
+
+      if (count($users) ) {
+
+        return view('users.index', [
+        'users' => $users
+        ]);
+
+      }*/
+
+      //dd($request->all());
+    
       //Conseguir usuario identificado
       //$user = \Auth::user();
-
-      $users = User::orderBy('id', 'Desc')->paginate(10);
+      //$totalusers = User::count(); 
+      $users = User::orderBy('id', 'Desc')->paginate(50);
       $data = ['users' => $users];
 
+      
+
       return view('users.index', $data);
+      
+
     }
 
     public function create()
     {
+      //$totalusers = User::count();
+
       return view('users.create');
 
     }
 
     public function edit($id)
     {
-      //dd($id);
-
+      
+      //$totalusers = User::count(); 
       $user = User::find($id);
 
       return view('users.edit', [
@@ -96,10 +128,10 @@ class UserController extends Controller
 
     }
 
-
     public function store(Request $request)
     {
-      //dd($request->all());
+                  
+      //$totalusers = User::count();
 
       $this->perfomrValidationCreate($request);
 
@@ -152,7 +184,7 @@ class UserController extends Controller
       $user->save(); //INSERT EN BD
 
 
-      return redirect('home')->with([
+      return redirect('user')->with([
                 'message' => 'El usuario '.$user->name.' fue creado correctamente!'
         ]);
 
@@ -161,9 +193,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
 
-      //dd($request->all());
-
-
+      //$totalusers = User::count();
       $user = User::findOrFail($id);
 
         //Conseguir usuario identificado
@@ -187,7 +217,7 @@ class UserController extends Controller
           'ownerId' => 'required|string|max:255',
           'email' => 'required|string|max:255',
           'photo' => 'file',
-          'photodoc' => 'file',
+          'photo' => 'file',
         ]);
 
 
@@ -205,8 +235,6 @@ class UserController extends Controller
         $user->ownerId = $request->input('ownerId');
         $user->email = $request->input('email');
         //$user->password = $request->input('password');
-
-
 
 
         //Subir la imagen photo
@@ -240,7 +268,6 @@ class UserController extends Controller
         }
 
 
-
         //Ejecutar consulta y actualizar registro de BD
         $user->save();
 
@@ -254,14 +281,23 @@ class UserController extends Controller
 
     public function indexperfil()
     {
-
       //Conseguir usuario identificado
         $user = \Auth::user();
+      //$totalusers = User::count();
 
       return Response()->view('users.indexperfil', [
         'user' => $user
       ]);
 
+    }
+
+    public function detail($id) {
+
+      $user = User::find($id);
+
+      return view('users.detail', [
+          'user' => $user
+      ]);
     }
 
 }

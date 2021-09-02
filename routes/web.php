@@ -32,6 +32,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     Route::put('/user/{user}', [App\Http\Controllers\admin\UserController::class, 'update']);//envio form
     Route::get('/user/avatar/{filename?}', [App\Http\Controllers\admin\UserController::class, 'getImage'])->name('user.avatar');
     Route::get('/user/avatardoc/{filename?}', [App\Http\Controllers\admin\UserController::class, 'getImageDoc'])->name('user.avatardoc');
+    Route::get('/user/{user}/detail', [App\Http\Controllers\admin\UserController::class, 'detail']);//detalle
 
 
     //Users perfil updatephoto
@@ -42,8 +43,18 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
     //Membresias
     Route::get('/membresias', [App\Http\Controllers\MembresiaController::class, 'index'])->name('membresias');
-    Route::get('/membresiasuser', [App\Http\Controllers\MembresiaController::class, 'indexuser'])->name('membresiasuser');;
+    Route::get('/membresiasuser', [App\Http\Controllers\MembresiaController::class, 'indexuser'])->name('membresiasuser');
     Route::get('/membresias/create', [App\Http\Controllers\MembresiaController::class, 'create']);//form create
     Route::post('/membresias', [App\Http\Controllers\MembresiaController::class, 'store']);// envio form
     Route::get('/membresias/{membresias}/edit', [App\Http\Controllers\MembresiaController::class, 'edit']); //form edit
     Route::put('/membresias/{membresias}', [App\Http\Controllers\MembresiaController::class, 'update']);//envio form
+    Route::get('/membresias/{membresias}/detail', [App\Http\Controllers\MembresiaController::class, 'detail']);//detalle
+
+
+    //Memberchip
+    Route::get('/membership', [App\Http\Controllers\UserMembershipController::class, 'index']);
+    Route::get('/membership/create', [App\Http\Controllers\UserMembershipController::class, 'create']);
+    Route::get('/membership/{membership}/edit', [App\Http\Controllers\UserMembershipController::class, 'edit']);
+    Route::post('/membership', [App\Http\Controllers\UserMembershipController::class, 'store']);
+    Route::put('/membership/{membership}', [App\Http\Controllers\UserMembershipController::class, 'update']);
+    

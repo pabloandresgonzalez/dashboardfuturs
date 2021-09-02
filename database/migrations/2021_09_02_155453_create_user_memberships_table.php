@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserMembershipTable extends Migration
+class CreateUserMembershipsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateUserMembershipTable extends Migration
      */
     public function up()
     {
-        Schema::create('_user_membership', function (Blueprint $table) {
+        Schema::create('user_memberships', function (Blueprint $table) {
             $table->id();
 
             $table->string('membership');
-            $table->string('user');
-            $table->string('hashBTC');
-            $table->string('hashUSDT');
+            $table->string('user');            
+            $table->string('hashUSDT')->unique();
+            $table->string('hashBTC')->unique();          
             $table->string('detail');
             $table->string('status');
+            $table->string('image')->nullable();
             $table->date('closedAt');
             
             $table->timestamps();
@@ -35,6 +36,6 @@ class CreateUserMembershipTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_user_membership');
+        Schema::dropIfExists('user_memberships');
     }
 }
