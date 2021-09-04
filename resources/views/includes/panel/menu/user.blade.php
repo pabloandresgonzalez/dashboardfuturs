@@ -10,7 +10,12 @@
 </li>
 <li class="nav-item">
   <a class="nav-link" href="/membresiasuser">
-    <i class="ni ni-trophy text-danger"></i> Membresía
+    <i class="ni ni-trophy text-danger"></i> Membresías
+  </a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="{{ route('mismembership') }}">
+    <i class="ni ni-box-2 "></i> Mis membresías
   </a>
 </li>
 <li class="nav-item">
