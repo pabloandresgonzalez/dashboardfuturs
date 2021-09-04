@@ -60,6 +60,8 @@
                 @endforeach
               </tbody>
             </table>
+            <br>
+            {{ $membresias->links() }}
 
 
           <div class="col-md-4">

@@ -89,6 +89,9 @@
                  @endforeach
               </tbody>
             </table>
+            <br>
+
+            {{ $memberships->links() }}
 
 
           <div class="col-md-4">
