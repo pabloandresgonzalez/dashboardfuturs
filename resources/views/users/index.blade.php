@@ -50,7 +50,6 @@
                   <th scope="col">Estado</th>
                   <th scope="col">Id de propietario</th>
                   <th scope="col">Id de referido</th>
-                  <th scope="col">Encender|Apagar</th>
                   <th scope="col">Editar</th>
                   <th scope="col">Detalle</th>                  
                 </tr>
@@ -81,12 +80,6 @@
                   </td>
                   <td>
                     {{ $user->ownerId }}
-                  </td>
-                  <td>
-                  <label class="custom-toggle">
-                      <input type="checkbox" checked>
-                      <span class="custom-toggle-slider rounded-circle " data-label-off="No" data-label-on="Yes"></span>
-                  </label>
                   </td>
                   <td>
                     <form action="" method="POST">
