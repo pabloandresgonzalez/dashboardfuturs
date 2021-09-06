@@ -21,6 +21,19 @@ class UserController extends Controller
     public function index(Request $request)
     {
 
+      $nombre = $request->get('buscarpor');
+
+      $users = User::where('name', 'LIKE', "%$nombre%")
+      ->orwhere('lastname', 'LIKE', "%$nombre%")
+      ->orwhere('role', 'LIKE', "%$nombre%")
+      ->orwhere('email', 'LIKE', "%$nombre%")
+      ->orderBy('id', 'desc')
+      ->paginate(10);
+
+      return view('users.index', [
+      'users' => $users
+      ]);
+
       /*
       $nombre = $request->get('buscarpor');
 
@@ -42,7 +55,7 @@ class UserController extends Controller
         'users' => $users
         ]);
 
-      }*/
+      }
 
       //dd($request->all());
     
@@ -55,6 +68,8 @@ class UserController extends Controller
       
 
       return view('users.index', $data);
+
+      */
       
 
     }

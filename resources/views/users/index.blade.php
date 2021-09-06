@@ -15,6 +15,20 @@
               @endif
 
 
+              <!-- Form -->
+            <form class="">
+              <div class="form-group mb-0">
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text thead-dark"><i class="fas fa-search"></i></span>
+                  </div>
+                  <input name="buscarpor" class="form-control" placeholder="Buscar" type="text">
+                    <!-- <button class="btn btn-secondary btn-sm" type="submit">Buscar</button> -->
+                  </div>
+              </div>
+            </form>
+
+
             </div>
           </div>
           <div class="card-body">

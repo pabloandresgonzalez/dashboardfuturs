@@ -18,13 +18,27 @@ class UserMembershipController extends Controller
       $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $nombre = $request->get('buscarpor');
+
+        $memberships = UserMembership::where('membership', 'LIKE', "%$nombre%")
+        ->orwhere('hashUSDT', 'LIKE', "%$nombre%")
+        ->orwhere('hashBTC', 'LIKE', "%$nombre%")
+        ->orwhere('status', 'LIKE', "%$nombre%")
+        ->orderBy('id', 'desc')
+        ->paginate(10);
+
+        return view('memberships.index', [
+        'memberships' => $memberships
+        ]);
+        /*
 
         $memberships = UserMembership::orderBy('id', 'Desc')->paginate(10);
         $data = ['memberships' => $memberships];
 
         return view('memberships.index', compact('memberships'));
+        */
 
     }
 
