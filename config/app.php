@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://dashboard.futursline.com'),
+    'url' => env('APP_URL', 'https://dashboard.futursstrong.com'),
 
     'asset_url' => env('ASSET_URL', null),
 
