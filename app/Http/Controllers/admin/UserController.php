@@ -23,6 +23,7 @@ class UserController extends Controller
 
       $nombre = $request->get('buscarpor');
 
+
       $users = User::where('name', 'LIKE', "%$nombre%")
       ->orwhere('lastname', 'LIKE', "%$nombre%")
       ->orwhere('role', 'LIKE', "%$nombre%")

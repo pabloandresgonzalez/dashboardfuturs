@@ -9,6 +9,7 @@ use App\Models\UserMembership;
 use DateTime;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use App\Models\User;
 
 
 class UserMembershipController extends Controller
@@ -21,6 +22,7 @@ class UserMembershipController extends Controller
     public function index(Request $request)
     {
         $nombre = $request->get('buscarpor');
+        
 
         $memberships = UserMembership::where('membership', 'LIKE', "%$nombre%")
         ->orwhere('hashUSDT', 'LIKE', "%$nombre%")

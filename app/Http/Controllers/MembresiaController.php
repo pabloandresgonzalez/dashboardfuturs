@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
 use App\Models\Membership;
+use App\Models\User;
 
 class MembresiaController extends Controller
 {
@@ -18,6 +19,7 @@ class MembresiaController extends Controller
 
     public function index()
     {
+        
         //$membresias = Membresia::all();
         $membresias = Membresia::orderBy('id', 'Desc')->paginate(10);
         $data = ['membresias' => $membresias];
