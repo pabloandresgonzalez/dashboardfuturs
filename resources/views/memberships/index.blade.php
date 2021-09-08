@@ -47,7 +47,9 @@
               <thead class="thead-dark">
                 <tr>
                   <th scope="col" class="sort">Membresia</th>
+                  <th scope="col">email</th>
                   <th scope="col">user</th>
+                  <th scope="col">Nombre</th>
                   <th scope="col">hashUSDT</th>
                   <th scope="col">hashBTC</th>
                   <th scope="col">Estado</th>
@@ -65,7 +67,13 @@
                     {{ $membership->membership }}
                   </td>
                   <td>
+                    {{ $membership->user_email }}
+                  </td>
+                  <td>
                     {{ $membership->user }}
+                  </td>
+                  <td>
+                    {{ $membership->user_name }}
                   </td>
                   <td>
                     {{ $membership->hashUSDT }}

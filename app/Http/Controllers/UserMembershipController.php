@@ -68,7 +68,7 @@ class UserMembershipController extends Controller
 
         $rules = ([
             
-            'membership' => 'required|string|min:4',        
+            'membership' => 'required|string|min:4|unique:user_memberships',        
             'hashUSDT' => 'required|max:255|unique:user_memberships',
             'hashBTC' => 'required|max:255|unique:user_memberships',
             'image' => 'file',             
@@ -82,6 +82,8 @@ class UserMembershipController extends Controller
         //Conseguir usuario identificado
         $user = \Auth::user();
         $id = $user->id;
+        $name = $user->name;
+        $email = $user->email;
            
 
         $fecha_actual = date("Y-m-d H:i:s");
@@ -89,7 +91,9 @@ class UserMembershipController extends Controller
 
         $membership = new UserMembership();
         $membership->membership = $request->input('membership');
+        $membership->user_email = $email;
         $membership->user = $id;
+        $membership->user_name = $name;
         $membership->hashUSDT = $request->input('hashUSDT');
         $membership->hashBTC = $request->input('hashBTC'); 
         $membership->detail = 'Pendiente';
