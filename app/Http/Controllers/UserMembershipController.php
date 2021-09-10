@@ -68,8 +68,8 @@ class UserMembershipController extends Controller
 
         $rules = ([
             
-            'membership' => 'required|string|min:4|unique:user_memberships',        
-            'hashUSDT' => 'required|max:255|unique:user_memberships',
+            'membership' => 'required|string|min:4', //|unique:user_memberships 
+            'hashUSDT' => 'required|max:255', //|unique:user_memberships
             'hashBTC' => 'required|max:255|unique:user_memberships',
             'image' => 'file',             
             
@@ -212,6 +212,15 @@ class UserMembershipController extends Controller
         return view('memberships.soporte', [
             'membership' => $membership
         ]);
+
+    }
+
+    public function pagos(Request $request, $id)
+    {
+        
+        $membership = UserMembership::findOrFail($id);
+        //dd($membership);
+        return view('memberships.historialpagos');
 
     }
 
