@@ -68,9 +68,9 @@ class UserMembershipController extends Controller
 
         $rules = ([
             
-            'membership' => 'required|string|min:4', //|unique:user_memberships 
-            'hashUSDT' => 'required|max:255', //|unique:user_memberships
-            'hashBTC' => 'required|max:255|unique:user_memberships',
+            'membership' => 'required|string|min:4',  
+            'hashUSDT' => 'required|max:255|unique:user_memberships', //|unique:user_memberships
+            'hashBTC' => 'required|max:255|unique:user_memberships', //|unique:user_memberships
             'image' => 'file',             
             
         ]);

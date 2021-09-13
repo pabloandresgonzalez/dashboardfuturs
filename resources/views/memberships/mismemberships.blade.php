@@ -41,7 +41,8 @@
               <thead class="thead-dark">
                 <tr>
                   <th scope="col" class="sort">Membresia</th>
-                  <th scope="col">Hash</th>
+                  <th scope="col">hashUSDT</th>
+                  <th scope="col">hashBTC</th>
                   <th scope="col">Estado</th>
                   <th scope="col">Fecha Cierre</th>
                   <th scope="col">Detalle</th>
@@ -55,10 +56,20 @@
                     {{ $membership->membership }}
                   </td>
                   <td>
-                    {{ $membership->hash }}
+                    {{ $membership->hashUSDT }}
                   </td>
                   <td>
-                    {{ $membership->status }}
+                    {{ $membership->hashBTC }}
+                  </td>
+                  <td>
+
+                    {{ $membership->status }}&nbsp;
+                    
+                    @if($membership->status == "Cerrado" )
+                    <a href="{{ url('/membership/'.$membership->id.'/') }}" class=""> Renovar</a> &nbsp;&nbsp;              
+                    @endif  
+
+                    
                   </td>
                   <td>
                     {{ $membership->closedAt }}
@@ -91,4 +102,3 @@
 
         <hr class="my-3">
 @endsection
-

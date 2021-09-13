@@ -66,4 +66,13 @@ class User extends Authenticatable
     public function asUserMembership() {
         return $this->hasMany(UserMembership::class, 'user')->orderBy('id', 'desc');
     }
+
+    //Relacion
+    public function membresias(){
+        return $this->belongsTo('App\Membresia', 'id');
+    }
+
+    public function amembresia(){
+        return$this->belongsTo(Membresia::class);
+    }
 }
