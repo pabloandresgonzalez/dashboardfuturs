@@ -224,6 +224,56 @@ class UserMembershipController extends Controller
 
     }
 
+    public function editrenovar($id) {
+        
+        $memberships = UserMembership::find($id);
+        //dd($memberships);
+
+        return view('memberships.renovar', [
+          'memberships' => $memberships
+      ]);
+
+    }
+
+    public function renovar(Request $request, $id)
+    {
+        
+
+        /*
+        //Conseguir usuario identificado
+        $user = \Auth::user();
+        $id = $user->id;
+
+        $membership = UserMembership::findOrFail($id);
+        $membership->hash;
+        */
+
+
+        //Validacion del formulario
+        $validate = $this->validate($request, [
+            //'membership' => 'required|string|min:4',        
+            //'hash' => 'required|max:255|unique:user_memberships', 
+            //'typeHash' => 'required|max:255',  
+            //'detail' => 'required|max:255',     
+            //'image' => 'file',
+        ]);
+
+
+        $membership = UserMembership::findOrFail($id);
+        //$membership->membership = $request->input('membership');
+        //$membership->typeHash = $request->input('typeHash');
+        //$membership->detail = $request->input('detail');
+        $membership->detail = 'Pendiente';
+        $membership->status = 'X Renovar';
+
+        $membership->save(); //INSERT BD
+
+        return redirect()->route('home')->with([
+                    'message' => 'Membership editado correctamente!'
+        ]);
+
+    }
+
     
 }
 
