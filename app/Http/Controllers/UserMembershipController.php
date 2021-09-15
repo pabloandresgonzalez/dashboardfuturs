@@ -10,6 +10,9 @@ use DateTime;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use App\Models\User;
+use App\Models\Membresia;
+use DB;
+use Illuminate\Support\Arr;
 
 
 class UserMembershipController extends Controller
@@ -34,6 +37,7 @@ class UserMembershipController extends Controller
         return view('memberships.index', [
         'memberships' => $memberships
         ]);
+
         /*
 
         $memberships = UserMembership::orderBy('id', 'Desc')->paginate(10);
@@ -46,7 +50,36 @@ class UserMembershipController extends Controller
 
     public function create()
     {
-        return view('memberships.create');
+
+        //Conseguir usuario identificado
+        $user = \Auth::user();
+
+        //Conseguir UserMembership de usuario identificado
+        $memberships = UserMembership::where('user', $user->id)->orderBy('id', 'desc')->get()->toArray();
+
+        //Conseguir membresias 
+        $membresias = DB::table('membresias')->pluck('name')->toArray();
+
+        //dd($membresias);           
+
+
+        $info = [$membresias];
+        $dato = Arr::flatten($info);
+        //print_r($datos);
+
+        //dd($dato);
+
+        $info = [$memberships];
+        $datos = Arr::flatten($info);
+        //print_r($datos);
+
+        //dd($datos);
+        
+        //Comparar arrays para mostrar solo los que puede selecionar
+        $resultado = array_diff($dato, $datos);
+
+
+        return view('memberships.create', compact('resultado'));
 
 
     }
@@ -64,6 +97,12 @@ class UserMembershipController extends Controller
 
     public function store(Request $request)
     {
+
+        //Conseguir usuario identificado
+        $user = \Auth::user();
+        $id = $user->id;
+        $name = $user->name;
+        $email = $user->email;
         
 
         $rules = ([
@@ -75,16 +114,8 @@ class UserMembershipController extends Controller
             
         ]);
 
-
        $this->validate($request, $rules);
-
-
-        //Conseguir usuario identificado
-        $user = \Auth::user();
-        $id = $user->id;
-        $name = $user->name;
-        $email = $user->email;
-           
+          
 
         $fecha_actual = date("Y-m-d H:i:s");
 
@@ -126,8 +157,7 @@ class UserMembershipController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        
+    {      
 
         /*
         //Conseguir usuario identificado
@@ -147,7 +177,6 @@ class UserMembershipController extends Controller
             'detail' => 'required|max:255',     
             'image' => 'file',
         ]);
-
 
         $membership = UserMembership::findOrFail($id);
         $membership->membership = $request->input('membership');
@@ -272,6 +301,24 @@ class UserMembershipController extends Controller
                     'message' => 'Membership editado correctamente!'
         ]);
 
+    }
+
+    public function consuluser(Request $request)
+    {
+        $id = $request->input('ownerId');
+
+        //dd($id);
+
+        if (User::where('id', $id)->first()) {
+            
+            return view('auth.register');
+
+        }
+
+            return redirect('consulta')->with([
+                'message' => 'Referido incorrecto, por favor verifique el id de referido!'
+        ]);      
+        
     }
 
     
