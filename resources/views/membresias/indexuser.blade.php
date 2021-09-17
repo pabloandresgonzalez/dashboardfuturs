@@ -58,11 +58,11 @@
                       
                 <div class="card bg-secondary shadow border-0">
                     <div class="card-header bg-transparent pb-5">
-                        <div class="text-muted text-center mt-2 mb-3"><small>Depósito USDT</small><br><br>
+                        <div class="text-muted text-center mt-2 mb-3"><small>Depósito PSIV</small><br><br>
                           <img src="{{ asset('img/brand/qrusdt.PNG') }}">                      
                         </div> 
                         <div class="text-center text-muted mb-4">
-                            <small>TVDHJ4U95TJFBJng1kwPB9NxDsXCEQ4gV1</small>
+                            <small>PhkRersUqTWvpuhxX4WPavRMf9kXGWV19m</small>
                         </div>                      
                     </div>
                     <div class="card-body px-lg-5 py-lg-5">                        
@@ -92,7 +92,7 @@
                                 <img src="{{ asset('img/brand/qrusdt.PNG') }}">                      
                               </div> 
                               <div class="text-center text-muted mb-4">
-                                  <small>17r3QBum9gibzv12fsa21b1qA3kHL1Kksj</small>
+                                  <small>TJK1jyqJjPcJhNMKiTchJdLLniPKN61VvE</small>
                               </div>                      
                           </div>
                           <div class="card-body px-lg-5 py-lg-5">                        
