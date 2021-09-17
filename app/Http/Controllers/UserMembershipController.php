@@ -173,6 +173,7 @@ class UserMembershipController extends Controller
             'membership' => 'required|string|min:4',        
             //'hashUSDT' => 'required|max:255|unique:user_memberships',
             //'hashBCT' => 'required|max:255|unique:user_memberships',
+            'closedAt' => 'required|max:255',
             'detail' => 'required|max:255',     
             'image' => 'file',
         ]);
@@ -182,6 +183,7 @@ class UserMembershipController extends Controller
         //$membership->hashUSDT = $request->input('hashUSDT');
         //$membership->hashBTC = $request->input('hashBTC');
         $membership->detail = $request->input('detail');
+        $membership->closedAt = $request->input('closedAt');
         $membership->status = $request->input('status');
 
         //Subir la imagen photo
