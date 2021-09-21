@@ -37,7 +37,8 @@
                           <span> <p class="card-text">
                           {{ $membresia->name }}<br></p></span><br>
                           <h4 class="card-title">{{ $membresia->detail }}</h4> 
-                          <h5 class="card-title">{{ $membresia->isActive }}</h5>              
+                          <h5 class="card-title">{{ $membresia->isActive }}</h5> 
+                          <h5 class="card-title">Valor {{ $membresia->valor }}</h5>             
                           <a data-toggle="modal" data-target="#modal-form1"  href="#" class="badge badge-warning"><i class="ni ni-cart"></i>&nbsp; Pago con USDT</a> |
                           <a data-toggle="modal" data-target="#modal-form" href="#" class="badge badge-warning"><i class="ni ni-cart"></i>&nbsp; Pago con BTC</a> 
                         </div>

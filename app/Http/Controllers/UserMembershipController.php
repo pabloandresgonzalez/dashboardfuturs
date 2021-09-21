@@ -28,6 +28,8 @@ class UserMembershipController extends Controller
         
 
         $memberships = UserMembership::where('membership', 'LIKE', "%$nombre%")
+        ->orwhere('user_name', 'LIKE', "%$nombre%")
+        ->orwhere('user_email', 'LIKE', "%$nombre%")
         ->orwhere('hashUSDT', 'LIKE', "%$nombre%")
         ->orwhere('hashBTC', 'LIKE', "%$nombre%")
         ->orwhere('status', 'LIKE', "%$nombre%")
@@ -57,29 +59,16 @@ class UserMembershipController extends Controller
         //Conseguir UserMembership de usuario identificado
         $memberships = UserMembership::where('user', $user->id)->orderBy('id', 'desc')->get()->toArray();
 
+        //dd($memberships);
+
         //Conseguir membresias 
-        $membresias = DB::table('membresias')->pluck('name')->toArray();
+        //$membresias = DB::table('membresias')->pluck()->toArray();
+        $membresias = Membresia::orderBy('id', 'Desc')->get();
 
-        //dd($membresias);           
-
-
-        $info = [$membresias];
-        $dato = Arr::flatten($info);
-        //print_r($datos);
-
-        //dd($dato);
-
-        $info = [$memberships];
-        $datos = Arr::flatten($info);
-        //print_r($datos);
-
-        //dd($datos);
-        
-        //Comparar arrays para mostrar solo los que puede selecionar
-        $resultado = array_diff($dato, $datos);
+        //dd($membresias); 
 
 
-        return view('memberships.create', compact('resultado'));
+        return view('memberships.create', compact('membresias'));
 
 
     }
@@ -107,7 +96,8 @@ class UserMembershipController extends Controller
 
         $rules = ([
             
-            'membership' => 'required|string|min:4',  
+            //'membership' => 'required|string|min:4', 
+            'id_membresia' => 'required|string',  //|unique:user_memberships|min:4 
             'hashUSDT' => 'required|max:255|unique:user_memberships', //|unique:user_memberships
             'hashBTC' => 'required|max:255|unique:user_memberships', //|unique:user_memberships
             'image' => 'file',             
@@ -115,13 +105,23 @@ class UserMembershipController extends Controller
         ]);
 
        $this->validate($request, $rules);
+
+       //dd($request);
+
+       $id_membresia = Membresia::find($id);
+
+       $membresia = Membresia::find($request->input('id_membresia'));
+       $namemembresia =$membresia->name;
+       
+        //dd($namemembresia);
           
 
         $fecha_actual = date("Y-m-d H:i:s");
 
 
         $membership = new UserMembership();
-        $membership->membership = $request->input('membership');
+        $membership->id_membresia = $request->input('id_membresia');
+        $membership->membership = $namemembresia;
         $membership->user_email = $email;
         $membership->user = $id;
         $membership->user_name = $name;
