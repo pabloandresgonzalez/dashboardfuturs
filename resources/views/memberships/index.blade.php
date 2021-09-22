@@ -50,7 +50,7 @@
                   <th scope="col">email</th>
                   <th scope="col">user</th>
                   <th scope="col">Nombre</th>
-                  <th scope="col">hashUSDT</th>
+                  <th scope="col">hashPSIV</th>
                   <th scope="col">hashBTC</th>
                   <th scope="col">Estado</th>
                   <th scope="col">Fecha Cierre</th>
@@ -103,7 +103,7 @@
                     </form>
                   </td>
                   <td>
-                      <a href="" class="btn btn-outline-secondary"><i class="ni ni-bullet-list-67"></i> Detalle</a>
+                      <a href="{{ url('/membership/'.$membership->id.'/detail') }}" class="btn btn-outline-secondary"><i class="ni ni-bullet-list-67"></i> Detalle</a>
                   </td>
                 </tr>
                  @endforeach

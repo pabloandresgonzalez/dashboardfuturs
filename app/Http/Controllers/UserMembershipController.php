@@ -304,6 +304,15 @@ class UserMembershipController extends Controller
 
     }
 
+    public function detail($id) {
+
+      $membership = UserMembership::find($id);
+
+      return view('memberships.detail', [
+          'membership' => $membership
+      ]);
+    }
+
 
 
     

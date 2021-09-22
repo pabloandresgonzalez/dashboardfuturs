@@ -39,7 +39,7 @@
                           <h4 class="card-title">{{ $membresia->detail }}</h4> 
                           <h5 class="card-title">{{ $membresia->isActive }}</h5> 
                           <h5 class="card-title">Valor {{ $membresia->valor }}</h5>             
-                          <a data-toggle="modal" data-target="#modal-form1"  href="#" class="badge badge-warning"><i class="ni ni-cart"></i>&nbsp; Pago con USDT</a> |
+                          <a data-toggle="modal" data-target="#modal-form1"  href="#" class="badge badge-warning"><i class="ni ni-cart"></i>&nbsp; Pago con PSIV</a> |
                           <a data-toggle="modal" data-target="#modal-form" href="#" class="badge badge-warning"><i class="ni ni-cart"></i>&nbsp; Pago con BTC</a> 
                         </div>
                       </div>
@@ -60,7 +60,7 @@
                 <div class="card bg-secondary shadow border-0">
                     <div class="card-header bg-transparent pb-5">
                         <div class="text-muted text-center mt-2 mb-3"><small>Depósito PSIV</small><br><br>
-                          <img src="{{ asset('img/brand/qrusdt.PNG') }}">                      
+                          <img src="{{ asset('img/brand/qrPhoenixsiv.jpeg') }}">                      
                         </div> 
                         <div class="text-center text-muted mb-4">
                             <small>PhkRersUqTWvpuhxX4WPavRMf9kXGWV19m</small>
@@ -90,7 +90,7 @@
                   <div class="card bg-secondary shadow border-0">
                           <div class="card-header bg-transparent pb-5">
                               <div class="text-muted text-center mt-2 mb-3"><small>Depósito BTC</small><br><br>
-                                <img src="{{ asset('img/brand/qrusdt.PNG') }}">                      
+                                <img src="{{ asset('img/brand/qrbtc.jpeg') }}">                      
                               </div> 
                               <div class="text-center text-muted mb-4">
                                   <small>TJK1jyqJjPcJhNMKiTchJdLLniPKN61VvE</small>

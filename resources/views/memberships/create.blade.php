@@ -62,7 +62,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="ni ni-key-25"></i></span>
             </div>                        
-            <input class="form-control" placeholder="hashUSDT" type="text" name="hashUSDT" value="" autocomplete="hashUSDT" autofocus>             
+            <input class="form-control" placeholder="hashPSIV" type="text" name="hashUSDT" value="" autocomplete="hashUSDT" autofocus>             
           </div>
         </div>
         <div class="col-md-6">
