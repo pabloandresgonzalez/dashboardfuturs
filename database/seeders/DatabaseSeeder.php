@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             'cellphone' => '3144534311',
             'country' => '57',
             'level' => '1',
-            'isActive' => 'on',
+            'isActive' => '1',
             'ownerId' => 'Administrador',
             'email' => 'admin@futurs.net',
             'email_verified_at' => now(),

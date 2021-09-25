@@ -288,7 +288,7 @@ class UserController extends Controller
         $user->save();
 
 
-        return redirect('home')->with([
+        return redirect('user')->with([
                 'message' => $user->name.', tu informacion fue actualizada correctamente!'
         ]);
 

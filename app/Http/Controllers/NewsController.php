@@ -92,7 +92,7 @@ class NewsController extends Controller
     public function indexuser()
     {
         //$news = News::all();
-        $news = News::where('isActive', 'Activa')->orderBy('id', 'Desc')->paginate(10);
+        $news = News::where('isActive', '1')->orderBy('id', 'Desc')->paginate(10);
         $data = ['news' => $news];
 
         
@@ -169,21 +169,6 @@ class NewsController extends Controller
       $file = Storage::disk('photoNews')->get($filename);
       return new Response($file, 200);
     }
-
     
-    
-
-   /*
-    public function getVideo(Video $video)
-    {
-        $name = $video->name;
-        $fileContents = Storage::disk('photoNews')->get("app/photoNews/{$name}");
-        $response = Response::make($fileContents, 200);
-        $response->header('Content-Type', "video/mp4");
-        return $response;
-    }
-    */
-    
-
 
 }
