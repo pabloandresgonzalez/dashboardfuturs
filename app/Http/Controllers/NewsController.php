@@ -37,6 +37,7 @@ class NewsController extends Controller
         'title' => 'required|string|min:4|max:255',
         'intro' => 'required|string|max:255',
         'detail' => 'required|string|max:255',
+        //'url_video' => 'string|max:255',
         'isActive' => 'required|string|max:255',
         'image' => 'file',
 
@@ -65,6 +66,7 @@ class NewsController extends Controller
         $news->title = $request->input('title');
         $news->intro = $request->input('intro');
         $news->detail = $request->input('detail');
+        $news->url_video = $request->input('url_video');
         $news->isActive = $request->input('isActive');
 
         //Subir la imagen photo
@@ -121,6 +123,7 @@ class NewsController extends Controller
             'title' => 'required|string|min:4|max:255',
             'intro' => 'required|string|min:4|max:255',
             'detail' => 'required|string|max:255',
+            //'url_video' => 'string|max:255',
             'isActive' => 'required|string|max:255',            
             'image' => 'file'
         ]);        
@@ -130,6 +133,7 @@ class NewsController extends Controller
         $news->title = $request->input('title');
         $news->intro = $request->input('intro');
         $news->detail = $request->input('detail');
+        $news->url_video = $request->input('url_video');
         $news->isActive = $request->input('isActive');
 
         //Subir la imagen photo
