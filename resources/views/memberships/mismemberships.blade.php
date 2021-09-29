@@ -78,7 +78,7 @@
                     {{ $membership->detail }}
                   </td>  
                   <td>
-                    <a href="{{ route('membership.pagos', ['id' =>$membership->id]) }}" class="btn btn-outline-secondary"><i class="ni ni-archive-2"></i> Historial pagos</a>
+                    <a href="{{ route('networktransaction', ['id' =>$membership->id]) }}" class="btn btn-outline-secondary"><i class="ni ni-archive-2"></i> Historial pagos</a>
                   </td>             
                  </tr>
                  @endforeach

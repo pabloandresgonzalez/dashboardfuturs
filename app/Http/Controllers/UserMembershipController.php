@@ -248,9 +248,10 @@ class UserMembershipController extends Controller
     public function pagos(Request $request, $id)
     {
         
-        $membership = UserMembership::findOrFail($id);
+        $membership = UserMembership::findOrFail($id);        
+        //$networktransaction = NetworkTransaction::findOrFail($request->user);
         //dd($membership);
-        return view('memberships.historialpagos');
+        return view('networktransaction.index');
 
     }
 
@@ -278,7 +279,7 @@ class UserMembershipController extends Controller
         $membership->hash;
         */
 
-
+        /*
         //Validacion del formulario
         $validate = $this->validate($request, [
             //'membership' => 'required|string|min:4',        
@@ -301,6 +302,7 @@ class UserMembershipController extends Controller
         return redirect()->route('home')->with([
                     'message' => 'Membership editado correctamente!'
         ]);
+        */
 
     }
 
