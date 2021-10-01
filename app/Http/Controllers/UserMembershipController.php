@@ -118,7 +118,6 @@ class UserMembershipController extends Controller
 
         $fecha_actual = date("Y-m-d H:i:s");
 
-
         $membership = new UserMembership();
         $membership->id_membresia = $request->input('id_membresia');
         $membership->membership = $namemembresia;
@@ -129,7 +128,8 @@ class UserMembershipController extends Controller
         $membership->hashBTC = $request->input('hashBTC'); 
         $membership->detail = 'Pendiente';
         $membership->status = 'Pendiente';
-        $membership->closedAt = $fecha_actual; //imagehash
+        $membership->closedAt = null;
+        $membership->activedAt = null;
 
         //Subir la imagen imagehash
         $image_photo = $request->file('image');
@@ -173,7 +173,8 @@ class UserMembershipController extends Controller
             'membership' => 'required|string|min:4',        
             //'hashUSDT' => 'required|max:255|unique:user_memberships',
             //'hashBCT' => 'required|max:255|unique:user_memberships',
-            'closedAt' => 'required|max:255',
+            //'activedAt' => 'required|max:255',
+            //'closedAt' => 'required|max:255', 
             'detail' => 'required|max:255',     
             'image' => 'file',
         ]);
@@ -183,6 +184,7 @@ class UserMembershipController extends Controller
         //$membership->hashUSDT = $request->input('hashUSDT');
         //$membership->hashBTC = $request->input('hashBTC');
         $membership->detail = $request->input('detail');
+        $membership->activedAt = $request->input('activedAt');
         $membership->closedAt = $request->input('closedAt');
         $membership->status = $request->input('status');
 
