@@ -44,7 +44,12 @@
   </a>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="/traslado">
-    <i class="ni ni-credit-card text-primary"></i> Traslados
+  <a class="nav-link" href="/wallet">
+    <i class="ni ni-credit-card text-danger"></i> Billetera
+  </a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="/walletadmin">
+    <i class="ni ni-bag-17 "></i> Gestión billetera
   </a>
 </li>
