@@ -108,8 +108,8 @@ class WalletTransactionsController extends Controller
       $rules = ([
           
           'value' => 'required|string|max:255',
-           'detail' => 'required|string', 
-           'type' => 'required|string',          
+          'detail' => 'required|string', 
+          'type' => 'required|string',          
           
       ]);
 

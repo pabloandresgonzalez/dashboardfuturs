@@ -113,7 +113,7 @@
                                 </div>
                                   <select id="type" name="type" class="form-control" required>
                                       <option value=""  >Tipo</option>
-                                      <option value="USDT"  >USDT</option>
+                                      <option value="PSIV"  >PSIV</option>
                                       <option value="BTC"  >BTC</option>
                                   </select>
                               </div>
@@ -161,9 +161,9 @@
                   </div>
 
                   
-                    <div class="card-body">
+          <div class="card-body">
                     
-                      <div class="table-responsive">
+          <div class="table-responsive">
             <table class="table align-items-center table-dark">
               <thead class="thead-dark">
                 <tr>
