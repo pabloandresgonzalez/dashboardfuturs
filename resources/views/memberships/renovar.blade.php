@@ -30,13 +30,14 @@
       @endif
 
 
-      <form class="row g-3" action="" enctype="multipart/form-data" method="post">
+      <form class="row g-3" action="{{ url('/membershiprenovar/'.$memberships->id) }}" enctype="multipart/form-data" method="post">
         @csrf
         @method('PUT')
 
         
          
         <div class="col-md-6">
+          Membresia
           <div class="input-group input-group-alternative mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="ni ni-paper-diploma"></i></span>
@@ -46,36 +47,44 @@
                   
               </select>
           </div>
+        </div>
+        <div class="col-md-6">
+          Id membresía  padre
+          <div class="input-group input-group-alternative mb-3">
+              
+            <label class="form-control">{{ $memberships->id }}</label>  
+            <input type="submit" name="id_membresia" value="{{ $memberships->id }}" hidden="true">                   
+                         
+          </div>
+        </div>         
+        <div class="col-md-6">
+          Nuevo hash
+          <div class="input-group input-group-alternative mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="ni ni-key-25"></i></span>
+            </div>                        
+            <input class="form-control" placeholder="hashPSIV" type="text" name="hashUSDT" value="" autocomplete="hashUSDT" autofocus>             
+          </div>
         </div> 
         <div class="col-md-6">
+          Nuevo hash
           <div class="input-group input-group-alternative mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text"><i class="ni ni-paper-diploma"></i></span>
+              <span class="input-group-text"><i class="ni ni-key-25"></i></span>
+            </div>                        
+            <input class="form-control" placeholder="hashBTC" type="text" name="hashBTC" value="" autocomplete="hashBTC" autofocus>             
+          </div>
+        </div>        
+        <div class="col-md-6">
+          <div class="input-group input-group-alternative mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="ni ni-image"></i>&nbsp;Solo archivo de imagen</span>
             </div>
-              <select id="membership" name="membership" class="form-control" >
-                <option value="{{ $memberships->membership}}">{{ $memberships->detail }}</option>
-                  
-              </select>
-          </div>
-        </div>       
-        <div class="col-md-6">
-          <div class="input-group input-group-alternative mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="ni ni-key-25"></i></span>
-            </div>  
-            <label class="form-control">{{ $memberships->hashUSDT }}</label>                     
-                         
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="input-group input-group-alternative mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="ni ni-key-25"></i></span>
-            </div>  
-            <label class="form-control">{{ $memberships->hashBTC }}</label>                     
-                         
-          </div>
-        </div>
+            <input class="form-control" placeholder="image"  type="file" name="image"  autocomplete="image" autofocus>
+
+          </div>          
+        </div>      
+
         <div class="col-md-4">
           <button type="" class="btn btn-outline-default" ><i class="ni ni-satisfied"></i> Enviar Solicitud</button>
         </div>

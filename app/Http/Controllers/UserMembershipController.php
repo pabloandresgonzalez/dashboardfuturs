@@ -276,39 +276,74 @@ class UserMembershipController extends Controller
     {
         
 
-        /*
+        //dd($id);
+
         //Conseguir usuario identificado
         $user = \Auth::user();
-        $id = $user->id;
+        $iduser = $user->id;
+        $name = $user->name;
+        $email = $user->email;
 
-        $membership = UserMembership::findOrFail($id);
-        $membership->hash;
-        */
+        $membershippadre = UserMembership::findOrFail($id);
+        $id_membresia = $membershippadre->id_membresia;
 
-        /*
+       
+        //dd($id_membresia);
+
         //Validacion del formulario
         $validate = $this->validate($request, [
-            //'membership' => 'required|string|min:4',        
-            //'hash' => 'required|max:255|unique:user_memberships', 
-            //'typeHash' => 'required|max:255',  
-            //'detail' => 'required|max:255',     
-            //'image' => 'file',
-        ]);
+            'membership' => 'required|string|min:4',        
+            'hashUSDT' => 'required|max:255|unique:user_memberships', 
+            'hashBTC' => 'required|max:255|unique:user_memberships',
+            //'detail' => 'required|max:255', 
+            //'activedAt' => 'required|max:255',
+            //'closedAt' => 'required|max:255',    
+            'image' => 'file',
+        ]);  
+
+        //dd($validate);    
+
+        $membership = new UserMembership();
+        $membership->id_membresia = $id_membresia;
+        $membership->membresiaPadre = $id;
+        $membership->membership = $request->input('membership');
+        $membership->user_email = $email;
+        $membership->user = $iduser;
+        $membership->user_name = $name;
+        $membership->hashUSDT = $request->input('hashUSDT');
+        $membership->hashBTC = $request->input('hashBTC');     
+        $membership->detail = 'X renovar';
+        $membership->status = 'Pendiente';
+        $membership->closedAt = null;
+        $membership->activedAt = null;
 
 
-        $membership = UserMembership::findOrFail($id);
-        //$membership->membership = $request->input('membership');
-        //$membership->typeHash = $request->input('typeHash');
-        //$membership->detail = $request->input('detail');
-        $membership->detail = 'Pendiente';
-        $membership->status = 'X Renovar';
+        //Subir la imagen imagehash
+        $image_photo = $request->file('image');
+        if ($image_photo) {
 
-        $membership->save(); //INSERT BD
+          //Poner nombre unico
+          $image_photo_name = time() . $image_photo->getClientOriginalName();
+
+          //Guardarla en la carpeta storage (storage/app/imagehash)
+          Storage::disk('imagehash')->put($image_photo_name, File::get($image_photo));
+
+          //Seteo el nombre de la imagen en el objeto
+          $membership->image = $image_photo_name;
+        }
+
+        //dd($membership);
+
+        $membershipInicial = UserMembership::findOrFail($id);
+        $membershipInicial->status = 'Terminada';
+
+        $membership->save();// INSERT BD
+        $membershipInicial->save();
+        
 
         return redirect()->route('home')->with([
-                    'message' => 'Membership editado correctamente!'
+                    'message' => 'Hash de renovación enviado correctamente!'
         ]);
-        */
 
     }
 
@@ -320,9 +355,6 @@ class UserMembershipController extends Controller
           'membership' => $membership
       ]);
     }
-
-
-
     
 }
 
