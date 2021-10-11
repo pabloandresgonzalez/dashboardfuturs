@@ -69,7 +69,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="ni ni-key-25"></i></span>
             </div>                        
-            <input class="form-control" placeholder="hashBTC" type="text" name="hashBTC" value="" autocomplete="hashBTC" autofocus>             
+            <input class="form-control" placeholder="hasUSDT" type="text" name="hashBTC" value="" autocomplete="hashBTC" autofocus>             
           </div>
         </div>
         

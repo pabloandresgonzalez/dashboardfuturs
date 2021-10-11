@@ -187,7 +187,7 @@ class UserMembershipController extends Controller
         $membership->membership = $request->input('membership');
         //$membership->hashUSDT = $request->input('hashUSDT');
         //$membership->hashBTC = $request->input('hashBTC');
-        $membership->detail = $request->input('detail');
+        $membership->detail = $request->input('status');
         $membership->activedAt = $request->input('activedAt');
         $membership->closedAt = $request->input('closedAt');
         $membership->status = $request->input('status');

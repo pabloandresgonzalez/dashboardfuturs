@@ -59,7 +59,7 @@
               <li class="list-inline-item"><h4>{{ $membership->hashUSDT }}</h4></li>
             </ul>
             <ul>
-              HashBTC: &nbsp;
+              HashUSDT: &nbsp;
               <li class="list-inline-item"><h4>{{ $membership->hashBTC }}</h4></li>
             </ul>
             <ul>
