@@ -43,7 +43,7 @@ class WalletTransactionsController extends Controller
           $id = $user->id;
 
 
-          //$id = 'b3361710-4e21-4fe1-a86e-a29fbecb15f2';
+          //$id = '60535b90-6a4b-42f3-b273-2989b53ad1a1';
 
           $data = [
           'userId' => $id, //'b3361710-4e21-4fe1-a86e-a29fbecb15f2',
@@ -78,22 +78,28 @@ class WalletTransactionsController extends Controller
           curl_close($curl);
           //$data1 = print_r($result);
 
-          //decodificar JSON porque esa es la respuesta
-          $respuestaDecodificada = json_decode($result);  
+          //decodificar JSON 
+          //$respuestaDecodificada = json_decode($result, true); 
 
-          //dd($databalance);
+          //$data = file_get_contents("data/products.json");
+          //$totalwallet = json_decode($result, true);
+
+
+          //$balanceBTC = $totalwallet['BTC']['balance'];
+
 
           //dd($respuestaDecodificada);
+
+          //dd($result);
 
           $Wallets = wallet_transactions::where('user', $user->id)->orderBy('id', 'desc')
             ->paginate(4);
 
             
             return view('wallets.index', [
-              'respuestaDecodificada' => $respuestaDecodificada,
               'user' => $user,
-              'Wallets' => $Wallets
-
+              'Wallets' => $Wallets,
+              'result' => $result,
             ]);     
 
       
