@@ -238,7 +238,7 @@
 
                                   $total = $balancecho - $exhange;
 
-                              if ($total >= 62.460) {
+                              if ($total >= 56) {
                                 echo '
 
                             <div class="col-md-6">
