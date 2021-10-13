@@ -31,10 +31,10 @@ class UserMembershipController extends Controller
         ->orwhere('user_name', 'LIKE', "%$nombre%")
         ->orwhere('user_email', 'LIKE', "%$nombre%")
         ->orwhere('hashUSDT', 'LIKE', "%$nombre%")
-        ->orwhere('hashBTC', 'LIKE', "%$nombre%")
+        ->orwhere('hashPSIV', 'LIKE', "%$nombre%")
         ->orwhere('status', 'LIKE', "%$nombre%")
         ->orderBy('id', 'desc')
-        ->paginate(10);
+        ->paginate(5);
 
         return view('memberships.index', [
         'memberships' => $memberships
@@ -103,7 +103,7 @@ class UserMembershipController extends Controller
             //'membership' => 'required|string|min:4', 
             'id_membresia' => 'required|string',  //|unique:user_memberships|min:4 
             'hashUSDT' => 'required|max:255|unique:user_memberships', //|unique:user_memberships
-            'hashBTC' => 'required|max:255|unique:user_memberships', //|unique:user_memberships
+            'hashPSIV' => 'required|max:255|unique:user_memberships', //|unique:user_memberships
             'image' => 'file',             
             
         ]);
@@ -129,7 +129,7 @@ class UserMembershipController extends Controller
         $membership->user = $id;
         $membership->user_name = $name;
         $membership->hashUSDT = $request->input('hashUSDT');
-        $membership->hashBTC = $request->input('hashBTC'); 
+        $membership->hashPSIV = $request->input('hashPSIV'); 
         $membership->detail = 'Pendiente';
         $membership->status = 'Pendiente';
         $membership->closedAt = null;
@@ -176,7 +176,7 @@ class UserMembershipController extends Controller
         $validate = $this->validate($request, [
             'membership' => 'required|string|min:4',        
             //'hashUSDT' => 'required|max:255|unique:user_memberships',
-            //'hashBCT' => 'required|max:255|unique:user_memberships',
+            //'hashPSIV' => 'required|max:255|unique:user_memberships',
             //'activedAt' => 'required|max:255',
             //'closedAt' => 'required|max:255', 
             'detail' => 'required|max:255',     
@@ -186,7 +186,7 @@ class UserMembershipController extends Controller
         $membership = UserMembership::findOrFail($id);
         $membership->membership = $request->input('membership');
         //$membership->hashUSDT = $request->input('hashUSDT');
-        //$membership->hashBTC = $request->input('hashBTC');
+        //$membership->hashPSIV = $request->input('hashPSIV');
         $membership->detail = $request->input('status');
         $membership->activedAt = $request->input('activedAt');
         $membership->closedAt = $request->input('closedAt');
@@ -294,7 +294,7 @@ class UserMembershipController extends Controller
         $validate = $this->validate($request, [
             'membership' => 'required|string|min:4',        
             'hashUSDT' => 'required|max:255|unique:user_memberships', 
-            'hashBTC' => 'required|max:255|unique:user_memberships',
+            'hashPSIV' => 'required|max:255|unique:user_memberships',
             //'detail' => 'required|max:255', 
             //'activedAt' => 'required|max:255',
             //'closedAt' => 'required|max:255',    
@@ -311,7 +311,7 @@ class UserMembershipController extends Controller
         $membership->user = $iduser;
         $membership->user_name = $name;
         $membership->hashUSDT = $request->input('hashUSDT');
-        $membership->hashBTC = $request->input('hashBTC');     
+        $membership->hashPSIV = $request->input('hashPSIV');     
         $membership->detail = 'X renovar';
         $membership->status = 'Pendiente';
         $membership->closedAt = null;

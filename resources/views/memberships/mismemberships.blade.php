@@ -41,8 +41,8 @@
               <thead class="thead-dark">
                 <tr>
                   <th scope="col" class="sort">Membresia</th>
+                  <th scope="col">hashUSDT</th>
                   <th scope="col">hashPSIV</th>
-                  <th scope="col">hashBTC</th>
                   <th scope="col">Estado</th>
                   <th scope="col">Fecha activada</th>
                   <th scope="col">Fecha cierre</th>
@@ -60,7 +60,7 @@
                     {{ $membership->hashUSDT }}
                   </td>
                   <td>
-                    {{ $membership->hashBTC }}
+                    {{ $membership->hashPSIV }}
                   </td>
                   <td>
 

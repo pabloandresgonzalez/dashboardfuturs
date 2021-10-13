@@ -68,7 +68,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="ni ni-key-25"></i></span>
             </div>  
-            <label class="form-control">{{ $memberships->hashBTC}}</label>
+            <label class="form-control">{{ $memberships->hashPSIV }}</label>
           </div>
         </div>
         <div class="col-md-6">

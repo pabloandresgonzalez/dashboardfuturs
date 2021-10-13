@@ -60,7 +60,7 @@
             </ul>
             <ul>
               HashUSDT: &nbsp;
-              <li class="list-inline-item"><h4>{{ $membership->hashBTC }}</h4></li>
+              <li class="list-inline-item"><h4>{{ $membership->hashPSIV  }}</h4></li>
             </ul>
             <ul>
               Creada: &nbsp;
