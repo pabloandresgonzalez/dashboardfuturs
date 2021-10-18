@@ -13,6 +13,10 @@ use App\Models\User;
 use App\Models\Membresia;
 use DB;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\StatusChangeMessage;
+use App\Mail\MembershipCreatedMessage;
+use App\Mail\MembershipPurchaseMessage;
 
 
 class UserMembershipController extends Controller
@@ -151,6 +155,15 @@ class UserMembershipController extends Controller
 
 
         $membership->save();// INSERT BD
+
+        //Enviar email
+        $user_email = User::where('role', 'admin')->first();
+        //$user_email_admin = $user_email->email;
+        $user_email_admin = 'pabloandres6@gmail.com';
+
+        Mail::to($user_email_admin)->send(new MembershipCreatedMessage($membership));
+
+        Mail::to($email)->send(new MembershipPurchaseMessage($membership));
 
         //return redirect('home');
 

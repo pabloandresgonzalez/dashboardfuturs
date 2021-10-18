@@ -194,9 +194,9 @@
 
                               if (isset($data['USDT']['total'])) {
                                 
-                                  $balancecho = $data['BTC']['total']; 
+                                  $total = $data['BTC']['total']; 
 
-                                  echo $balancecho;
+                                  echo $total;
                               }else {
 
                                 echo 'null';
@@ -238,7 +238,8 @@
 
                                   $total = $balancecho - $exhange;
 
-                              if ($total >= 56) {
+
+                              if ($total >= 0.56) {
                                 echo '
 
                             <div class="col-md-6">
