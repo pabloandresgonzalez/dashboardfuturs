@@ -125,7 +125,8 @@ class WalletTransactionsController extends Controller
           
           'value' => 'required|string|max:255',
           'detail' => 'required|string', 
-          'currency' => 'required|string',          
+          'currency' => 'required|string', 
+          'wallet' => 'required|string',         
           
       ]);
 
@@ -140,6 +141,7 @@ class WalletTransactionsController extends Controller
         $Wallet->hash = '';
         $Wallet->currency = $request->input('currency');
         $Wallet->approvedBy = '';
+        $Wallet->wallet = $request->input('wallet');
         $Wallet->inOut = 0;
         $Wallet->status = 'exhange';     
         $Wallet->detail = $request->input('detail');
@@ -197,6 +199,7 @@ class WalletTransactionsController extends Controller
       $detail = $Wallet->detail;
       $type = $Wallet->type;
       $currency = $Wallet->currency;
+      $wallet = $Wallet->wallet;
       $fee = $Wallet->fee;
 
 
@@ -220,10 +223,12 @@ class WalletTransactionsController extends Controller
         $Wallet->type = $type;
         $Wallet->hash = $request->input('hash');
         $Wallet->currency = $currency;
-        $Wallet->approvedBy = $iduser;
+        $Wallet->approvedBy = $iduser; 
+        $Wallet->$wallet;
         $Wallet->inOut = 0;
         $Wallet->status = $request->input('status');     
         $Wallet->detail = $detail;
+
        
 
         $Wallet->save();// INSERT BD

@@ -261,8 +261,16 @@
                                       <option value="BTC"  >BTC</option>
                                   </select>
                               </div>
-                            </div>                            
-                            <div class="col-md-12" >
+                            </div> 
+                            <div class="col-md-6">
+                              <div class="input-group input-group-alternative mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text"><i class="ni ni-credit-card"></i></span>
+                                </div>
+                                  <input class="form-control" placeholder="Wallet" type="text" name="wallet" value="" required autocomplete="wallet" autofocus>
+                              </div>
+                            </div>                           
+                            <div class="col-md-6" >
                               <div class="input-group input-group-alternative mb-3">
                                 <div class="input-group-prepend">
                                   <span class="input-group-text"><i class="ni ni-bullet-list-67"></i></span>
