@@ -109,10 +109,10 @@
 
                               if (isset($data['BTC']['total'])) {
                                 
-                                  $balancecho = $data['BTC']['balance']; 
-                                  $exhange = $data['BTC']['exhange']; 
+                                  //$balancecho = $data['BTC']['balance']; 
+                                  //$exhange = $data['BTC']['exhange']; 
 
-                                  $total = $balancecho - $exhange;
+                                  $total = $data['BTC']['total'];
 
                                   echo $total;
                               }else {
@@ -142,7 +142,7 @@
 
                               if (isset($data['USDT']['balance'])) {
                                 
-                                  $balancecho = $data['BTC']['balance']; 
+                                  $balancecho = $data['USDT']['balance']; 
 
                                   echo $balancecho;
                               }else {
@@ -194,7 +194,7 @@
 
                               if (isset($data['USDT']['total'])) {
                                 
-                                  $total = $data['BTC']['total']; 
+                                  $total = $data['USDT']['total']; 
 
                                   echo $total;
                               }else {
@@ -233,10 +233,10 @@
                   
                             if (isset($data['USDT']['total'])) {
 
-                                $balancecho = $data['BTC']['balance']; 
-                                $exhange = $data['BTC']['exhange']; 
+                                //$balancecho = $data['BTC']['balance']; 
+                                //$exhange = $data['BTC']['exhange']; 
 
-                                  $total = $balancecho - $exhange;
+                                  $total = $data['USDT']['total'];
 
 
                               if ($total >= 0.56) {
@@ -301,10 +301,10 @@
                           }
 
                           ?>
-
-
-                            
+                           
                     </div>
+
+                   
 
                   <div class="col-md-4">
                                 
