@@ -29,7 +29,7 @@ class UserController extends Controller
       ->orwhere('role', 'LIKE', "%$nombre%")
       ->orwhere('email', 'LIKE', "%$nombre%")
       ->orderBy('id', 'desc')
-      ->paginate(10);
+      ->paginate(2);
 
       return view('users.index', [
       'users' => $users

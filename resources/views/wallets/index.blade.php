@@ -400,8 +400,7 @@
                 </div>
                 <hr style="width:50%;" />
 
-            {{ $Wallets->links() }}
-
+            {{ $Wallets->appends(request()->input())->links() }}
 
 
         <hr class="my-3"> 

@@ -115,7 +115,7 @@
             </table>
             <br>
 
-            {{ $memberships->links() }}
+            {{ $memberships->appends(request()->input())->links() }}
 
 
           <div class="col-md-4">

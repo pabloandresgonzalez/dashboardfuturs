@@ -192,7 +192,7 @@ class UserMembershipController extends Controller
             //'hashPSIV' => 'required|max:255|unique:user_memberships',
             //'activedAt' => 'required|max:255',
             //'closedAt' => 'required|max:255', 
-            'detail' => 'required|max:255',     
+            //'detail' => 'required|max:255',     
             'image' => 'file',
         ]);
 
