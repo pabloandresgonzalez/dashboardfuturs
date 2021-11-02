@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\StatusChangeMessage;
 use App\Mail\MembershipCreatedMessage;
 use App\Mail\MembershipPurchaseMessage;
+use App\Exports\UsersMembershipsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class UserMembershipController extends Controller
@@ -190,11 +192,16 @@ class UserMembershipController extends Controller
             'membership' => 'required|string|min:4',        
             //'hashUSDT' => 'required|max:255|unique:user_memberships',
             //'hashPSIV' => 'required|max:255|unique:user_memberships',
+            'activedAt'=>'required|date_format:Y-m-d H:i:s',
             //'activedAt' => 'required|max:255',
             //'closedAt' => 'required|max:255', 
             //'detail' => 'required|max:255',     
             'image' => 'file',
         ]);
+
+
+
+        $fecha_actual = date("Y-m-d H:i:s");
 
         $membership = UserMembership::findOrFail($id);
         $membership->membership = $request->input('membership');
@@ -367,6 +374,11 @@ class UserMembershipController extends Controller
       return view('memberships.detail', [
           'membership' => $membership
       ]);
+    }
+
+    public function exportExcel()
+    {
+      return Excel::download(new UsersMembershipsExport, 'memberships.xlsx');
     }
     
 }

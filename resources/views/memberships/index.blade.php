@@ -114,6 +114,10 @@
               </tbody>
             </table>
             <br>
+            <div>
+              <a href="{{ url('memberships/export-excel') }}" class="btn btn-outline-secondary"><i class="ni ni-single-copy-04"></i> Exportar</a>              
+            </div>
+            <br>
 
             {{ $memberships->appends(request()->input())->links() }}
 

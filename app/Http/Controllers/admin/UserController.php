@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Traits\UsesUuid;
 use App\Traits\AutoGenerateUuid;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -29,7 +31,7 @@ class UserController extends Controller
       ->orwhere('role', 'LIKE', "%$nombre%")
       ->orwhere('email', 'LIKE', "%$nombre%")
       ->orderBy('id', 'desc')
-      ->paginate(2);
+      ->paginate(50);
 
       return view('users.index', [
       'users' => $users
@@ -408,57 +410,9 @@ class UserController extends Controller
       ]);
     }
 
-    public function indextraslado()
+    public function exportExcel()
     {
-      //Conseguir usuario identificado
-      $user = \Auth::user();
-
-      $id = $user->id;
-
-
-      //$id = 'b3361710-4e21-4fe1-a86e-a29fbecb15f2';
-
-      $data = [
-      'userId' => $id, //'b3361710-4e21-4fe1-a86e-a29fbecb15f2',
-      'token' => 'AcjAa76AHxGRdyTemDb2jcCzRmqpWN'
-      ];
-
-      $curl = curl_init();
-
-      curl_setopt_array($curl, array(
-          CURLOPT_URL => "https://ekgra7pfqh.execute-api.us-east-2.amazonaws.com/Prod_getBalanceByUser",
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_ENCODING => "",
-          CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 30000,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => "POST",
-          CURLOPT_POSTFIELDS => json_encode($data),        
-          CURLOPT_HTTPHEADER => array(
-            // Set here requred headers
-              "accept: */*",
-              "accept-language: en-US,en;q=0.8",
-              "content-type: application/json",
-          ),
-      ));
-
-      $result = curl_exec($curl);
-      $err = curl_error($curl);
-
-      curl_close($curl);
-      //$data1 = print_r($result);
-
-      //decodificar JSON porque esa es la respuesta
-      $respuestaDecodificada = json_decode($result);  
-
-      //dd($databalance);
-
-      return view('traslados.index', [
-        'respuestaDecodificada' => $respuestaDecodificada,
-        'user' => $user
-
-      ]);         
-
+      return Excel::download(new UsersExport, 'users.xlsx');
     }
-
+    
 }

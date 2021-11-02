@@ -71,7 +71,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/user', [App\Http\Controllers\admin\UserController::class, 'store']);// envio form
     Route::get('/user/{user}/edit', [App\Http\Controllers\admin\UserController::class, 'edit']); //form edit
     Route::put('/user/{user}', [App\Http\Controllers\admin\UserController::class, 'update']);//envio form
- 
+    Route::get('/users/export-excel', [App\Http\Controllers\admin\UserController::class, 'exportExcel']); 
 
 
     //Membresias
@@ -88,7 +88,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/membership/{membership}/edit', [App\Http\Controllers\UserMembershipController::class, 'edit']);       
     Route::put('/membership/{membership}', [App\Http\Controllers\UserMembershipController::class, 'update']);    
     Route::get('/orden/{id}', [App\Http\Controllers\UserMembershipController::class, 'orden'])->name('prestamo.orden');
-    Route::get('/membership/avatar/{filename?}', [App\Http\Controllers\UserMembershipController::class, 'getImage'])->name('prestamo.avatar'); 
+    Route::get('/membership/avatar/{filename?}', [App\Http\Controllers\UserMembershipController::class, 'getImage'])->name('prestamo.avatar');
+    Route::get('/memberships/export-excel', [App\Http\Controllers\UserMembershipController::class, 'exportExcel']); 
     
 
     //News
@@ -103,6 +104,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/walletadmin', [App\Http\Controllers\WalletTransactionsController::class, 'indexAdmin'])->name('walletadmin');     
     Route::get('/wallet/{wallet}/edit', [App\Http\Controllers\WalletTransactionsController::class, 'edit']);
     Route::put('/wallet/{wallet}', [App\Http\Controllers\WalletTransactionsController::class, 'update']);
+    Route::get('/wallets/export-excel', [App\Http\Controllers\WalletTransactionsController::class, 'exportExcel']);
     
     
 });

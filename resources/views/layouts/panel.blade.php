@@ -26,7 +26,6 @@
       });
   </script>
 
-
   <?php 
 
     $url = ("https://blockchain.info/ticker");
