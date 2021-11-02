@@ -21,7 +21,7 @@ class MembresiaController extends Controller
     {
         
         //$membresias = Membresia::all();
-        $membresias = Membresia::orderBy('id', 'Desc')->paginate(10);
+        $membresias = Membresia::orderBy('id', 'Desc')->paginate(30);
         $data = ['membresias' => $membresias];
 
         return view('membresias.index', compact('membresias'));

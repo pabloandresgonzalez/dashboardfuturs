@@ -40,7 +40,7 @@ class UserMembershipController extends Controller
         ->orwhere('hashPSIV', 'LIKE', "%$nombre%")
         ->orwhere('status', 'LIKE', "%$nombre%")
         ->orderBy('id', 'desc')
-        ->paginate(5);
+        ->paginate(50);
 
         return view('memberships.index', [
         'memberships' => $memberships
@@ -160,8 +160,8 @@ class UserMembershipController extends Controller
 
         //Enviar email
         $user_email = User::where('role', 'admin')->first();
-        //$user_email_admin = $user_email->email;
-        $user_email_admin = 'pabloandres6@gmail.com';
+        $user_email_admin = $user_email->email;
+        //$user_email_admin = 'pabloandres6@gmail.com';
 
         Mail::to($user_email_admin)->send(new MembershipCreatedMessage($membership));
 
@@ -228,6 +228,11 @@ class UserMembershipController extends Controller
 
         $membership->save(); //INSERT BD
 
+        //Enviar email
+        $user_email = $membership->user_email;
+
+        Mail::to($user_email)->send(new StatusChangeMessage($membership));
+
         return redirect()->route('home')->with([
                     'message' => 'Membership editado correctamente!'
         ]);
@@ -243,7 +248,7 @@ class UserMembershipController extends Controller
     //$image = $user->image;
     //$users = User::orderBy('id', 'desc')->get();
     $memberships = UserMembership::where('user', $user->id)->orderBy('id', 'desc')
-            ->paginate(5);
+            ->paginate(30);
 
         //dd($memberships);
 

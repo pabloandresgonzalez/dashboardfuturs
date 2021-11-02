@@ -104,7 +104,7 @@ class WalletTransactionsController extends Controller
           //dd($result);
 
           $Wallets = wallet_transactions::where('user', $user->id)->orderBy('id', 'desc')
-            ->paginate(4);
+            ->paginate(30);
 
           /*  
           $memberships = UserMembership::where('user', $id)

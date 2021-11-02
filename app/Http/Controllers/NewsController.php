@@ -22,7 +22,7 @@ class NewsController extends Controller
     public function index()
     {
         //$membresias = Membresia::all();
-        $news = News::orderBy('id', 'Desc')->paginate(10);
+        $news = News::orderBy('id', 'Desc')->paginate(30);
         $data = ['news' => $news];
 
         return view('news.index', compact('news'));
