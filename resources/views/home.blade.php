@@ -5,7 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header"><h3 class="mb-0">Escritorio</h3>
+                </div>
 
                 <div class="card-body">
 
@@ -21,7 +22,7 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    {{ __('Hola!') }}
                 </div>
             </div>
         </div>
