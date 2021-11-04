@@ -110,7 +110,7 @@
           <div class="row justify-content-center">
             <div class="col-lg-5 col-md-6">
               <div class="card-profile-image">
-                  <a href="https://www.lifearluxury.com">
+                  <a href="https://www.futursstrong.com/">
                     <img src="{{ asset('img/brand/iconfuturs.PNG') }}"/>
                   </a>
                 </div>

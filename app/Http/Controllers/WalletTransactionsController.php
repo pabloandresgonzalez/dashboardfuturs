@@ -57,7 +57,7 @@ class WalletTransactionsController extends Controller
           //$id = '60535b90-6a4b-42f3-b273-2989b53ad1a1';
 
           $data = [
-          'userId' => $id, //'b3361710-4e21-4fe1-a86e-a29fbecb15f2',
+          'userId' => $id, //'d33b3162-2057-4079-8447-bcfd3e52960c',
           'token' => 'AcjAa76AHxGRdyTemDb2jcCzRmqpWN'
           ];
 

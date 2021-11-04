@@ -44,7 +44,7 @@
                     <div class="card-body">
                     
                       <div class="list-inline-item"> 
-                      <ul><h3>USDT</h3></ul>                       
+                      <ul><h3>PSIV</h3></ul>                       
                         <ul>
                           Balance:  &nbsp;
 
@@ -55,9 +55,9 @@
 
                                     $data = json_decode($url, true);
 
-                              if (isset($data['BTC']['balance'])) {
+                              if (isset($data['PSIV']['balance'])) {
                                 
-                                  $balancecho = $data['BTC']['balance']; 
+                                  $balancecho = $data['PSIV']['balance']; 
 
                                   echo $balancecho;
                               }else {
@@ -81,9 +81,9 @@
 
                                     $data = json_decode($url, true);
 
-                              if (isset($data['BTC']['exhange'])) {
+                              if (isset($data['PSIV']['exhange'])) {
                                 
-                                  $balancecho = $data['BTC']['exhange']; 
+                                  $balancecho = $data['PSIV']['exhange']; 
 
                                   echo $balancecho;
                               }else {
@@ -107,12 +107,12 @@
 
                                     $data = json_decode($url, true);
 
-                              if (isset($data['BTC']['total'])) {
+                              if (isset($data['PSIV']['total'])) {
                                 
                                   //$balancecho = $data['BTC']['balance']; 
                                   //$exhange = $data['BTC']['exhange']; 
 
-                                  $total = $data['BTC']['total'];
+                                  $total = $data['PSIV']['total'];
 
                                   echo $total;
                               }else {
@@ -129,7 +129,7 @@
 
                         <hr style="width:75%;" />   
 
-                      <ul><h3>PSIV</h3></ul>                       
+                      <ul><h3>USDT</h3></ul>                       
                         <ul>
                           Balance:  &nbsp;
 
@@ -258,7 +258,7 @@
                                   <select id="currency" name="currency" class="form-control" required>
                                       <option value=""  >Tipo</option>
                                       <option value="PSIV"  >PSIV</option>
-                                      <option value="BTC"  >BTC</option>
+                                      <option value="USDT"  >USDT</option>
                                   </select>
                               </div>
                             </div> 
