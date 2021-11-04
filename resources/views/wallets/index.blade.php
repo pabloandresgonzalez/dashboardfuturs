@@ -168,7 +168,7 @@
 
                               if (isset($data['USDT']['exhange'])) {
                                 
-                                  $balancecho = $data['BTC']['exhange']; 
+                                  $balancecho = $data['USDT']['exhange']; 
 
                                   echo $balancecho;
                               }else {
