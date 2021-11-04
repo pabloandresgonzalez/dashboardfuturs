@@ -149,7 +149,7 @@ class WalletTransactionsController extends Controller
 
         $Wallet = new wallet_transactions();
         $Wallet->user = $id;
-        $Wallet->user = $email;
+        $Wallet->email = $email;
         $Wallet->value = $request->input('value');
         $Wallet->fee = 5;
         $Wallet->type = 0;
@@ -179,7 +179,7 @@ class WalletTransactionsController extends Controller
         //return redirect('home');
 
         return redirect()->route('home')->with([
-                    'message' => 'Solicitud de Retiro enviado correctamente!'
+                    'message' => 'Solicitud de retiro enviado correctamente!'
         ]);
 
     }
