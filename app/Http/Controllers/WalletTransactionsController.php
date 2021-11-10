@@ -278,7 +278,6 @@ class WalletTransactionsController extends Controller
 
       $users = User::where('isActive', 1)
                ->orderBy('name')
-               ->take(10)
                ->get();
 
 
