@@ -272,4 +272,136 @@ class WalletTransactionsController extends Controller
     {
       return Excel::download(new WalletTransactionsExport, 'Wallets.xlsx');
     }
+
+    public function editsaldos(Request $request)
+    {
+
+      $users = User::where('isActive', 1)
+               ->orderBy('name')
+               ->take(10)
+               ->get();
+
+
+      //dd($users);
+
+      $fecha_actual = date("Y-m-d H:i:s");
+
+      //$Wallets = wallet_transactions::find($id);
+        //$fecha_actual = date("Y-m-d H:i:s");
+
+        return view('wallets.gsaldosadmin', [
+          'users' => $users,
+          'fecha_actual' => $fecha_actual
+      ]);
+
+    }
+
+    public function storeadmin(Request $request)
+    {
+
+
+      //Conseguir usuario identificado
+      $user = \Auth::user();
+      $id = $user->id;
+      $name = $user->name;
+      $email = $user->email;
+
+                
+      $rules = ([
+          
+          'value' => 'required|string|max:255',
+          'value' => 'required|string|max:255',
+          'detail' => 'required|string', 
+          //'currency' => 'required|string', 
+          //'wallet' => 'required|string',         
+          
+      ]);
+
+       $this->validate($request, $rules);
+
+       $type = $request->input('type');
+
+
+       $idmovimiento = $request->input('idmovimiento');
+
+       $idmovimiento = User::where('id', $idmovimiento)->first();
+       $userid = $idmovimiento->id;
+       $useremail = $idmovimiento->email;
+
+       //dd($userid);
+
+       $memberships = UserMembership::where('user', $id)
+        ->where('status', 'Activo')
+        ->paginate();
+       //$depositos = UserMembership::where('user', $userid);
+            //->where('status', 'Activo')
+            //->paginate(5);
+
+        //dd($memberships);
+
+        $cantmemberships = $memberships->count();
+
+        //dd($cantmemberships);
+
+        // Si tiene almenos una membresia activa
+        if ($cantmemberships > 0) {
+
+        $Wallet = new wallet_transactions();
+        $Wallet->user = $userid;
+        $Wallet->email = $useremail;
+        $Wallet->value = $request->input('value');
+        $Wallet->fee = 5;
+        $Wallet->type = $request->input('type');
+        $Wallet->hash = 'Autoriza'." ".$name."-".$email;
+        $Wallet->currency = $request->input('currency');
+        $Wallet->approvedBy = $id;
+        $Wallet->wallet = $request->input('wallet');
+        $Wallet->inOut = 0;
+        $Wallet->status = 'Aprobada';     
+        $Wallet->detail = $request->input('detail');
+
+        //dd($Wallet);        
+
+        $Wallet->save();// INSERT BD
+
+        return redirect()->route('home')->with([
+                    'message' => 'Asignación de saldo enviada correctamente!'
+        ]);
+
+        }
+
+        //dd($memberships);
+
+        //No tiene ninguna membresia activa
+
+        return redirect()->route('walletadmin')->with([
+                    'message' => 'El usuario no tine una membresia activa!'
+        ]);
+
+
+        /*
+        //dd($Wallet);
+       
+
+        $Wallet->save();// INSERT BD
+
+
+        //enviar email
+        $user_email = User::where('role', 'admin')->first();
+        $user_email_admin = $user_email->email;
+        //$useremail = 'pabloandres6@gmail.com';
+
+        Mail::to($email)->send(new TransactionSentMessage($Wallet));
+
+        Mail::to($user_email_admin)->send(new TransactionMessageCreated($Wallet));
+
+        //return redirect('home');
+
+        return redirect()->route('home')->with([
+                    'message' => 'Solicitud de retiro enviado correctamente!'
+        ]);
+        */
+
+    }
+
 }

@@ -21,7 +21,7 @@ class StatusChangeMessage extends Mailable
      */
     public function __construct(UserMembership $membership)
     {
-        $this->membership = $membershi
+        $this->membership = $membership;
     }
 
     /**

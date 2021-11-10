@@ -30,66 +30,72 @@
       @endif
 
 
-      <form class="row g-3" action="{{ url('/membershiprenovar/'.$memberships->id) }}" enctype="multipart/form-data" method="post">
+
+       <form class="row g-3" action="{{ url('/membershiprenovar/'.$memberships->id) }}" enctype="multipart/form-data" method="post">
         @csrf
         @method('PUT')
 
-        
-         
-        <div class="col-md-6">
-          Membresia
-          <div class="input-group input-group-alternative mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="ni ni-paper-diploma"></i></span>
-            </div>
-              <select id="membership" name="membership" class="form-control" >
-                <option value="{{ $memberships->membership}}">{{ $memberships->membership }}</option>
-                  
-              </select>
-          </div>
-        </div>
-        <div class="col-md-6">
-          Id membresía  padre
-          <div class="input-group input-group-alternative mb-3">
-              
-            <label class="form-control">{{ $memberships->id }}</label>  
-            <input type="submit" name="id_membresia" value="{{ $memberships->id }}" hidden="true">                   
-                         
-          </div>
-        </div>         
-        <div class="col-md-6">
-          Nuevo hash
-          <div class="input-group input-group-alternative mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="ni ni-key-25"></i></span>
-            </div>                        
-            <input class="form-control" placeholder="hashPSIV" type="text" name="hashPSIV" value="" autocomplete="hashUSDT" autofocus>             
-          </div>
-        </div> 
-        <div class="col-md-6">
-          Nuevo hash
-          <div class="input-group input-group-alternative mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="ni ni-key-25"></i></span>
-            </div>                        
-            <input class="form-control" placeholder="hashUSDT" type="text" name="hashUSDT" value="" autocomplete="hashBTC" autofocus>             
-          </div>
-        </div>        
-        <div class="col-md-6">
-          <div class="input-group input-group-alternative mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="ni ni-image"></i>&nbsp;Solo archivo de imagen</span>
-            </div>
-            <input class="form-control" placeholder="image"  type="file" name="image"  autocomplete="image" autofocus>
+      <?php
+        if (isset($result)) {
+            $url = ($result);
+              $data = json_decode($url, true);
+          if (isset($data['USDT']['total'])  || isset($data['PSIV']['total'])) {
+            $totalPSIV = $data['USDT']['total'];
+            $totalUSDT = $data['PSIV']['total'];
+            if ($totalPSIV >= 1) {
+              //echo "si";
+              echo '<div class="col-md-12"><h5> Saldo: PSIV'.' '.  $totalPSIV .' | Saldo: USDT'.' '.  $totalUSDT .'</h5> <br></div>';
 
-          </div>          
-        </div>      
+              echo '<br>
 
-        <div class="col-md-4">
-          <button type="" class="btn btn-outline-default" ><i class="ni ni-satisfied"></i> Enviar Solicitud</button>
-        </div>
+                  <div class="col-md-12">
+                  <div class="input-group input-group-alternative mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-paper-diploma"></i></span>
+                    </div>
+                      <select id="membership" name="membership" class="form-control" >
+                        <option value="'.$memberships->membership.'"> '.$memberships->membership.' </option>
+                          
+                      </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group input-group-alternative mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-credit-card"></i></span>
+                    </div>
+                      <input class="form-control" placeholder="WalletPSIV" type="text" name="WalletPSIV" value="" required autocomplete="wallet" autofocus>
+                  </div>
+                </div> 
+                <div class="col-md-6">
+                  <div class="input-group input-group-alternative mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-credit-card"></i></span>
+                    </div>
+                      <input class="form-control" placeholder="WalletUSDT" type="text" name="WalletUSDT" value="" required autocomplete="wallet" autofocus>
+                  </div>
+                </div> 
 
-      </form>
+                
+                <div class="col-md-4">
+                  <button type="" class="btn btn-outline-default" ><i class="ni ni-satisfied"></i> Renovar</button>
+                </div>
+
+              ';
+
+            }else {
+              echo '<div class="col-md-12"><h5> No tiene saldo suficiente para renovar</h5> <br></div>';
+            }
+          }else {
+            echo '<div class="col-md-12"><h5> No tiene saldo suficiente para renovar</h5> <br></div>';
+          }
+        }
+      ?>
+
+    </form>
+
+
+
 
       </div>
     </div>
