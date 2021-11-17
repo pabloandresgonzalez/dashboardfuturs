@@ -27,8 +27,6 @@ class HomeController extends Controller
         $totalusers = User::count();
 
         //dd($totalusers);
-       return view('home', [
-        'totalusers' => $totalusers
-        ]);
+       return view('home', compact('totalusers'));
     }
 }

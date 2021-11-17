@@ -24,6 +24,7 @@ class UserController extends Controller
     {
 
       $nombre = $request->get('buscarpor');
+      $totalusers = User::count(); 
 
 
       $users = User::where('name', 'LIKE', "%$nombre%")
@@ -34,7 +35,8 @@ class UserController extends Controller
       ->paginate(50);
 
       return view('users.index', [
-      'users' => $users
+      'users' => $users,
+      'totalusers' => $totalusers
       ]);
 
       /*
@@ -79,20 +81,21 @@ class UserController extends Controller
 
     public function create()
     {
-      //$totalusers = User::count();
+      $totalusers = User::count();
 
-      return view('users.create');
+      return view('users.create', compact('totalusers'));
 
     }
 
     public function edit($id)
     {
       
-      //$totalusers = User::count(); 
+      $totalusers = User::count(); 
       $user = User::find($id);
 
       return view('users.edit', [
-        'user' => $user
+        'user' => $user,
+        'totalusers' => $totalusers
       ]);
     }
 
@@ -201,9 +204,12 @@ class UserController extends Controller
 
       $user->save(); //INSERT EN BD
 
+      $totalusers = User::count(); 
+
 
       return redirect('user')->with([                
-                'message' => 'La informacion de '.$user->name.', fue actualizada correctamente!'
+                'message' => 'La informacion de '.$user->name.', fue actualizada correctamente!',
+                'totalusers' => $totalusers
         ]);
 
     }
@@ -289,9 +295,12 @@ class UserController extends Controller
         //Ejecutar consulta y actualizar registro de BD
         $user->save();
 
+        $totalusers = User::count();
+
 
         return redirect('user')->with([
-                'message' => 'La informacion de '.$user->name.', fue actualizada correctamente!'
+                'message' => 'La informacion de '.$user->name.', fue actualizada correctamente!',
+                'totalusers' => $totalusers
         ]);
 
     }
@@ -381,9 +390,12 @@ class UserController extends Controller
         //Ejecutar consulta y actualizar registro de BD
         $user->save();
 
+        $totalusers = User::count();
+
 
         return redirect('home')->with([
-                'message' => $user->name.', tu informacion fue actualizada correctamente!'
+                'message' => $user->name.', tu informacion fue actualizada correctamente!',
+                'totalusers' => $totalusers
         ]);
 
     }
@@ -393,10 +405,11 @@ class UserController extends Controller
     {
       //Conseguir usuario identificado
         $user = \Auth::user();
-      //$totalusers = User::count();
+      $totalusers = User::count();
 
       return Response()->view('users.indexperfil', [
-        'user' => $user
+        'user' => $user,
+        'totalusers' => $totalusers
       ]);
 
     }
@@ -404,9 +417,11 @@ class UserController extends Controller
     public function detail($id) {
 
       $user = User::find($id);
+      $totalusers = User::count();
 
       return view('users.detail', [
-          'user' => $user
+          'user' => $user,
+          'totalusers' => $totalusers
       ]);
     }
 

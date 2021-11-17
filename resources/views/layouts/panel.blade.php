@@ -35,6 +35,84 @@
         
 
   ?>
+  <?php
+
+  $user = \Auth::user();
+
+          $id = $user->id;
+
+
+          //$id = '60535b90-6a4b-42f3-b273-2989b53ad1a1';
+
+          $datacurl = [
+          'userId' => $id, //'d33b3162-2057-4079-8447-bcfd3e52960c',
+          'token' => 'AcjAa76AHxGRdyTemDb2jcCzRmqpWN'
+          ];
+
+          $curl = curl_init();
+
+          curl_setopt_array($curl, array(
+              CURLOPT_URL => "https://sd0fxgedtd.execute-api.us-east-2.amazonaws.com/Prod_getBalanceByUser",
+              CURLOPT_RETURNTRANSFER => true,
+              CURLOPT_ENCODING => "",
+              CURLOPT_MAXREDIRS => 10,
+              CURLOPT_TIMEOUT => 30000,
+              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+              CURLOPT_CUSTOMREQUEST => "POST",
+              CURLOPT_POSTFIELDS => json_encode($datacurl),        
+              CURLOPT_HTTPHEADER => array(
+                // Set here requred headers
+                  "accept: */*",
+                  "accept-language: en-US,en;q=0.8",
+                  "content-type: application/json",
+              ),
+          ));
+
+          $result = curl_exec($curl);
+          $err = curl_error($curl);
+
+          //dd($err);
+
+          //dd($result);
+          curl_close($curl);
+
+          if ($result) {
+            $url = ($result);
+
+                  $datacurl = json_decode($url, true);
+
+            if (isset($datacurl['PSIV']['balance'])) {
+              
+                $balancecho = $datacurl['PSIV']['balance']; 
+
+                echo $balancecho;
+            }else {
+
+              echo 'null';
+
+            } 
+
+          }
+
+          if ($result) {
+            $url = ($result);
+
+                  $datacurl = json_decode($url, true);
+
+            if (isset($datacurl['USDT']['balance'])) {
+              
+                $balancecho = $datacurl['USDT']['balance']; 
+
+                echo $balancecho;
+            }else {
+
+              echo 'null';
+
+            } 
+
+          } 
+
+  ?>
   
   @yield('styles')
 </head>
@@ -164,7 +242,7 @@
                   </div>
                   <p class="mt-3 mb-0 text-muted text-sm">
                     <span class="text-success mr-2"><i class="fas fa-dollar-sign"></i></span>
-                    <span class="text-nowrap">Bitcoin </span>
+                    <span class="text-nowrap"> <?php echo $data ['USD']['last'];?></span>
                   </p>
                 </div>
               </div>
@@ -175,7 +253,7 @@
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Users</h5>
-                      <span class="h2 font-weight-bold mb-0"></span>
+                      <span class="h2 font-weight-bold mb-0"><?php echo $totalusers;  ?></span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-primary text-white rounded-circle shadow">
@@ -216,8 +294,46 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">RENDIMIENTO</h5>
-                      <span class="h2 font-weight-bold mb-0">20,0%</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Balance</h5>
+                      <span class="h2 font-weight-bold mb-0">
+                      <?php  
+                        if ($result) {
+                          $url = ($result);
+
+                                $datacurl = json_decode($url, true);
+
+                          if (isset($datacurl['PSIV']['balance'])) {
+                            
+                              $balancecho = $datacurl['PSIV']['balance']; 
+
+                              echo "<h6>PSIV</h6> $ " . $balancecho . "<br>";
+                          }else {
+
+                            echo '$ ';
+
+                          } 
+
+                        }
+
+                        if ($result) {
+                          $url = ($result);
+
+                                $datacurl = json_decode($url, true);
+
+                          if (isset($datacurl['USDT']['balance'])) {
+                            
+                              $balancecho = $datacurl['USDT']['balance']; 
+
+                              echo "<h6>USDT</h6> $ " . $balancecho  ;
+                          }else {
+
+                            echo '$ ';
+
+                          } 
+
+                        } 
+                      ?>
+                      </span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -226,8 +342,8 @@
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 20%</span>
-                    <span class="text-nowrap">En 30 dias</span>
+                    <span class="text-success mr-2"><i class="fas fa-arrow-up"></i></span>
+                    <span class="text-nowrap">Wallet</span>
                   </p>
                 </div>
               </div>

@@ -43,8 +43,11 @@ class UserMembershipController extends Controller
         ->orderBy('id', 'desc')
         ->paginate(50);
 
+        $totalusers = User::count();
+
         return view('memberships.index', [
-        'memberships' => $memberships
+        'memberships' => $memberships,
+        'totalusers' => $totalusers
         ]);
 
         /*
@@ -75,9 +78,10 @@ class UserMembershipController extends Controller
 
 
         //dd($membresias); 
+        $totalusers = User::count();
 
 
-        return view('memberships.create', compact('membresias'));
+        return view('memberships.create', compact('membresias', 'totalusers'));
 
 
     }
@@ -86,11 +90,13 @@ class UserMembershipController extends Controller
         
         $memberships = UserMembership::find($id);
         $fecha_actual = date("Y-m-d H:i:s");
+        $totalusers = User::count();
 
 
         return view('memberships.edit', [
           'memberships' => $memberships,
-          'fecha_actual' => $fecha_actual
+          'fecha_actual' => $fecha_actual,
+          'totalusers' => $totalusers
       ]);
 
     }
@@ -169,9 +175,11 @@ class UserMembershipController extends Controller
         Mail::to($email)->send(new MembershipPurchaseMessage($membership));
 
         //return redirect('home');
+        $totalusers = User::count();
 
         return redirect()->route('home')->with([
-                    'message' => 'Hash enviado correctamente!'
+                    'message' => 'Hash enviado correctamente!',
+                    'totalusers' => $totalusers
         ]);
 
     }
@@ -233,8 +241,11 @@ class UserMembershipController extends Controller
 
         Mail::to($user_email)->send(new StatusChangeMessage($membership));
 
+        $totalusers = User::count();
+
         return redirect()->route('home')->with([
-                    'message' => 'Membership editado correctamente!'
+                    'message' => 'Membership editado correctamente!',
+                    'totalusers' => $totalusers
         ]);
 
     }
@@ -251,10 +262,12 @@ class UserMembershipController extends Controller
             ->paginate(30);
 
         //dd($memberships);
+    $totalusers = User::count();
 
         return view('memberships.mismemberships', [
             'memberships' => $memberships,
-            'user' => $user
+            'user' => $user,
+            'totalusers' => $totalusers
         ]);
 
     }
@@ -269,20 +282,22 @@ class UserMembershipController extends Controller
     public function orden($id)
     {
         $membership = UserMembership::find($id);
+        $totalusers = User::count();
 
         return view('memberships.soporte', [
-            'membership' => $membership
+            'membership' => $membership,
+            'totalusers' => $totalusers
         ]);
 
     }
 
     public function pagos(Request $request, $id)
     {
-        
+        $totalusers = User::count();
         $membership = UserMembership::findOrFail($id);        
         //$networktransaction = NetworkTransaction::findOrFail($request->user);
         //dd($membership);
-        return view('networktransaction.index');
+        return view('networktransaction.index', compact('totalusers'));
 
     }
 
@@ -317,6 +332,8 @@ class UserMembershipController extends Controller
           $user = \Auth::user();
 
           $id = $user->id;
+
+          $totalusers = User::count();
 
 
           //$id = '60535b90-6a4b-42f3-b273-2989b53ad1a1';
@@ -371,7 +388,8 @@ class UserMembershipController extends Controller
           return view('memberships.renovar', [
                 'memberships' => $memberships,
                 'user' => $user,
-                'result' => $result
+                'result' => $result,
+                'totalusers' => $totalusers
                 ]);             
 
         }
@@ -379,7 +397,8 @@ class UserMembershipController extends Controller
             //echo "sin membresa activa";
 
             return redirect()->route('home')->with([
-                'message' => 'Debes tener saldo o una membresía activa para renovar!'
+                'message' => 'Debes tener saldo o una membresía activa para renovar!',
+                'totalusers' => $totalusers
             ]); 
 
 
@@ -403,6 +422,8 @@ class UserMembershipController extends Controller
         $iduser = $user->id;
         $name = $user->name;
         $email = $user->email;
+
+        $totalusers = User::count();
 
         $membershippadre = UserMembership::findOrFail($id);
         $id_membresia = $membershippadre->id_membresia;
@@ -480,7 +501,8 @@ class UserMembershipController extends Controller
         if ($valor_membresia > $valor_saldo) {
             
             return redirect()->route('home')->with([
-                    'message' => 'Saldo insuficiente para renovar!'
+                    'message' => 'Saldo insuficiente para renovar!',
+                    'totalusers' => $totalusers
                 ]); 
 
         }
@@ -585,7 +607,8 @@ class UserMembershipController extends Controller
         
 
         return redirect()->route('home')->with([
-                    'message' => 'Hash de renovación enviado correctamente!'
+                    'message' => 'Hash de renovación enviado correctamente!',
+                    'totalusers' => $totalusers
                     
         ]);
         
@@ -665,9 +688,11 @@ class UserMembershipController extends Controller
     public function detail($id) {
 
       $membership = UserMembership::find($id);
+      $totalusers = User::count();
 
       return view('memberships.detail', [
-          'membership' => $membership
+          'membership' => $membership,
+          'totalusers' => $totalusers
       ]);
     }
 

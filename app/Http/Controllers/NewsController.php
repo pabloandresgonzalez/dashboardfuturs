@@ -22,16 +22,19 @@ class NewsController extends Controller
     public function index()
     {
         //$membresias = Membresia::all();
+        $totalusers = User::count(); 
         $news = News::orderBy('id', 'Desc')->paginate(30);
         $data = ['news' => $news];
 
-        return view('news.index', compact('news'));
+        return view('news.index', compact('news', 'totalusers'));
 
     }
 
     public function create()
     {
-        return view('news.create');
+        $totalusers = User::count(); 
+
+        return view('news.create', compact('totalusers'));
 
     }
 
@@ -65,7 +68,7 @@ class NewsController extends Controller
 
         $this->perfomrValidationCreate($request);
 
-
+        $totalusers = User::count(); 
         $news = new News();
         $news->title = $request->input('title');
         $news->intro = $request->input('intro');
@@ -99,7 +102,8 @@ class NewsController extends Controller
         Mail::to($users)->send(new NewsCreatedMessage($news));
 
         return redirect('news')->with([
-                'message' => 'La news '.$news->title.' fue creada correctamente!'
+                'message' => 'La news '.$news->title.' fue creada correctamente!',
+                'totalusers' => $totalusers
         ]);
 
     }
@@ -107,23 +111,27 @@ class NewsController extends Controller
     public function indexuser()
     {
         //$news = News::all();
+        $totalusers = User::count(); 
+
         $news = News::where('isActive', '1')->orderBy('id', 'Desc')->paginate(10);
         $data = ['news' => $news];
 
         
 
-        return view('news.indexuser', compact('news'));
+        return view('news.indexuser', compact('news', 'totalusers'));
 
     }
 
     public function edit($id) {
         
         $news = News::find($id);
+        $totalusers = User::count(); 
 
         //return view('membresias.create');
 
         return view('news.edit', [
-          'news' => $news
+          'news' => $news,
+          'totalusers' => $totalusers
       ]);
 
   }
@@ -174,8 +182,11 @@ class NewsController extends Controller
 
         Mail::to($users)->send(new NewsCreatedMessage($news));
 
+        $totalusers = User::count(); 
+
         return redirect('news')->with([
-                'message' => 'La news '.$news->title.' fue editada correctamente!'
+                'message' => 'La news '.$news->title.' fue editada correctamente!',
+                'totalusers' => $totalusers
         ]);
 
     }
@@ -183,9 +194,11 @@ class NewsController extends Controller
     public function detail($id) {
 
       $news = News::find($id);
+      $totalusers = User::count(); 
 
       return view('news.detail', [
-          'news' => $news
+          'news' => $news,
+          'totalusers' => $totalusers
       ]);
     }
 
