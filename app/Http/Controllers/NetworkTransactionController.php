@@ -20,15 +20,11 @@ class NetworkTransactionController extends Controller
 
         //Conseguir usuario identificado
         $user = \Auth::user();
-        //$id = $user->id;
-        //$name = $user->name;
-        //$image = $user->image;
-        //$users = User::orderBy('id', 'desc')->get();
-        //$memberships = UserMembership::where('id', $user->id)->orderBy('id', 'desc')->get();
+
         $id = $request->id;
         $networktransactions = NetworkTransaction::where('userMembership', $id)
                                 ->where('type', 'Daily')
-                                ->orderBy('id', 'desc')->paginate(40);
+                                ->orderBy('id', 'desc')->paginate(50);
 
         $totalusers = User::count();
 
@@ -42,10 +38,7 @@ class NetworkTransactionController extends Controller
         //Conseguir usuario identificado
         $user = \Auth::user();
         $iduser = $user->id;
-        //$name = $user->name;
-        //$image = $user->image;
-        //$users = User::orderBy('id', 'desc')->get();
-        //$memberships = UserMembership::where('id', $user->id)->orderBy('id', 'desc')->get();
+
         $id = $request->id;
         //$networktransactions = NetworkTransaction::where('user', $iduser)->orderBy('id', 'desc')->paginate(40);
         //dd($networktransactions);
@@ -53,11 +46,6 @@ class NetworkTransactionController extends Controller
                                 ->where('type', 'Activation')
                                 ->orderBy('id', 'desc')->paginate(40);
 
-        //dd($networktransactions);
-
-            //->paginate(5);
-
-        //dd($networktransactions);
         $totalusers = User::count();
 
         return view('networktransaction.indexactivacion', compact('networktransactions', 'totalusers'));        

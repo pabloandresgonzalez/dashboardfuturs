@@ -62,7 +62,7 @@
                                   echo $balancecho;
                               }else {
 
-                                echo 'null';
+                                echo '*';
 
                               } 
 
@@ -88,7 +88,7 @@
                                   echo $balancecho;
                               }else {
 
-                                echo 'null';
+                                echo '*';
 
                               } 
 
@@ -117,7 +117,7 @@
                                   echo $total;
                               }else {
 
-                                echo 'null';
+                                echo '*';
 
                               } 
 
@@ -147,7 +147,7 @@
                                   echo $balancecho;
                               }else {
 
-                                echo 'null';
+                                echo '*';
 
                               } 
 
@@ -173,7 +173,7 @@
                                   echo $balancecho;
                               }else {
 
-                                echo 'null';
+                                echo '*';
 
                               } 
 
@@ -199,7 +199,7 @@
                                   echo $total;
                               }else {
 
-                                echo 'null';
+                                echo '*';
 
                               } 
 

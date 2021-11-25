@@ -18,8 +18,7 @@ class MembresiaController extends Controller
     }
 
     public function index()
-    {
-        
+    {        
         //$membresias = Membresia::all();
         $totalusers = User::count();
         $membresias = Membresia::orderBy('id', 'Desc')->paginate(30);
@@ -31,9 +30,10 @@ class MembresiaController extends Controller
 
     public function create()
     {
-        $totalusers = User::count();
+      // Total de usuarios
+      $totalusers = User::count();
 
-        return view('membresias.create', compact('totalusers'));
+      return view('membresias.create', compact('totalusers'));
 
     }
 
@@ -90,6 +90,7 @@ class MembresiaController extends Controller
 
         $membresia->save(); //INSERT BD
 
+        // Total de usuarios
         $totalusers = User::count();
 
         return redirect('membresias')->with([
@@ -100,72 +101,73 @@ class MembresiaController extends Controller
     }
 
     public function indexuser()
-    {
-        //$membresias = Membresia::all();
-        $totalusers = User::count();
-        $membresias = Membresia::orderBy('id', 'Desc')->paginate(10);
-        $data = ['membresias' => $membresias];
+    {     
 
-        
+      $membresias = Membresia::orderBy('id', 'Desc')->paginate(10);
+      $data = ['membresias' => $membresias];
 
-        return view('membresias.indexuser', compact('membresias', 'totalusers'));
+      // Total de usuarios
+      $totalusers = User::count();        
+
+      return view('membresias.indexuser', compact('membresias', 'totalusers'));
 
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         
-        $membresias = Membresia::find($id);
-        $totalusers = User::count();
+      $membresias = Membresia::find($id);
 
-        //return view('membresias.create');
+      $totalusers = User::count();
 
-        return view('membresias.edit', [
-          'membresias' => $membresias,
-          'totalusers' => $totalusers
+      return view('membresias.edit', [
+        'membresias' => $membresias,
+        'totalusers' => $totalusers
       ]);
 
   }
 
     public function update(Request $request, $id)
     {
-        
-        //Validacion del formulario
-        $validate = $this->validate($request, [
-            'name' => 'required|string|min:4|max:255',
-            'isActive' => 'required|string|max:255',
-            'detail' => 'required|string|max:255',
-            'valor' => 'required|string|max:255',
-            'image' => 'file'
-        ]);
+
+      //Validacion del formulario
+      $validate = $this->validate($request, [
+          'name' => 'required|string|min:4|max:255',
+          'isActive' => 'required|string|max:255',
+          'detail' => 'required|string|max:255',
+          'valor' => 'required|string|max:255',
+          'image' => 'file'
+      ]);
 
 
-        $membresia = Membresia::findOrFail($id);
-        $membresia->name = $request->input('name');
-        $membresia->isActive = $request->input('isActive');
-        $membresia->valor = $request->input('valor');
-        $membresia->detail = $request->input('detail');
+      $membresia = Membresia::findOrFail($id);
+      $membresia->name = $request->input('name');
+      $membresia->isActive = $request->input('isActive');
+      $membresia->valor = $request->input('valor');
+      $membresia->detail = $request->input('detail');
 
-        //Subir la imagen photo
-        $image_photo = $request->file('image');
-        if ($image_photo) {
+      //Subir la imagen photo
+      $image_photo = $request->file('image');
+      if ($image_photo) {
 
-          //Poner nombre unico
-          $image_photo_name = time() . $image_photo->getClientOriginalName();
+        //Poner nombre unico
+        $image_photo_name = time() . $image_photo->getClientOriginalName();
 
-          //Guardarla en la carpeta storage (storage/app/photoMembership)
-          Storage::disk('photoMembership')->put($image_photo_name, File::get($image_photo));
+        //Guardarla en la carpeta storage (storage/app/photoMembership)
+        Storage::disk('photoMembership')->put($image_photo_name, File::get($image_photo));
 
-          //Seteo el nombre de la imagen en el objeto
-          $membresia->image = $image_photo_name;
-        }
+        //Seteo el nombre de la imagen en el objeto
+        $membresia->image = $image_photo_name;
+      }
 
-        $membresia->save(); //INSERT BD
-        $totalusers = User::count();
+      $membresia->save(); //INSERT BD
 
-        return redirect('membresias')->with([
-                'message' => 'La membresía '.$membresia->name.' fue actualizada correctamente!',
-                'totalusers' => $totalusers
-        ]);
+      $totalusers = User::count();
+
+      return redirect('membresias')->with([
+              'message' => 'La membresía '.$membresia->name.' fue actualizada correctamente!',
+              'totalusers' => $totalusers
+      ]);
 
     }
 
@@ -177,7 +179,8 @@ class MembresiaController extends Controller
 
     }
 
-    public function detail($id) {
+    public function detail($id)
+    {
 
       $membresia = Membresia::find($id);
       $totalusers = User::count();
@@ -187,7 +190,6 @@ class MembresiaController extends Controller
           'totalusers' => $totalusers
       ]);
     }
-
 
 }
 

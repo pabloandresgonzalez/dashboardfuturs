@@ -33,11 +33,6 @@
         <img src="{{ route('prestamo.avatar',['filename'=>$membership->image]) }}" class="avatarsoporte" />
       </div>
 
-
-
-
-      
-
       </div>
     </div>
   </div>

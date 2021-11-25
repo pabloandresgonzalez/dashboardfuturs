@@ -22,11 +22,11 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-
-      $nombre = $request->get('buscarpor');
+      // Total de usuarios
       $totalusers = User::count(); 
+      $nombre = $request->get('buscarpor');      
 
-
+      // Buscador
       $users = User::where('name', 'LIKE', "%$nombre%")
       ->orwhere('lastname', 'LIKE', "%$nombre%")
       ->orwhere('role', 'LIKE', "%$nombre%")
@@ -37,50 +37,13 @@ class UserController extends Controller
       return view('users.index', [
       'users' => $users,
       'totalusers' => $totalusers
-      ]);
-
-      /*
-      $nombre = $request->get('buscarpor');
-
-      $users = User::where('name', 'LIKE', "%$nombre%")
-      ->orwhere('lastname', 'LIKE', "%$nombre%")
-      ->orwhere('role', 'LIKE', "%$nombre%")
-      ->orwhere('email', 'LIKE', "%$nombre%")
-      ->orderBy('id', 'desc')
-      ->paginate(3);
-
-      return view('users.index', [
-      'users' => $users
-      ]);
-
-
-      if (count($users) ) {
-
-        return view('users.index', [
-        'users' => $users
-        ]);
-
-      }
-
-      //dd($request->all());
-    
-      //Conseguir usuario identificado
-      //$user = \Auth::user();
-      //$totalusers = User::count(); 
-      $users = User::orderBy('id', 'Desc')->paginate(10);
-      $data = ['users' => $users];
-
-      
-
-      return view('users.index', $data);
-
-      */
-      
+      ]);  
 
     }
 
     public function create()
     {
+      // Total de usuarios
       $totalusers = User::count();
 
       return view('users.create', compact('totalusers'));
@@ -101,12 +64,14 @@ class UserController extends Controller
 
     public function getImage($filename)
     {
+      // Obtener imagen de avatar
       $file = Storage::disk('photousers')->get($filename);
       return new Response($file, 200);
     }
 
     public function getImageDoc($filename)
     {
+      // Obtener imagen de soporte de pago
       $file = Storage::disk('photoDocusers')->get($filename);
       return new Response($file, 200);
     }
@@ -151,8 +116,9 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-                  
-      //$totalusers = User::count();
+          
+      // Total de usuarios            
+      $totalusers = User::count();
 
       $this->perfomrValidationCreate($request);
 
@@ -204,8 +170,6 @@ class UserController extends Controller
 
       $user->save(); //INSERT EN BD
 
-      $totalusers = User::count(); 
-
 
       return redirect('user')->with([                
                 'message' => 'La informacion de '.$user->name.', fue actualizada correctamente!',
@@ -217,48 +181,43 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
 
-      //$totalusers = User::count();
+      // Total de usuarios   
+      $totalusers = User::count();
+
       $user = User::findOrFail($id);
 
-        //Conseguir usuario identificado
-        //$user = \Auth::user();
-        //$id = $user->id;
-        //$photo = $user->photo;
-        //$photoDoc = $user->photoDoc;
-
-        //Validacion del formulario
-        $validate = $this->validate($request, [
-          'name' => 'required|string|max:255',
-          'lastname' => 'required|string|max:255',
-          'typeDoc' => 'required|string|max:255',
-          'numberDoc' => 'required|string|max:255',
-          'role' => 'required|string|max:255',
-          'phone' => 'required|string|max:255',
-          'cellphone' => 'required|string|max:255',
-          'country' => 'required|string|max:255',
-          'level' => 'required|string|max:255',
-          'isActive' => 'required|string|max:255',
-          'ownerId' => 'required|string|max:255',
-          'email' => 'required|string|max:255',
-          'photo' => 'file',
-          'photo' => 'file',
-        ]);
+      //Validacion del formulario
+      $validate = $this->validate($request, [
+        'name' => 'required|string|max:255',
+        'lastname' => 'required|string|max:255',
+        'typeDoc' => 'required|string|max:255',
+        'numberDoc' => 'required|string|max:255',
+        'role' => 'required|string|max:255',
+        'phone' => 'required|string|max:255',
+        'cellphone' => 'required|string|max:255',
+        'country' => 'required|string|max:255',
+        'level' => 'required|string|max:255',
+        'isActive' => 'required|string|max:255',
+        'ownerId' => 'required|string|max:255',
+        'email' => 'required|string|max:255',
+        'photo' => 'file',
+        'photo' => 'file',
+      ]);
 
 
-        //Recoger los datos del formulario
-        $user->name = $request->input('name');
-        $user->lastname = $request->input('lastname');
-        $user->typeDoc = $request->input('typeDoc');
-        $user->numberDoc = $request->input('numberDoc');
-        $user->role = $request->input('role');
-        $user->phone = $request->input('phone');
-        $user->cellphone = $request->input('cellphone');
-        $user->country = $request->input('country');
-        $user->level = $request->input('level');
-        $user->isActive = $request->input('isActive');
-        $user->ownerId = $request->input('ownerId');
-        $user->email = $request->input('email');
-        //$user->password = $request->input('password');
+      //Recoger los datos del formulario
+      $user->name = $request->input('name');
+      $user->lastname = $request->input('lastname');
+      $user->typeDoc = $request->input('typeDoc');
+      $user->numberDoc = $request->input('numberDoc');
+      $user->role = $request->input('role');
+      $user->phone = $request->input('phone');
+      $user->cellphone = $request->input('cellphone');
+      $user->country = $request->input('country');
+      $user->level = $request->input('level');
+      $user->isActive = $request->input('isActive');
+      $user->ownerId = $request->input('ownerId');
+      $user->email = $request->input('email');
 
 
         //Subir la imagen photo
@@ -295,8 +254,6 @@ class UserController extends Controller
         //Ejecutar consulta y actualizar registro de BD
         $user->save();
 
-        $totalusers = User::count();
-
 
         return redirect('user')->with([
                 'message' => 'La informacion de '.$user->name.', fue actualizada correctamente!',
@@ -308,7 +265,9 @@ class UserController extends Controller
     public function updateUser(Request $request, $id)
     {
 
-      //$totalusers = User::count();
+      // Total usuarios
+      $totalusers = User::count();
+
       $user = User::findOrFail($id);
       $name = $user->name;
       $lastname = $user->lastname;
@@ -324,36 +283,28 @@ class UserController extends Controller
       $email = $user->email;
 
 
-
-        //Conseguir usuario identificado
-        //$user = \Auth::user();
-        //$id = $user->id;
-        //$photo = $user->photo;
-        //$photoDoc = $user->photoDoc;
-
-        //Validacion del formulario
-        $validate = $this->validate($request, [          
-          'phone' => 'required|string|max:255',
-          'cellphone' => 'required|string|max:255',
-          'photo' => 'file',
-          'photoDoc' => 'file',
-        ]);
+      //Validacion del formulario
+      $validate = $this->validate($request, [          
+        'phone' => 'required|string|max:255',
+        'cellphone' => 'required|string|max:255',
+        'photo' => 'file',
+        'photoDoc' => 'file',
+      ]);
 
 
-        //Recoger los datos del formulario
-        $user->name = $name;
-        $user->lastname = $lastname;
-        $user->typeDoc = $typeDoc;
-        $user->numberDoc = $numberDoc;
-        $user->role = $role;
-        $user->phone = $request->input('phone');
-        $user->cellphone = $request->input('cellphone');
-        $user->country = $country;
-        $user->level = $level;
-        $user->isActive = $isActive;
-        $user->ownerId = $ownerId;
-        $user->email = $email;
-        //$user->password = $request->input('password');
+      //Recoger los datos del formulario
+      $user->name = $name;
+      $user->lastname = $lastname;
+      $user->typeDoc = $typeDoc;
+      $user->numberDoc = $numberDoc;
+      $user->role = $role;
+      $user->phone = $request->input('phone');
+      $user->cellphone = $request->input('cellphone');
+      $user->country = $country;
+      $user->level = $level;
+      $user->isActive = $isActive;
+      $user->ownerId = $ownerId;
+      $user->email = $email;
 
 
         //Subir la imagen photo
@@ -390,8 +341,6 @@ class UserController extends Controller
         //Ejecutar consulta y actualizar registro de BD
         $user->save();
 
-        $totalusers = User::count();
-
 
         return redirect('home')->with([
                 'message' => $user->name.', tu informacion fue actualizada correctamente!',
@@ -404,7 +353,9 @@ class UserController extends Controller
     public function indexperfil()
     {
       //Conseguir usuario identificado
-        $user = \Auth::user();
+      $user = \Auth::user();
+
+      // Total usuarios
       $totalusers = User::count();
 
       return Response()->view('users.indexperfil', [
@@ -414,10 +365,13 @@ class UserController extends Controller
 
     }
 
-    public function detail($id) {
+    public function detail($id)
+    {
 
-      $user = User::find($id);
+      // Total usuarios
       $totalusers = User::count();
+
+      $user = User::find($id);      
 
       return view('users.detail', [
           'user' => $user,
@@ -427,6 +381,7 @@ class UserController extends Controller
 
     public function exportExcel()
     {
+      // Exportar tabla user a excel
       return Excel::download(new UsersExport, 'users.xlsx');
     }
     

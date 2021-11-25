@@ -41,11 +41,8 @@
 
           $id = $user->id;
 
-
-          //$id = '60535b90-6a4b-42f3-b273-2989b53ad1a1';
-
           $datacurl = [
-          'userId' => $id, //'d33b3162-2057-4079-8447-bcfd3e52960c',
+          'userId' => $id,
           'token' => 'AcjAa76AHxGRdyTemDb2jcCzRmqpWN'
           ];
 
@@ -76,43 +73,11 @@
           //dd($result);
           curl_close($curl);
 
-          if ($result) {
-            $url = ($result);
+          //decodificar JSON porque esa es la respuesta
+          $respuestaDecodificada = json_decode($result);
+ 
+?>
 
-                  $datacurl = json_decode($url, true);
-
-            if (isset($datacurl['PSIV']['balance'])) {
-              
-                $balancecho = $datacurl['PSIV']['balance']; 
-
-                echo $balancecho;
-            }else {
-
-              echo 'null';
-
-            } 
-
-          }
-
-          if ($result) {
-            $url = ($result);
-
-                  $datacurl = json_decode($url, true);
-
-            if (isset($datacurl['USDT']['balance'])) {
-              
-                $balancecho = $datacurl['USDT']['balance']; 
-
-                echo $balancecho;
-            }else {
-
-              echo 'null';
-
-            } 
-
-          } 
-
-  ?>
   
   @yield('styles')
 </head>

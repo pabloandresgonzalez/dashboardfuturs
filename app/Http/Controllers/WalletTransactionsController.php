@@ -48,83 +48,57 @@ class WalletTransactionsController extends Controller
     public function index(Request $request)
     {
 
+      //Conseguir usuario identificado
+      $user = \Auth::user();
 
-          //return view('wallets.index');
-
-          //Conseguir usuario identificado
-          $user = \Auth::user();
-
-          $id = $user->id;
+      $id = $user->id;
 
 
-          //$id = '60535b90-6a4b-42f3-b273-2989b53ad1a1';
+      $data = [
+      'userId' => $id,
+      'token' => 'AcjAa76AHxGRdyTemDb2jcCzRmqpWN'
+      ];
 
-          $data = [
-          'userId' => $id, //'d33b3162-2057-4079-8447-bcfd3e52960c',
-          'token' => 'AcjAa76AHxGRdyTemDb2jcCzRmqpWN'
-          ];
+      $curl = curl_init();
 
-          $curl = curl_init();
+      curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://sd0fxgedtd.execute-api.us-east-2.amazonaws.com/Prod_getBalanceByUser",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30000,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "POST",
+          CURLOPT_POSTFIELDS => json_encode($data),        
+          CURLOPT_HTTPHEADER => array(
+            // Set here requred headers
+              "accept: */*",
+              "accept-language: en-US,en;q=0.8",
+              "content-type: application/json",
+          ),
+      ));
 
-          curl_setopt_array($curl, array(
-              CURLOPT_URL => "https://sd0fxgedtd.execute-api.us-east-2.amazonaws.com/Prod_getBalanceByUser",
-              CURLOPT_RETURNTRANSFER => true,
-              CURLOPT_ENCODING => "",
-              CURLOPT_MAXREDIRS => 10,
-              CURLOPT_TIMEOUT => 30000,
-              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-              CURLOPT_CUSTOMREQUEST => "POST",
-              CURLOPT_POSTFIELDS => json_encode($data),        
-              CURLOPT_HTTPHEADER => array(
-                // Set here requred headers
-                  "accept: */*",
-                  "accept-language: en-US,en;q=0.8",
-                  "content-type: application/json",
-              ),
-          ));
+      $result = curl_exec($curl);
+      $err = curl_error($curl);
 
-          $result = curl_exec($curl);
-          $err = curl_error($curl);
+      curl_close($curl);
 
-          //dd($err);
+      //decodificar JSON porque esa es la respuesta
+      $respuestaDecodificada = json_decode($result);  
 
-          //dd($result);
-          curl_close($curl);
-          //$data1 = print_r($result);
+      $Wallets = wallet_transactions::where('user', $user->id)->orderBy('id', 'desc')
+        ->paginate(50);
 
-          //decodificar JSON 
-          //$respuestaDecodificada = json_decode($result, true); 
+      // Cantidad de usuarios
+      $totalusers = User::count();
 
-          //$data = file_get_contents("data/products.json");
-          //$totalwallet = json_decode($result, true);
-
-
-          //$balanceBTC = $totalwallet['BTC']['balance'];
-
-
-          //dd($respuestaDecodificada);
-
-          //dd($result);
-
-          $Wallets = wallet_transactions::where('user', $user->id)->orderBy('id', 'desc')
-            ->paginate(30);
-
-          $totalusers = User::count();
-
-          /*  
-          $memberships = UserMembership::where('user', $id)
-                                ->where('status', 'Ce');
-
-          dd($memberships);
-          */
-
-            
-            return view('wallets.index', [
-              'user' => $user,
-              'Wallets' => $Wallets,
-              'result' => $result,
-              'totalusers' => $totalusers
-            ]);     
+        
+        return view('wallets.index', [
+          'user' => $user,
+          'Wallets' => $Wallets,
+          'result' => $result,
+          'totalusers' => $totalusers
+        ]);     
 
       
 
@@ -132,7 +106,6 @@ class WalletTransactionsController extends Controller
 
     public function store(Request $request)
     {
-
 
       //Conseguir usuario identificado
       $user = \Auth::user();
@@ -167,8 +140,6 @@ class WalletTransactionsController extends Controller
         $Wallet->status = 'exhange';     
         $Wallet->detail = $request->input('detail');
 
-        //dd($Wallet);
-       
 
         $Wallet->save();// INSERT BD
 
@@ -182,7 +153,7 @@ class WalletTransactionsController extends Controller
 
         Mail::to($user_email_admin)->send(new TransactionMessageCreated($Wallet));
 
-        //return redirect('home');
+        // Cantidad de usuarios
         $totalusers = User::count();
 
         return redirect()->route('home')->with([
@@ -195,9 +166,9 @@ class WalletTransactionsController extends Controller
     public function edit($id) {
         
         $Wallets = wallet_transactions::find($id);
-        //$fecha_actual = date("Y-m-d H:i:s");
-        $totalusers = User::count();
 
+        // Cantidad de usuarios
+        $totalusers = User::count();
 
         return view('wallets.edit', [
           'Wallets' => $Wallets,
@@ -209,14 +180,10 @@ class WalletTransactionsController extends Controller
     public function update(Request $request, $id)
     {
 
-      //dd($result);
-
       //Conseguir usuario identificado
       $user = \Auth::user();
       $iduser = $user->id;
-      //dd($id);
-      //$name = $user->name;
-      //$email = $user->email;
+
 
       $Wallet = wallet_transactions::find($id);
       $user = $Wallet->user;
@@ -227,7 +194,6 @@ class WalletTransactionsController extends Controller
       $currency = $Wallet->currency;
       $wallet = $Wallet->wallet;
       $fee = $Wallet->fee;
-
 
                 
       $rules = ([
@@ -255,7 +221,6 @@ class WalletTransactionsController extends Controller
         $Wallet->inOut = 0;
         $Wallet->status = $request->input('status');     
         $Wallet->detail = $detail;
-
        
 
         $Wallet->save();// INSERT BD
@@ -270,7 +235,7 @@ class WalletTransactionsController extends Controller
         Mail::to($user_email_admin)->send(new StatusChangeTransactionMessageAdmin($Wallet));
         
 
-        //return redirect('home');
+        // Cantidad de usuarios
         $totalusers = User::count();
 
         return redirect()->route('home')->with([
@@ -293,12 +258,9 @@ class WalletTransactionsController extends Controller
                ->get();
 
 
-      //dd($users);
-
       $fecha_actual = date("Y-m-d H:i:s");
 
-      //$Wallets = wallet_transactions::find($id);
-        //$fecha_actual = date("Y-m-d H:i:s");
+      // Cantidad de usuarios
       $totalusers = User::count();
 
         return view('wallets.gsaldosadmin', [
@@ -312,13 +274,13 @@ class WalletTransactionsController extends Controller
     public function storeadmin(Request $request)
     {
 
-
       //Conseguir usuario identificado
       $user = \Auth::user();
       $id = $user->id;
       $name = $user->name;
       $email = $user->email;
 
+      // Cantidad de usuarios
       $totalusers = User::count();
 
                 
@@ -343,20 +305,11 @@ class WalletTransactionsController extends Controller
        $userid = $idmovimiento->id;
        $useremail = $idmovimiento->email;
 
-       //dd($userid);
 
        $memberships = UserMembership::where('user', $id)
-        ->where('status', 'Activo')
-        ->paginate();
-       //$depositos = UserMembership::where('user', $userid);
-            //->where('status', 'Activo')
-            //->paginate(5);
-
-        //dd($memberships);
+        ->where('status', 'Activo')->get();
 
         $cantmemberships = $memberships->count();
-
-        //dd($cantmemberships);
 
         // Si tiene almenos una membresia activa
         if ($cantmemberships > 0) {
@@ -375,11 +328,9 @@ class WalletTransactionsController extends Controller
         $Wallet->status = 'Aprobada';     
         $Wallet->detail = $request->input('detail');
 
-        //dd($Wallet);        
 
         $Wallet->save();// INSERT BD
 
-        //$totalusers = User::count();
 
         return redirect()->route('home')->with([
                     'message' => 'Asignación de saldo enviada correctamente!',
@@ -388,39 +339,9 @@ class WalletTransactionsController extends Controller
 
         }
 
-        //dd($memberships);
-
-        //No tiene ninguna membresia activa
-
         return redirect()->route('walletadmin')->with([
                     'message' => 'El usuario no tine una membresia activa!',
                     'totalusers' => $totalusers
         ]);
-
-
-        /*
-        //dd($Wallet);
-       
-
-        $Wallet->save();// INSERT BD
-
-
-        //enviar email
-        $user_email = User::where('role', 'admin')->first();
-        $user_email_admin = $user_email->email;
-        //$useremail = 'pabloandres6@gmail.com';
-
-        Mail::to($email)->send(new TransactionSentMessage($Wallet));
-
-        Mail::to($user_email_admin)->send(new TransactionMessageCreated($Wallet));
-
-        //return redirect('home');
-
-        return redirect()->route('home')->with([
-                    'message' => 'Solicitud de retiro enviado correctamente!'
-        ]);
-        */
-
     }
-
 }

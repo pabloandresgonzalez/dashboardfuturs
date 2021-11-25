@@ -20,6 +20,7 @@ use App\Mail\MembershipPurchaseMessage;
 use App\Exports\UsersMembershipsExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\wallet_transactions;
+use Carbon\Carbon;
 
 
 class UserMembershipController extends Controller
@@ -31,9 +32,13 @@ class UserMembershipController extends Controller
 
     public function index(Request $request)
     {
+      //Conseguir usuario identificado
+        $user = \Auth::user();
+        $iduser = $user->id;
+
         $nombre = $request->get('buscarpor');
         
-
+        // Buscador 
         $memberships = UserMembership::where('membership', 'LIKE', "%$nombre%")
         ->orwhere('user_name', 'LIKE', "%$nombre%")
         ->orwhere('user_email', 'LIKE', "%$nombre%")
@@ -43,20 +48,13 @@ class UserMembershipController extends Controller
         ->orderBy('id', 'desc')
         ->paginate(50);
 
+        // total de usuarios
         $totalusers = User::count();
 
         return view('memberships.index', [
         'memberships' => $memberships,
         'totalusers' => $totalusers
         ]);
-
-        /*
-
-        $memberships = UserMembership::orderBy('id', 'Desc')->paginate(10);
-        $data = ['memberships' => $memberships];
-
-        return view('memberships.index', compact('memberships'));
-        */
 
     }
 
@@ -71,18 +69,15 @@ class UserMembershipController extends Controller
 
         //dd($memberships);
 
-        //Conseguir membresias 
+        // Conseguir membresias de usuario identificado
         //$membresias = DB::table('membresias')->pluck()->toArray();
         $membresias = Membresia::orderBy('id', 'Desc')->get();
-        
 
-
-        //dd($membresias); 
+        // total de usuarios 
         $totalusers = User::count();
 
 
         return view('memberships.create', compact('membresias', 'totalusers'));
-
 
     }
 
@@ -90,8 +85,9 @@ class UserMembershipController extends Controller
         
         $memberships = UserMembership::find($id);
         $fecha_actual = date("Y-m-d H:i:s");
-        $totalusers = User::count();
 
+        // total de usuarios 
+        $totalusers = User::count();
 
         return view('memberships.edit', [
           'memberships' => $memberships,
@@ -110,7 +106,7 @@ class UserMembershipController extends Controller
         $name = $user->name;
         $email = $user->email;
         
-
+        // reglas de validacion  
         $rules = ([
             
             //'membership' => 'required|string|min:4', 
@@ -123,15 +119,25 @@ class UserMembershipController extends Controller
 
        $this->validate($request, $rules);
 
-       //dd($request);
 
        $id_membresia = Membresia::find($id);
 
        $membresia = Membresia::find($request->input('id_membresia'));
        $namemembresia =$membresia->name;
-       
-        //dd($namemembresia);
+
+       $membershipsuser = UserMembership::where('user', $user->id)
+        ->Where('membership', $namemembresia)
+        ->where('status', 'Activo')
+        ->get()->toArray();
+
+        if ($membershipsuser) {
+
+          return redirect()->route('home')->with([
+                    'message' => 'Ya cuentas con una membresia de este valor activa!'
+          ]);
           
+        }
+
 
         $fecha_actual = date("Y-m-d H:i:s");
 
@@ -162,19 +168,17 @@ class UserMembershipController extends Controller
           $membership->image = $image_photo_name;
         }
 
-
         $membership->save();// INSERT BD
 
         //Enviar email
         $user_email = User::where('role', 'admin')->first();
         $user_email_admin = $user_email->email;
-        //$user_email_admin = 'pabloandres6@gmail.com';
 
         Mail::to($user_email_admin)->send(new MembershipCreatedMessage($membership));
 
         Mail::to($email)->send(new MembershipPurchaseMessage($membership));
 
-        //return redirect('home');
+        // total de usuarios
         $totalusers = User::count();
 
         return redirect()->route('home')->with([
@@ -185,16 +189,7 @@ class UserMembershipController extends Controller
     }
 
     public function update(Request $request, $id)
-    {      
-
-        /*
-        //Conseguir usuario identificado
-        $user = \Auth::user();
-        $id = $user->id;
-
-        $membership = UserMembership::findOrFail($id);
-        $membership->hash;
-        */
+    {  
 
         //Validacion del formulario
         $validate = $this->validate($request, [
@@ -207,9 +202,6 @@ class UserMembershipController extends Controller
             //'detail' => 'required|max:255',     
             'image' => 'file',
         ]);
-
-
-        $fecha_actual = date("Y-m-d H:i:s");
 
         $membership = UserMembership::findOrFail($id);
         $membership->membership = $request->input('membership');
@@ -241,6 +233,7 @@ class UserMembershipController extends Controller
 
         Mail::to($user_email)->send(new StatusChangeMessage($membership));
 
+        // total de usuarios
         $totalusers = User::count();
 
         return redirect()->route('home')->with([
@@ -250,38 +243,39 @@ class UserMembershipController extends Controller
 
     }
 
-    public function indexUserMemberships() {
+    public function indexUserMemberships()
+    {
 
-    //Conseguir usuario identificado
-    $user = \Auth::user();
-    //$id = $user->id;
-    //$name = $user->name;
-    //$image = $user->image;
-    //$users = User::orderBy('id', 'desc')->get();
-    $memberships = UserMembership::where('user', $user->id)->orderBy('id', 'desc')
-            ->paginate(30);
+      //Conseguir usuario identificado
+      $user = \Auth::user();
 
-        //dd($memberships);
-    $totalusers = User::count();
+      $memberships = UserMembership::where('user', $user->id)
+        ->orderBy('id', 'desc')
+        ->paginate(30);
 
-        return view('memberships.mismemberships', [
-            'memberships' => $memberships,
-            'user' => $user,
-            'totalusers' => $totalusers
-        ]);
+      // total de usuarios
+      $totalusers = User::count();
+
+      return view('memberships.mismemberships', [
+          'memberships' => $memberships,
+          'user' => $user,
+          'totalusers' => $totalusers
+      ]);
 
     }
     
     public function getImage($filename)
     {
-
-        $file = Storage::disk('imagehash')->get($filename);
-        return new Response($file, 200);
+      // obtener imagen avatar
+      $file = Storage::disk('imagehash')->get($filename);
+      return new Response($file, 200);
     }
 
     public function orden($id)
     {
         $membership = UserMembership::find($id);
+
+        // total de usuarios
         $totalusers = User::count();
 
         return view('memberships.soporte', [
@@ -307,39 +301,29 @@ class UserMembershipController extends Controller
         $user = \Auth::user();
         $iduser= $user->id;
 
+        $totalusers = User::count();
+
         $memberships = UserMembership::where('user', $iduser)
         ->where('status', 'Activo')
         ->paginate(50);
-       //$depositos = UserMembership::where('user', $userid);
-            //->where('status', 'Activo')
-            //->paginate(5);
-
-        //dd($memberships);
 
         $cantmemberships = $memberships->count();
 
         $memberships = UserMembership::find($id);
-        //dd($memberships);
+        $id_membresia = $memberships->id_membresia;
 
-        //dd($cantmemberships);
+        $membresia = Membresia::where('id', $id_membresia)->first();
+        $valor_membresia = $membresia->valor;
 
         if ($cantmemberships > 0) {
-            
-          //dd($cantmemberships);
-          //echo "con membresa activa";
 
            //Conseguir usuario identificado
           $user = \Auth::user();
 
-          $id = $user->id;
-
-          $totalusers = User::count();
-
-
-          //$id = '60535b90-6a4b-42f3-b273-2989b53ad1a1';
+          $idd = $user->id;
 
           $data = [
-          'userId' => $id, //'d33b3162-2057-4079-8447-bcfd3e52960c',
+          'userId' => $idd,
           'token' => 'AcjAa76AHxGRdyTemDb2jcCzRmqpWN'
           ];
 
@@ -365,57 +349,33 @@ class UserMembershipController extends Controller
           $result = curl_exec($curl);
           $err = curl_error($curl);
 
-          //dd($err);
-
-          //dd($result);
           curl_close($curl);
           //$data1 = print_r($result);
 
           //decodificar JSON 
-          //$respuestaDecodificada = json_decode($result, true); 
+          $respuestaDecodificada = json_decode($result, true); 
 
-          //$data = file_get_contents("data/products.json");
-          //$totalwallet = json_decode($result, true);
-
-
-          //$balanceBTC = $totalwallet['BTC']['balance'];
-
-
-          //dd($respuestaDecodificada);
-
-          //dd($result);
           
           return view('memberships.renovar', [
                 'memberships' => $memberships,
                 'user' => $user,
                 'result' => $result,
-                'totalusers' => $totalusers
+                'totalusers' => $totalusers,
+                'valor_membresia' => $valor_membresia
                 ]);             
 
         }
 
-            //echo "sin membresa activa";
 
             return redirect()->route('home')->with([
-                'message' => 'Debes tener saldo o una membresía activa para renovar!',
+                'message' => 'Debes tener saldo y al menos una membresía activa para renovar!',
                 'totalusers' => $totalusers
             ]); 
-
-
-        /*
-        $memberships = UserMembership::find($id);
-        //dd($memberships);
-
-        return view('memberships.renovar', [
-          'memberships' => $memberships
-          ]);
-        */
 
     }
 
     public function renovar(Request $request, $id)
     {
-        //dd($id);
 
         //Conseguir usuario identificado
         $user = \Auth::user();
@@ -429,13 +389,12 @@ class UserMembershipController extends Controller
         $id_membresia = $membershippadre->id_membresia;
         $typeHash =  $membershippadre->typeHash;
 
-        //dd($typeHash);
 
         $membresia = Membresia::where('id', $id_membresia)->first();
         $valor_membresia = $membresia->valor;
 
         $data = [
-          'userId' => $iduser, //'d33b3162-2057-4079-8447-bcfd3e52960c',
+          'userId' => $iduser,
           'token' => 'AcjAa76AHxGRdyTemDb2jcCzRmqpWN'
           ];
 
@@ -461,28 +420,13 @@ class UserMembershipController extends Controller
           $result = curl_exec($curl);
           $err = curl_error($curl);
 
-          //dd($err);
-
-          //dd($result);
           curl_close($curl);
-          //$data1 = print_r($result);
 
-          //decodificar JSON 
-          //$respuestaDecodificada = json_decode($result, true); 
-
-          //$data = file_get_contents("data/products.json");
-          //$totalwallet = json_decode($result, true);
-
-
-          //$balanceBTC = $totalwallet['BTC']['balance'];
-
-
-          //dd($respuestaDecodificada);
-
-          //dd($result);
 
           //decodificar JSON porque esa es la respuesta
-          $respuestaDecodificada = json_decode($result);  
+          $respuestaDecodificada = json_decode($result); 
+
+           
           $url = ($result);
               $data = json_decode($url, true);
               $totalPSIV = $data['USDT']['total'];
@@ -490,25 +434,20 @@ class UserMembershipController extends Controller
 
               $total = $totalPSIV + $totalUSDT;
 
-          //dd($totalPSIV);
 
 
           $valor_saldo  = $total;
-             
 
-        //dd($valor_membresia);
 
         if ($valor_membresia > $valor_saldo) {
             
             return redirect()->route('home')->with([
                     'message' => 'Saldo insuficiente para renovar!',
-                    'totalusers' => $totalusers
+                    'totalusers' => $totalusers,
+                    'valor_membresia' => $valor_membresia
                 ]); 
 
         }
-
-     
-        //dd($id_membresia);
 
         //Validacion del formulario
         $validate = $this->validate($request, [
@@ -551,7 +490,6 @@ class UserMembershipController extends Controller
           $membership->image = $image_photo_name;
         }
 
-        //dd($membership);
 
         $membershipInicial = UserMembership::findOrFail($id);
         $membershipInicial->status = 'Terminada';
@@ -600,8 +538,7 @@ class UserMembershipController extends Controller
         $Wallet->inOut = 0;
         $Wallet->status = 'Aprobada';     
         $Wallet->detail = 'Descuento para renovar membresia';
-
-        //dd($Wallet);       
+    
 
         $Wallet->save();// INSERT BD
         
@@ -611,77 +548,6 @@ class UserMembershipController extends Controller
                     'totalusers' => $totalusers
                     
         ]);
-        
-        /*
-        //dd($id);
-
-        //Conseguir usuario identificado
-        $user = \Auth::user();
-        $iduser = $user->id;
-        $name = $user->name;
-        $email = $user->email;
-
-        $membershippadre = UserMembership::findOrFail($id);
-        $id_membresia = $membershippadre->id_membresia;
-
-       
-        //dd($id_membresia);
-
-        //Validacion del formulario
-        $validate = $this->validate($request, [
-            'membership' => 'required|string|min:4',        
-            'hashUSDT' => 'required|max:255|unique:user_memberships', 
-            'hashPSIV' => 'required|max:255|unique:user_memberships',
-            //'detail' => 'required|max:255', 
-            //'activedAt' => 'required|max:255',
-            //'closedAt' => 'required|max:255',    
-            'image' => 'file',
-        ]);  
-
-        //dd($validate);    
-
-        $membership = new UserMembership();
-        $membership->id_membresia = $id_membresia;
-        $membership->membresiaPadre = $id;
-        $membership->membership = $request->input('membership');
-        $membership->user_email = $email;
-        $membership->user = $iduser;
-        $membership->user_name = $name;
-        $membership->hashUSDT = $request->input('hashUSDT');
-        $membership->hashPSIV = $request->input('hashPSIV');     
-        $membership->detail = 'X renovar';
-        $membership->status = 'Pendiente';
-        $membership->closedAt = null;
-        $membership->activedAt = null;
-
-
-        //Subir la imagen imagehash
-        $image_photo = $request->file('image');
-        if ($image_photo) {
-
-          //Poner nombre unico
-          $image_photo_name = time() . $image_photo->getClientOriginalName();
-
-          //Guardarla en la carpeta storage (storage/app/imagehash)
-          Storage::disk('imagehash')->put($image_photo_name, File::get($image_photo));
-
-          //Seteo el nombre de la imagen en el objeto
-          $membership->image = $image_photo_name;
-        }
-
-        //dd($membership);
-
-        $membershipInicial = UserMembership::findOrFail($id);
-        $membershipInicial->status = 'Terminada';
-
-        $membership->save();// INSERT BD
-        $membershipInicial->save();
-        
-
-        return redirect()->route('home')->with([
-                    'message' => 'Hash de renovación enviado correctamente!'
-        ]);
-        */
 
     }
 
