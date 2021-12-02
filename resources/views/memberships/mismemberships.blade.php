@@ -30,17 +30,24 @@
       @endif
 
 
+
+      <script>
+          swal('<?php echo "Hola! ".$user->name. ", no olvides revisar el tiempo restante de tus membresías" ?>');               
+      </script>
+
       <div class="card pub-prestamo">
         <div class="card-header">
           <i class="ni ni-box-2 "></i> &nbsp;Mis Membresias </h3>
         </div>
+
        
 
           <div class="table-responsive">
-            <table class="table align-items-center table-dark">
+            <table class="table align-items-center table-dark">              
               <thead class="thead-dark">
                 <tr>
                   <th scope="col" class="sort">Membresia</th>
+                  <th scope="col">Dias restantes</th>
                   <th scope="col">hashUSDT</th>
                   <th scope="col">hashPSIV</th>
                   <th scope="col">Estado</th>
@@ -56,6 +63,23 @@
                 <tr>
                   <td scope="row">
                     {{ $membership->membership }}
+                  </td>
+                  <td>
+                    <?php 
+                      if ($membership->status === 'Activo') {
+                        $fecha_actual = date("Y-m-d H:i:s");
+                        $fecha_final = $membership->closedAt;
+                        $fecha1= new DateTime($fecha_final);
+                        $fecha2= new DateTime($fecha_actual);
+                        $diff = $fecha1->diff($fecha2);
+
+                        echo $diff->days . ' dias';
+                          
+                      }else {
+                        echo $membership->status;
+                      }
+                      
+                      ?>
                   </td>
                   <td>
                     {{ $membership->hashUSDT }}
@@ -74,11 +98,11 @@
                     
                   </td>
                   <td>
-                    {{ $membership->activedAt }}
-                  </td>
+                    {{ $membership->activedAt }}                    
+                  </td>                  
                   <td>
                     {{ $membership->closedAt }}
-                  </td>
+                  </td>                
                   <td>
                     {{ $membership->detail }}
                   </td>  
@@ -102,6 +126,8 @@
     </div>
 
     <hr>
+
+    
 
 
 

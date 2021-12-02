@@ -41,6 +41,12 @@
         </div>
       @endif
 
+      @if(session('message'))
+          <div class="alert alert-danger">
+            {{ session('message') }}
+          </div>
+      @endif
+
 
           <div class="table-responsive">
             <table class="table align-items-center table-dark">
