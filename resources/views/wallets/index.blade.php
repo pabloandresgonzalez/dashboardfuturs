@@ -100,7 +100,7 @@
                           
                         </ul>
                         <ul>
-                          Retiros:  &nbsp;
+                          Traslados:  &nbsp;
                           <?php 
                             if ($result) {
                               $url = ($result);
@@ -186,7 +186,7 @@
                           
                         </ul>
                         <ul>
-                          Retiros:  &nbsp;
+                          Traslados:  &nbsp;
                           <?php 
                             if ($result) {
                               $url = ($result);
@@ -263,7 +263,7 @@
                                   <span class="input-group-text"><i class="ni ni-credit-card"></i></span>
                                 </div>
                                   <select id="currency" name="currency" class="form-control" required>
-                                      <option value=""  >Tipo</option>
+                                      <option value=""  >Tipo divisa</option>
                                       <option value="PSIV"  >PSIV</option>
                                       <option value="USDT"  >USDT</option>
                                   </select>
@@ -274,7 +274,7 @@
                                 <div class="input-group-prepend">
                                   <span class="input-group-text"><i class="ni ni-credit-card"></i></span>
                                 </div>
-                                  <input class="form-control" placeholder="Wallet" type="text" name="wallet" value="" required autocomplete="wallet" autofocus>
+                                  <input class="form-control" placeholder="Dime la Wallet" type="text" name="wallet" value="" required autocomplete="wallet" autofocus>
                               </div>
                             </div>                           
                             <div class="col-md-6" >
@@ -359,7 +359,7 @@
                   <th scope="col">$ Valor</th>
                   <th scope="col">Tarifa</th>
                   <th scope="col">Detalle</th>
-                  <th scope="col">Tipo</th>
+                  <th scope="col">Tipo movimiento</th>
                   <th scope="col">Divisa</th>
                 </tr>
               </thead>
@@ -384,15 +384,7 @@
                     {{ $Wallet->detail }}
                   </td>
                   <td>
-                    <?php
-                      if($Wallet->type == 0 )                      
-                      {
-                        echo 'Retiro';
-                      }else
-                      {
-                        echo 'Abono';
-                      } 
-                    ?>
+                    {{ $Wallet->type }}
                   </td>
                   <td>
                     {{ $Wallet->currency }}

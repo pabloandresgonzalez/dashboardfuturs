@@ -33,7 +33,7 @@ class WalletTransactionsController extends Controller
         ->orwhere('type', 'LIKE', "%$nombre%")
         ->orwhere('status', 'LIKE', "%$nombre%")
         ->orwhere('created_at', 'LIKE', "%$nombre%")
-        ->orderBy('id', 'desc')
+        ->orderBy('created_at', 'desc')
         ->paginate(50);
 
         $totalusers = User::count();
@@ -339,8 +339,9 @@ class WalletTransactionsController extends Controller
                 
       $rules = ([
           
+          'idmovimiento' => 'required|string|max:255',
           'value' => 'required|string|max:255',
-          'value' => 'required|string|max:255',
+          'type' => 'required|string|max:255',
           'detail' => 'required|string', 
           //'currency' => 'required|string', 
           //'wallet' => 'required|string',         
@@ -348,8 +349,6 @@ class WalletTransactionsController extends Controller
       ]);
 
        $this->validate($request, $rules);
-
-       $type = $request->input('type');
 
 
        $idmovimiento = $request->input('idmovimiento');
@@ -364,34 +363,30 @@ class WalletTransactionsController extends Controller
 
         $cantmemberships = $memberships->count();
 
-        //dd($cantmemberships);
-
+        //wallet_transactions de retiro
         $Wallet = new wallet_transactions();
         $Wallet->user = $userid;
         $Wallet->email = $useremail;
         $Wallet->value = $request->input('value');
-        $Wallet->fee = 0;
-        //$Wallet->type = $request->input('type');
-
         $type = $request->input('type');
-
-        if ($type = 0) {
-          $Wallet->type = 0;
-        } else {
-          $Wallet->type = 1;
-        }
-
+        $Wallet->fee = 0;
+        $Wallet->type  = $type;
         $Wallet->hash = 'Autoriza'." ".$name."-".$email;
         $Wallet->currency = $request->input('currency');
         $Wallet->approvedBy = $id;
-        $Wallet->wallet = $request->input('wallet');
-        $Wallet->inOut = 0;
+        $Wallet->wallet = null;
+
+        if ($type === "Retiro") {
+          $Wallet->inOut = 0;
+        } else {
+          $Wallet->inOut = 1;
+        }
+        
+        //$Wallet->inOut = 0;
         $Wallet->status = 'Aprobada';     
         $Wallet->detail = $request->input('detail');
 
-
         $Wallet->save();// INSERT BD
-
 
         return redirect()->route('home')->with([
                     'message' => 'Asignación de saldo enviada correctamente!',
