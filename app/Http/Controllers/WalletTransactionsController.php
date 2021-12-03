@@ -371,7 +371,16 @@ class WalletTransactionsController extends Controller
         $Wallet->email = $useremail;
         $Wallet->value = $request->input('value');
         $Wallet->fee = 0;
-        $Wallet->type = $request->input('type');
+        //$Wallet->type = $request->input('type');
+
+        $type = $request->input('type');
+
+        if ($type = 0) {
+          $Wallet->type = 0;
+        } else {
+          $Wallet->type = 1;
+        }
+
         $Wallet->hash = 'Autoriza'." ".$name."-".$email;
         $Wallet->currency = $request->input('currency');
         $Wallet->approvedBy = $id;
