@@ -46,7 +46,7 @@ class UserMembershipController extends Controller
         ->orwhere('hashPSIV', 'LIKE', "%$nombre%")
         ->orwhere('status', 'LIKE', "%$nombre%")
         ->orderBy('id', 'desc')
-        ->paginate(50);
+        ->paginate(100);
 
         // total de usuarios
         $totalusers = User::count();
@@ -248,6 +248,7 @@ class UserMembershipController extends Controller
 
       //Conseguir usuario identificado
       $user = \Auth::user();
+      $username = $user->name;
 
       $memberships = UserMembership::where('user', $user->id)
         ->orderBy('id', 'desc')
@@ -256,10 +257,12 @@ class UserMembershipController extends Controller
       // total de usuarios
       $totalusers = User::count();
 
+
       return view('memberships.mismemberships', [
           'memberships' => $memberships,
           'user' => $user,
-          'totalusers' => $totalusers
+          'totalusers' => $totalusers,
+          'username' => $username
       ]);
 
     }
@@ -280,7 +283,7 @@ class UserMembershipController extends Controller
 
         return view('memberships.soporte', [
             'membership' => $membership,
-            'totalusers' => $totalusers
+            'totalusers' => $totalusers            
         ]);
 
     }

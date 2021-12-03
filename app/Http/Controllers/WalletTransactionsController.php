@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\UserMembership;
 use App\Mail\StatusChangeTransactionMessage;
 use App\Mail\StatusChangeTransactionMessageAdmin;
+use DateTime;
 
 class WalletTransactionsController extends Controller
 {
@@ -125,12 +126,56 @@ class WalletTransactionsController extends Controller
 
        $this->validate($request, $rules);
 
+       // $idmovimiento = $request->input('idmovimiento');
+       
+       $idmovimiento = User::where('id', $id)->first();
+       $userid = $idmovimiento->id;
+       $useremail = $idmovimiento->email;
+
+
+       $memberships = UserMembership::where('user', $userid)
+        ->where('status', 'Activo')->get();
+
+        $cantmemberships = $memberships->count();
+
+        // Si tiene almenos una membresia activa
+        if ($cantmemberships > 0) {
 
         $Wallet = new wallet_transactions();
         $Wallet->user = $id;
         $Wallet->email = $email;
         $Wallet->value = $request->input('value');
-        $Wallet->fee = 5;
+
+
+        $dia1 = date('Y-m-01');
+        $fecha_actual = date("Y-m-d");
+
+        //$dias_habiles = bussiness_days($dia1, $fecha_actual);
+
+        //dd($dias_habiles);
+
+
+        $fecha1= new DateTime($dia1);
+        $fecha2= new DateTime($fecha_actual);
+        $diff = $fecha1->diff($fecha2);
+       
+
+        $percentageda = 12;
+        $percentagedp = 8;
+        $valretiro = $request->input('value'); 
+
+        $toPorretiroda = ($percentageda / 100) * $valretiro;
+        $toPorretirodp = ($percentagedp / 100) * $valretiro;
+
+
+        if ($diff->days < 15) {
+          $Wallet->fee = $toPorretiroda;
+        } else {
+          $Wallet->fee = $toPorretirodp;
+        }
+        
+
+        //$Wallet->fee = 5;
         $Wallet->type = 0;
         $Wallet->hash = '';
         $Wallet->currency = $request->input('currency');
@@ -159,7 +204,15 @@ class WalletTransactionsController extends Controller
         return redirect()->route('home')->with([
                     'message' => 'Solicitud de retiro enviado correctamente!',
                     'totalusers' => $totalusers
-        ]);
+        ]); 
+
+        }
+
+        return redirect()->route('home')->with([
+                    'message' => 'El usuario no tine una membresia activa para poder hacer retiros!'
+                    //'totalusers' => $totalusers
+        ]);  
+       
 
     }
 
@@ -311,14 +364,13 @@ class WalletTransactionsController extends Controller
 
         $cantmemberships = $memberships->count();
 
-        // Si tiene almenos una membresia activa
-        if ($cantmemberships > 0) {
+        //dd($cantmemberships);
 
         $Wallet = new wallet_transactions();
         $Wallet->user = $userid;
         $Wallet->email = $useremail;
         $Wallet->value = $request->input('value');
-        $Wallet->fee = 5;
+        $Wallet->fee = 0;
         $Wallet->type = $request->input('type');
         $Wallet->hash = 'Autoriza'." ".$name."-".$email;
         $Wallet->currency = $request->input('currency');
@@ -337,11 +389,31 @@ class WalletTransactionsController extends Controller
                     'totalusers' => $totalusers
         ]);
 
+        /*
+        // Si tiene almenos una membresia activa
+        if ($cantmemberships > 0) {
+        $Wallet = new wallet_transactions();
+        $Wallet->user = $userid;
+        $Wallet->email = $useremail;
+        $Wallet->value = $request->input('value');
+        $Wallet->fee = 5;
+        $Wallet->type = $request->input('type');
+        $Wallet->hash = 'Autoriza'." ".$name."-".$email;
+        $Wallet->currency = $request->input('currency');
+        $Wallet->approvedBy = $id;
+        $Wallet->wallet = $request->input('wallet');
+        $Wallet->inOut = 0;
+        $Wallet->status = 'Aprobada';     
+        $Wallet->detail = $request->input('detail');
+        $Wallet->save();// INSERT BD
+        return redirect()->route('home')->with([
+                    'message' => 'Asignación de saldo enviada correctamente!',
+                    'totalusers' => $totalusers
+        ]);
         }
-
         return redirect()->route('walletadmin')->with([
                     'message' => 'El usuario no tine una membresia activa!',
                     'totalusers' => $totalusers
-        ]);
+        ]); */
     }
 }

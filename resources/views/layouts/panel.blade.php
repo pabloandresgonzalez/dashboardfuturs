@@ -17,13 +17,17 @@
   <!-- Argon CSS -->
   <link href="{{ asset('css/argon.css?v=1.0.0') }}" rel="stylesheet">
 
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+
   <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function() {
-          setTimeout(function() {
-              $(".alert").fadeOut(6000);
-          });
-      });
+  <script type="text/javascript">
+    $(document).ready(function() {
+        setTimeout(function() {
+            $(".alert").fadeOut(6000);
+        });
+    });
   </script>
 
   <?php 
@@ -82,7 +86,7 @@
   @yield('styles')
 </head>
 
-<body>  
+<body> 
   <!-- Sidenav -->
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
@@ -153,6 +157,8 @@
             <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="#">Panel</a>
           </li>
         </ul>
+
+        <div id="clock"></div>
 
        <!-- Form -->
         <!--
@@ -239,7 +245,7 @@
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Comisión</h5>
-                      <span class="h2 font-weight-bold mb-0">5%</span>
+                      <span class="h2 font-weight-bold mb-0">5%</span>                      
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
@@ -269,9 +275,9 @@
 
                           if (isset($datacurl['PSIV']['balance'])) {
                             
-                              $balancecho = $datacurl['PSIV']['balance']; 
+                              $saldo = $datacurl['PSIV']['total']; 
 
-                              echo "<h6>PSIV</h6> $ " . $balancecho . "<br>";
+                              echo "<h6>PSIV</h6> $ " . $saldo . "<br>";
                           }else {
 
                             echo '$ ';
@@ -287,9 +293,9 @@
 
                           if (isset($datacurl['USDT']['balance'])) {
                             
-                              $balancecho = $datacurl['USDT']['balance']; 
+                              $saldo = $datacurl['USDT']['total']; 
 
-                              echo "<h6>USDT</h6> $ " . $balancecho  ;
+                              echo "<h6>USDT</h6> $ " . $saldo  ;
                           }else {
 
                             echo '$ ';
@@ -332,7 +338,7 @@
   <script src="{{ asset('vendor/chart.js/dist/Chart.extension.js') }}"></script>
   @yield('scripts')
   <!-- Argon JS -->
-  <script src="{{ asset('js/argon.js?v=1.0.0') }}"></script>
+  <script src="{{ asset('js/argon.js?v=1.0.0') }}"></script>  
 </body>
 
 </html>

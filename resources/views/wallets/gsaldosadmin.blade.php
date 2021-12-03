@@ -94,8 +94,8 @@
                             </div>
                               <select id="currency" name="currency" class="form-control" required>
                                   <option value=""  >Tipo divisa</option>
+                                  <option value="PSIV"  >PSIV</option>
                                   <option value="USDT"  >USDT</option>
-                                  <option value="BTC"  >BTC</option>
                               </select>
                           </div>
                         </div>

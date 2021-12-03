@@ -28,6 +28,8 @@
         </div>
       @endif
 
+
+
       <div class="container-fluid">
         <div class="header-body">
             <div class="row-fluid ">
@@ -98,33 +100,34 @@
                           
                         </ul>
                         <ul>
-                          Total:  &nbsp;
-
+                          Retiros:  &nbsp;
                           <?php 
-
                             if ($result) {
                               $url = ($result);
-
                                     $data = json_decode($url, true);
-
-                              if (isset($data['PSIV']['total'])) {
-                                
-                                  //$balancecho = $data['BTC']['balance']; 
-                                  //$exhange = $data['BTC']['exhange']; 
-
-                                  $total = $data['PSIV']['total'];
-
-                                  echo $total;
+                              if (isset($data['PSIV']['withdrawals'])) {
+                                  $withdrawals = $data['PSIV']['withdrawals'];
+                                  echo $withdrawals;
                               }else {
-
                                 echo '*';
-
                               } 
-
-                            }    
-
-                          ?>
-                         
+                            } 
+                          ?>                         
+                        </ul>
+                        <ul>
+                          Saldo:  &nbsp;
+                          <?php 
+                            if ($result) {
+                              $url = ($result);
+                                    $data = json_decode($url, true);
+                              if (isset($data['PSIV']['total'])) {
+                                  $saldo = $data['PSIV']['total'];
+                                  echo $saldo;
+                              }else {
+                                echo '*';
+                              } 
+                            } 
+                          ?>                         
                         </ul> 
 
                         <hr style="width:75%;" />   
@@ -183,30 +186,34 @@
                           
                         </ul>
                         <ul>
-                          Total:  &nbsp;
-
+                          Retiros:  &nbsp;
                           <?php 
-
                             if ($result) {
                               $url = ($result);
-
                                     $data = json_decode($url, true);
-
-                              if (isset($data['USDT']['total'])) {
-                                
+                              if (isset($data['USDT']['withdrawals'])) {                                
+                                  $withdrawals = $data['USDT']['withdrawals']; 
+                                  echo $withdrawals;
+                              }else {
+                                echo '*';
+                              } 
+                            }   
+                          ?>                          
+                        </ul> 
+                        <ul>
+                          Total:  &nbsp;
+                          <?php 
+                            if ($result) {
+                              $url = ($result);
+                                    $data = json_decode($url, true);
+                              if (isset($data['USDT']['total'])) {                                
                                   $total = $data['USDT']['total']; 
-
                                   echo $total;
                               }else {
-
                                 echo '*';
-
                               } 
-
-                            }    
-
-                          ?>
-                          
+                            }   
+                          ?>                          
                         </ul>                              
 
                       </div>
