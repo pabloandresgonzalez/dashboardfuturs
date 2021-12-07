@@ -176,7 +176,7 @@ class WalletTransactionsController extends Controller
         
 
         //$Wallet->fee = 5;
-        $Wallet->type = 0;
+        $Wallet->type = "Retiro";
         $Wallet->hash = '';
         $Wallet->currency = $request->input('currency');
         $Wallet->approvedBy = '';
@@ -368,9 +368,9 @@ class WalletTransactionsController extends Controller
         $Wallet->user = $userid;
         $Wallet->email = $useremail;
         $Wallet->value = $request->input('value');
-        $type = $request->input('type');
         $Wallet->fee = 0;
-        $Wallet->type  = $type;
+        $type = $request->input('type');        
+        $Wallet->type = $request->input('type'); 
         $Wallet->hash = 'Autoriza'." ".$name."-".$email;
         $Wallet->currency = $request->input('currency');
         $Wallet->approvedBy = $id;
