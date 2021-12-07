@@ -304,6 +304,52 @@ class UserMembershipController extends Controller
         $user = \Auth::user();
         $iduser= $user->id;
 
+        $data = [
+        'userId' => $iduser,
+        'token' => 'AcjAa76AHxGRdyTemDb2jcCzRmqpWN'
+        ];
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://sd0fxgedtd.execute-api.us-east-2.amazonaws.com/Prod_getBalanceByUser",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30000,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode($data),        
+            CURLOPT_HTTPHEADER => array(
+              // Set here requred headers
+                "accept: */*",
+                "accept-language: en-US,en;q=0.8",
+                "content-type: application/json",
+            ),
+        ));
+
+        $result = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+        //$data1 = print_r($result);
+
+        //decodificar JSON 
+        $respuestaDecodificada = json_decode($result, true);
+
+        if ($result) {
+          $url = ($result);
+                $data = json_decode($url, true);
+          if (isset($data['USDT']['total'])  || isset($data['PSIV']['total'])) {
+              $totalPSIV = $data['USDT']['total'];
+              $totalUSDT = $data['PSIV']['total'];
+
+              $total = $totalPSIV + $totalUSDT;
+          }else {
+            
+          } 
+        } 
+
         $totalusers = User::count();
 
         $memberships = UserMembership::where('user', $iduser)
@@ -318,46 +364,9 @@ class UserMembershipController extends Controller
         $membresia = Membresia::where('id', $id_membresia)->first();
         $valor_membresia = $membresia->valor;
 
-        if ($cantmemberships > 0) {
 
-           //Conseguir usuario identificado
-          $user = \Auth::user();
-
-          $idd = $user->id;
-
-          $data = [
-          'userId' => $idd,
-          'token' => 'AcjAa76AHxGRdyTemDb2jcCzRmqpWN'
-          ];
-
-          $curl = curl_init();
-
-          curl_setopt_array($curl, array(
-              CURLOPT_URL => "https://sd0fxgedtd.execute-api.us-east-2.amazonaws.com/Prod_getBalanceByUser",
-              CURLOPT_RETURNTRANSFER => true,
-              CURLOPT_ENCODING => "",
-              CURLOPT_MAXREDIRS => 10,
-              CURLOPT_TIMEOUT => 30000,
-              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-              CURLOPT_CUSTOMREQUEST => "POST",
-              CURLOPT_POSTFIELDS => json_encode($data),        
-              CURLOPT_HTTPHEADER => array(
-                // Set here requred headers
-                  "accept: */*",
-                  "accept-language: en-US,en;q=0.8",
-                  "content-type: application/json",
-              ),
-          ));
-
-          $result = curl_exec($curl);
-          $err = curl_error($curl);
-
-          curl_close($curl);
-          //$data1 = print_r($result);
-
-          //decodificar JSON 
-          $respuestaDecodificada = json_decode($result, true); 
-
+        if ($total > $valor_membresia) {
+          
           
           return view('memberships.renovar', [
                 'memberships' => $memberships,
@@ -371,7 +380,7 @@ class UserMembershipController extends Controller
 
 
             return redirect()->route('home')->with([
-                'message' => 'Debes tener saldo y al menos una membresía activa para renovar!',
+                'message' => 'Debes tener saldo suficiente y al menos una membresía activa para renovar!',
                 'totalusers' => $totalusers
             ]); 
 
@@ -427,7 +436,16 @@ class UserMembershipController extends Controller
 
 
           //decodificar JSON porque esa es la respuesta
-          $respuestaDecodificada = json_decode($result); 
+          $respuestaDecodificada = json_decode($result);
+
+          $percentage = 5;
+          $valmembresia = $valor_membresia;
+
+          $toPorcMemberschip = ($percentage / 100) * $valmembresia;
+
+          $percentageuser = 2;
+
+          $toPorcMemberschiprefe = ($percentageuser / 100) * $valmembresia; 
 
            
           $url = ($result);
@@ -504,9 +522,8 @@ class UserMembershipController extends Controller
         $Wallet = new wallet_transactions();
         $Wallet->user = $iduser;
         $Wallet->email = $email;
-        $value = $valor_membresia / 2 + 2.5;
-        $Wallet->value = $value;
-        $Wallet->fee = 5 / 2;
+        $Wallet->value = $valor_membresia + $toPorcMemberschip / 2;
+        $Wallet->fee = $toPorcMemberschip / 2;
         $Wallet->type = 0;
         $Wallet->hash = 'Descuento para renovar '.bin2hex(random_bytes(20));
         $Wallet->currency = 'PSIV';
@@ -530,9 +547,8 @@ class UserMembershipController extends Controller
         $Wallet = new wallet_transactions();
         $Wallet->user = $iduser;
         $Wallet->email = $email;
-        $value = $valor_membresia / 2 + 2.5;
-        $Wallet->value = $value;
-        $Wallet->fee = 5 / 2 ;
+        $Wallet->value = $valor_membresia + $toPorcMemberschip / 2;
+        $Wallet->fee = $toPorcMemberschip / 2;
         $Wallet->type = 0;
         $Wallet->hash = 'Descuento para renovar '.bin2hex(random_bytes(20));
         $Wallet->currency = 'USDT';

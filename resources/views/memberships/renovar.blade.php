@@ -42,7 +42,7 @@
           if (isset($data['USDT']['total'])  || isset($data['PSIV']['total'])) {
             $totalPSIV = $data['USDT']['total'];
             $totalUSDT = $data['PSIV']['total'];
-            if ($totalPSIV >= 1) {
+            if ($totalPSIV > $valor_membresia || $totalUSDT > $valor_membresia) {
               //echo "si";
               echo '<div class="col-md-12"><h5> Saldo: PSIV'.' '.  $totalPSIV .' | Saldo: USDT'.' '.  $totalUSDT .'</h5> <br></div>';
 
@@ -84,7 +84,7 @@
               ';
 
             }else {
-              echo '<div class="col-md-12"><h5> No tiene saldo suficiente para renovar</h5> <br></div>';
+              echo '<div class="col-md-12"><h5> No tiene saldo suficiente para renovar!</h5> <br></div>';
             }
           }else {
             echo '<div class="col-md-12"><h5> No tiene saldo suficiente para renovar</h5> <br></div>';
