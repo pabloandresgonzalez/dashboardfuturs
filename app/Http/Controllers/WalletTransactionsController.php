@@ -14,6 +14,7 @@ use App\Models\UserMembership;
 use App\Mail\StatusChangeTransactionMessage;
 use App\Mail\StatusChangeTransactionMessageAdmin;
 use DateTime;
+use DB;
 
 class WalletTransactionsController extends Controller
 {
@@ -36,11 +37,16 @@ class WalletTransactionsController extends Controller
         ->orderBy('created_at', 'desc')
         ->paginate(50);
 
-        $totalusers = User::count();
+        // Total comission del usuario 
+        $totalCommission = $this->totalCommission();
+
+        // Total usuarios
+        $totalusers = $totalusers = $this->countUsers();
 
         return view('wallets.indexAdmin', [
         'Wallets' => $Wallets,
-        'totalusers' => $totalusers
+        'totalusers' => $totalusers,
+        'totalCommission' => $totalCommission
         ]);
 
 
@@ -90,19 +96,47 @@ class WalletTransactionsController extends Controller
       $Wallets = wallet_transactions::where('user', $user->id)->orderBy('id', 'desc')
         ->paginate(50);
 
-      // Cantidad de usuarios
-      $totalusers = User::count();
+      // Total comission del usuario 
+      $totalCommission = $this->totalCommission();
+
+      // Total usuarios
+      $totalusers = $totalusers = $this->countUsers();
 
         
         return view('wallets.index', [
           'user' => $user,
           'Wallets' => $Wallets,
           'result' => $result,
-          'totalusers' => $totalusers
-        ]);     
+          'totalusers' => $totalusers,
+          'totalCommission' => $totalCommission
+        ]); 
+    }
 
-      
+    private function countUsers()
+    {
+      // Conseguir usuario identificado
+      $user = \Auth::user();
+      $id = $user->id;
 
+      // Total usuarios
+      $totalusers = DB::table('users')
+            ->where('ownerId', $id)->count();
+
+      return $totalusers;
+    }
+
+    private function totalCommission()
+    {
+      // Conseguir usuario identificado
+      $user = \Auth::user();
+      $id = $user->id;
+
+      // Total usuarios
+      $totalCommission = DB::table("network_transactions")
+      ->where('user', $id)
+      ->get()->sum("value");
+
+      return $totalCommission;
     }
 
     public function store(Request $request)
@@ -198,12 +232,16 @@ class WalletTransactionsController extends Controller
 
         Mail::to($user_email_admin)->send(new TransactionMessageCreated($Wallet));
 
-        // Cantidad de usuarios
-        $totalusers = User::count();
+        // Total comission del usuario 
+        $totalCommission = $this->totalCommission();
+
+        // Total usuarios
+        $totalusers = $totalusers = $this->countUsers();
 
         return redirect()->route('home')->with([
                     'message' => 'Solicitud de retiro enviado correctamente!',
-                    'totalusers' => $totalusers
+                    'totalusers' => $totalusers,
+                    'totalCommission' => $totalCommission
         ]); 
 
         }
@@ -220,12 +258,16 @@ class WalletTransactionsController extends Controller
         
         $Wallets = wallet_transactions::find($id);
 
-        // Cantidad de usuarios
-        $totalusers = User::count();
+        // Total comission del usuario 
+        $totalCommission = $this->totalCommission();
+
+        // Total usuarios
+        $totalusers = $totalusers = $this->countUsers();
 
         return view('wallets.edit', [
           'Wallets' => $Wallets,
-          'totalusers' => $totalusers
+          'totalusers' => $totalusers,
+          'totalCommission' => $totalCommission
       ]);
 
     }
@@ -285,15 +327,18 @@ class WalletTransactionsController extends Controller
 
         Mail::to($email)->send(new StatusChangeTransactionMessage($Wallet));
 
-        Mail::to($user_email_admin)->send(new StatusChangeTransactionMessageAdmin($Wallet));
-        
+        Mail::to($user_email_admin)->send(new StatusChangeTransactionMessageAdmin($Wallet));        
 
-        // Cantidad de usuarios
-        $totalusers = User::count();
+        // Total comission del usuario 
+        $totalCommission = $this->totalCommission();
+
+        // Total usuarios
+        $totalusers = $totalusers = $this->countUsers();
 
         return redirect()->route('home')->with([
                     'message' => 'Solicitud de Retiro editada correctamente!',
-                    'totalusers' => $totalusers
+                    'totalusers' => $totalusers,
+                    'totalCommission' => $totalCommission
         ]);
 
     }
@@ -313,13 +358,17 @@ class WalletTransactionsController extends Controller
 
       $fecha_actual = date("Y-m-d H:i:s");
 
-      // Cantidad de usuarios
-      $totalusers = User::count();
+      // Total comission del usuario 
+      $totalCommission = $this->totalCommission();
+
+      // Total usuarios
+      $totalusers = $totalusers = $this->countUsers();
 
         return view('wallets.gsaldosadmin', [
           'users' => $users,
           'fecha_actual' => $fecha_actual,
-          'totalusers' => $totalusers
+          'totalusers' => $totalusers,
+          'totalCommission' => $totalCommission
       ]);
 
     }
@@ -333,8 +382,11 @@ class WalletTransactionsController extends Controller
       $name = $user->name;
       $email = $user->email;
 
-      // Cantidad de usuarios
-      $totalusers = User::count();
+      // Total comission del usuario 
+      $totalCommission = $this->totalCommission();
+
+      // Total usuarios
+      $totalusers = $totalusers = $this->countUsers();
 
                 
       $rules = ([
@@ -390,7 +442,8 @@ class WalletTransactionsController extends Controller
 
         return redirect()->route('home')->with([
                     'message' => 'Asignación de saldo enviada correctamente!',
-                    'totalusers' => $totalusers
+                    'totalusers' => $totalusers,
+                    'totalCommission' => $totalCommission
         ]);
 
         /*

@@ -9,32 +9,68 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
 use App\Models\Membership;
 use App\Models\User;
+use DB;
+
 
 class MembresiaController extends Controller
 {
     public function __construct()
     {
       $this->middleware('auth');
-    }
+    }    
 
     public function index()
     {        
-        //$membresias = Membresia::all();
-        $totalusers = User::count();
-        $membresias = Membresia::orderBy('created_at', 'asc')->paginate(30);
-        $data = ['membresias' => $membresias];
+      // Total comission del usuario 
+      $totalCommission = $this->totalCommission();
 
-        return view('membresias.index', compact('membresias', 'totalusers'));
+      // Total usuarios
+      $totalusers = $totalusers = $this->countUsers();
+
+      $membresias = Membresia::orderBy('created_at', 'asc')->paginate(30);
+      $data = ['membresias' => $membresias];
+
+      return view('membresias.index', compact('membresias', 'totalusers', 'totalCommission'));
 
     }
 
     public function create()
     {
-      // Total de usuarios
-      $totalusers = User::count();
+      // Total comission del usuario 
+      $totalCommission = $this->totalCommission();
 
-      return view('membresias.create', compact('totalusers'));
+      // Total usuarios
+      $totalusers = $totalusers = $this->countUsers();
 
+      return view('membresias.create', compact('totalusers', 'totalCommission'));
+
+    }
+
+    private function countUsers()
+    {
+      // Conseguir usuario identificado
+      $user = \Auth::user();
+      $id = $user->id;
+
+      // Total usuarios
+      $totalusers = DB::table('users')
+            ->where('ownerId', $id)->count();
+
+      return $totalusers;
+    }
+
+    private function totalCommission()
+    {
+      // Conseguir usuario identificado
+      $user = \Auth::user();
+      $id = $user->id;
+
+      // Total usuarios
+      $totalCommission = DB::table("network_transactions")
+      ->where('user', $id)
+      ->get()->sum("value");
+
+      return $totalCommission;
     }
 
     public function perfomrValidationCreate(Request $request)
@@ -65,38 +101,41 @@ class MembresiaController extends Controller
     public function store(Request $request)
     {
 
-        $this->perfomrValidationCreate($request);
+      $this->perfomrValidationCreate($request);
 
+      // Total comission del usuario 
+      $totalCommission = $this->totalCommission();
 
-        $membresia = new Membresia();
-        $membresia->name = $request->input('name');
-        $membresia->isActive = $request->input('isActive');
-        $membresia->valor = $request->input('valor');
-        $membresia->detail = $request->input('detail');
+      // Total usuarios
+      $totalusers = $totalusers = $this->countUsers();
 
-        //Subir la imagen photo
-        $image_photo = $request->file('image');
-        if ($image_photo) {
+      $membresia = new Membresia();
+      $membresia->name = $request->input('name');
+      $membresia->isActive = $request->input('isActive');
+      $membresia->valor = $request->input('valor');
+      $membresia->detail = $request->input('detail');
 
-          //Poner nombre unico
-          $image_photo_name = time() . $image_photo->getClientOriginalName();
+      //Subir la imagen photo
+      $image_photo = $request->file('image');
+      if ($image_photo) {
 
-          //Guardarla en la carpeta storage (storage/app/photoMembership)
-          Storage::disk('photoMembership')->put($image_photo_name, File::get($image_photo));
+        //Poner nombre unico
+        $image_photo_name = time() . $image_photo->getClientOriginalName();
 
-          //Seteo el nombre de la imagen en el objeto
-          $membresia->photo = $image_photo_name;
-        }
+        //Guardarla en la carpeta storage (storage/app/photoMembership)
+        Storage::disk('photoMembership')->put($image_photo_name, File::get($image_photo));
 
-        $membresia->save(); //INSERT BD
+        //Seteo el nombre de la imagen en el objeto
+        $membresia->photo = $image_photo_name;
+      }
 
-        // Total de usuarios
-        $totalusers = User::count();
+      $membresia->save(); //INSERT BD
 
-        return redirect('membresias')->with([
-                'message' => 'La membresía '.$membresia->name.' fue creada correctamente!',
-                'totalusers' => $totalusers
-        ]);
+      return redirect('membresias')->with([
+              'message' => 'La membresía '.$membresia->name.' fue creada correctamente!',
+              'totalusers' => $totalusers,
+              'totalCommission' => $totalCommission
+      ]);
 
     }
 
@@ -106,10 +145,13 @@ class MembresiaController extends Controller
       $membresias = Membresia::orderBy('created_at', 'asc')->paginate(10);
       $data = ['membresias' => $membresias];
 
-      // Total de usuarios
-      $totalusers = User::count();        
+      // Total comission del usuario 
+      $totalCommission = $this->totalCommission();
 
-      return view('membresias.indexuser', compact('membresias', 'totalusers'));
+      // Total usuarios
+      $totalusers = $totalusers = $this->countUsers();        
+
+      return view('membresias.indexuser', compact('membresias', 'totalusers', 'totalCommission'));
 
     }
 
@@ -118,11 +160,16 @@ class MembresiaController extends Controller
         
       $membresias = Membresia::find($id);
 
-      $totalusers = User::count();
+      // Total comission del usuario 
+      $totalCommission = $this->totalCommission();
+
+      // Total usuarios
+      $totalusers = $totalusers = $this->countUsers();
 
       return view('membresias.edit', [
         'membresias' => $membresias,
-        'totalusers' => $totalusers
+        'totalusers' => $totalusers,
+        'totalCommission' => $totalCommission
       ]);
 
   }
@@ -162,20 +209,29 @@ class MembresiaController extends Controller
 
       $membresia->save(); //INSERT BD
 
-      $totalusers = User::count();
+      // Total comission del usuario 
+      $totalCommission = $this->totalCommission();
+
+      // Total usuarios
+      $totalusers = $totalusers = $this->countUsers();
 
       return redirect('membresias')->with([
               'message' => 'La membresía '.$membresia->name.' fue actualizada correctamente!',
-              'totalusers' => $totalusers
+              'totalusers' => $totalusers,
+              'totalCommission' => $totalCommission
       ]);
 
     }
 
     public function createMemberchip()
     {  
-        $totalusers = User::count();
+      // Total comission del usuario 
+      $totalCommission = $this->totalCommission();
 
-        return view('memberchip.index', compact('totalusers'));        
+      // Total usuarios
+      $totalusers = $totalusers = $this->countUsers();
+
+      return view('memberchip.index', compact('totalusers', 'totalCommission'));        
 
     }
 
@@ -183,11 +239,17 @@ class MembresiaController extends Controller
     {
 
       $membresia = Membresia::find($id);
-      $totalusers = User::count();
+
+      // Total comission del usuario 
+      $totalCommission = $this->totalCommission();
+
+      // Total usuarios
+      $totalusers = $totalusers = $this->countUsers();
 
       return view('membresias.detail', [
           'membresia' => $membresia,
-          'totalusers' => $totalusers
+          'totalusers' => $totalusers,
+          'totalCommission' => $totalCommission
       ]);
     }
 

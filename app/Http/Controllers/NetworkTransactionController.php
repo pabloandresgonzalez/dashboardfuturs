@@ -27,9 +27,13 @@ class NetworkTransactionController extends Controller
                                 ->where('type', 'Daily')
                                 ->orderBy('id', 'desc')->paginate(50);
 
-        $totalusers = User::count();
+        // Total comission del usuario 
+        $totalCommission = $this->totalCommission();
 
-        return view('networktransaction.index', compact('networktransactions', 'totalusers'));        
+        // Total usuarios
+        $totalusers = $totalusers = $this->countUsers();
+
+        return view('networktransaction.index', compact('networktransactions', 'totalusers', 'totalCommission'));        
 
     }
 
@@ -55,9 +59,40 @@ class NetworkTransactionController extends Controller
 
         //dd($misusers);
 
-        $totalusers = User::count();
+        // Total comission del usuario 
+        $totalCommission = $this->totalCommission();
 
-        return view('networktransaction.indexactivacion', compact('misusers', 'totalusers'));        
+        // Total usuarios
+        $totalusers = $totalusers = $this->countUsers();
 
+        return view('networktransaction.indexactivacion', compact('misusers', 'totalusers', 'totalCommission'));        
+
+    }
+
+    private function countUsers()
+    {
+        // Conseguir usuario identificado
+        $user = \Auth::user();
+        $id = $user->id;
+
+        // Total usuarios
+        $totalusers = DB::table('users')
+            ->where('ownerId', $id)->count();
+
+        return $totalusers;
+    }
+
+    private function totalCommission()
+    {
+        // Conseguir usuario identificado
+        $user = \Auth::user();
+        $id = $user->id;
+
+        // Total usuarios
+        $totalCommission = DB::table("network_transactions")
+        ->where('user', $id)
+        ->get()->sum("value");
+
+        return $totalCommission;
     }
 }
