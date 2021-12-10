@@ -52,7 +52,7 @@ class NetworkTransactionController extends Controller
 
         $misusers = DB::table('network_transactions')            
             ->where('user', $iduser) 
-            //->orwhere('type', 'Activation') 
+            ->where('type', 'Activation') 
             ->join('users', 'users.id', '=', 'network_transactions.user')
             //->select('users.*', 'contacts.phone', 'orders.price')
             ->get();
