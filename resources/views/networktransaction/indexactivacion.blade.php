@@ -50,7 +50,7 @@
 
 
               <tbody>
-                @foreach ($misusers as $misuser)
+                @foreach ($networktransactions as $misuser)
                 <tr>                  
                   <td scope="row">
                     {{ $misuser->userMembership }}

@@ -592,9 +592,9 @@ class UserMembershipController extends Controller
         $Wallet = new wallet_transactions();
         $Wallet->user = $iduser;
         $Wallet->email = $email;
-        $Wallet->value = $valor_membresia + $toPorcMemberschip / 2;
+        $Wallet->value = $valor_membresia / 2; //+ $toPorcMemberschip / 2;
         $Wallet->fee = $toPorcMemberschip / 2;
-        $Wallet->type = 0;
+        $Wallet->type = "Retiro";
         $Wallet->hash = 'Descuento para renovar '.bin2hex(random_bytes(20));
         $Wallet->currency = 'PSIV';
         $Wallet->approvedBy = $email;
@@ -617,9 +617,9 @@ class UserMembershipController extends Controller
         $Wallet = new wallet_transactions();
         $Wallet->user = $iduser;
         $Wallet->email = $email;
-        $Wallet->value = $valor_membresia + $toPorcMemberschip / 2;
+        $Wallet->value = $valor_membresia / 2; //+ $toPorcMemberschip / 2;
         $Wallet->fee = $toPorcMemberschip / 2;
-        $Wallet->type = 0;
+        $Wallet->type = "Retiro";
         $Wallet->hash = 'Descuento para renovar '.bin2hex(random_bytes(20));
         $Wallet->currency = 'USDT';
         $Wallet->approvedBy = $email;

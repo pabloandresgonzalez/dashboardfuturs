@@ -44,20 +44,12 @@ class NetworkTransactionController extends Controller
         $user = \Auth::user();
         $iduser = $user->id;
 
-        $id = $request->id;
-
-        $networktransactions = NetworkTransaction::where( 'user', $iduser)
-                                ->where('type', 'Activation')
-                                ->orderBy('id', 'desc')->paginate(40);
-
-        $misusers = DB::table('network_transactions')            
-            ->where('user', $iduser) 
-            ->where('type', 'Activation') 
-            ->join('users', 'users.id', '=', 'network_transactions.user')
-            //->select('users.*', 'contacts.phone', 'orders.price')
-            ->get();
-
-        //dd($misusers);
+        $networktransactions = DB::select('SELECT u.*, nt.*   
+        FROM network_transactions as nt
+        INNER JOIN user_memberships as um ON nt.userMembership = um.id
+        INNER JOIN users as u ON um.user = u.id
+        WHERE nt.type="Activation" AND
+        nt.user = ?', [$iduser]);
 
         // Total comission del usuario 
         $totalCommission = $this->totalCommission();
@@ -65,7 +57,7 @@ class NetworkTransactionController extends Controller
         // Total usuarios
         $totalusers = $totalusers = $this->countUsers();
 
-        return view('networktransaction.indexactivacion', compact('misusers', 'totalusers', 'totalCommission'));        
+        return view('networktransaction.indexactivacion', compact('networktransactions', 'totalusers', 'totalCommission'));        
 
     }
 

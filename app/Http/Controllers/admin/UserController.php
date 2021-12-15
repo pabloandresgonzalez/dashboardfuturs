@@ -461,15 +461,6 @@ class UserController extends Controller
 
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
-
-
-      $misusers = DB::table('users')
-            ->where('ownerId', $id)
-            ->get();
-
-      //dd($misusers);
-
-
       
       $misusers1 = DB::table('users')
             ->where('ownerId', $id)
@@ -479,19 +470,12 @@ class UserController extends Controller
             ->get();
       //dd($misusers1);
 
-      $networktransactions = DB::table('network_transactions')            
-            ->where('user', $id) 
-            ->where('type', 'Activation') 
-            ->join('users', 'users.id', '=', 'network_transactions.user')
-            //->select('users.*', 'contacts.phone', 'orders.price')
-            ->get();
-      
-      /*$membresias = UserMembership::join("user_memberships","user_memberships.user", "=", "users.id")
-                  ->select("status")
-                  ->get();*/
-
-      // Total usuarios
-      $totalusers = User::count();
+      $networktransactions = DB::select('SELECT u.*, nt.*   
+        FROM network_transactions as nt
+        INNER JOIN user_memberships as um ON nt.userMembership = um.id
+        INNER JOIN users as u ON um.user = u.id
+        WHERE nt.type="Activation" AND
+        nt.user = ?', [$id]);
 
       return view('users.detailred', [
           'user' => $user,
