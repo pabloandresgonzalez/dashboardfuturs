@@ -42,7 +42,9 @@
           if (isset($data['USDT']['total'])  || isset($data['PSIV']['total'])) {
             $totalPSIV = $data['USDT']['total'];
             $totalUSDT = $data['PSIV']['total'];
-            if ($totalPSIV > $valor_membresia || $totalUSDT > $valor_membresia) {
+
+            $total = $totalPSIV + $totalUSDT;
+            if ($total > $valor_membresia) {
               //echo "si";
               echo '<div class="col-md-12"><h5> Saldo: PSIV'.' '.  $totalPSIV .' | Saldo: USDT'.' '.  $totalUSDT .'</h5> <br></div>';
 

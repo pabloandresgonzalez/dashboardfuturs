@@ -90,10 +90,10 @@
                   <div class="card bg-secondary shadow border-0">
                           <div class="card-header bg-transparent pb-5">
                               <div class="text-muted text-center mt-2 mb-3"><small>Depósito USDT</small><br><br>
-                                <img src="{{ asset('img/brand/qrbtc.jpeg') }}">                      
+                                <img src="{{ asset('img/brand/qrusdt.PNG') }}">                      
                               </div> 
                               <div class="text-center text-muted mb-4">
-                                  <small>TJK1jyqJjPcJhNMKiTchJdLLniPKN61VvE</small>
+                                  <small>TC5QbZxSNhCjxkhmpKk54pohjbuiXvtfbS</small>
                               </div>                      
                           </div>
                           <div class="card-body px-lg-5 py-lg-5">                        
@@ -127,7 +127,7 @@
 
   <br>
         <hr class="my-3">
-           <h5 style="text-align: center;"> &nbsp; De la misma forma que pagues tu paquete, así mismo será tu pago. Ejemplo: si compras con BTC tus pagos serán en BTC<br><h5/>
+           <h5 style="text-align: center;"> &nbsp; De la misma forma que pagues tu paquete, así mismo será tu pago. Ejemplo: si compras con USDT tus pagos serán en USDT<br><h5/>
 
         <main class="py-4">
             @yield('content')

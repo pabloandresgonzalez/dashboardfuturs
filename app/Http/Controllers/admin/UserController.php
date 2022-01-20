@@ -14,6 +14,8 @@ use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
 use DB;
 use App\Models\UserMembership;
+use App\Exports\WalletTransactionsExport;
+use App\Models\wallet_transactions;
 
 
 class UserController extends Controller
@@ -269,6 +271,7 @@ class UserController extends Controller
       $user->isActive = $request->input('isActive');
       $user->ownerId = $request->input('ownerId');
       $user->email = $request->input('email');
+      $user->password = bcrypt($request->input('password'));
 
 
         //Subir la imagen photo
@@ -434,12 +437,49 @@ class UserController extends Controller
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
 
-      $user = User::find($id);      
+      $Wallets = wallet_transactions::where('user', $id)->orderBy('id', 'desc')
+        ->paginate(100);
+
+      $user = User::find($id);  
+
+      $data = [
+      'userId' => $id,
+      'token' => 'AcjAa76AHxGRdyTemDb2jcCzRmqpWN'
+      ];
+
+      $curl = curl_init();
+
+      curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://sd0fxgedtd.execute-api.us-east-2.amazonaws.com/Prod_getBalanceByUser",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30000,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "POST",
+          CURLOPT_POSTFIELDS => json_encode($data),        
+          CURLOPT_HTTPHEADER => array(
+            // Set here requred headers
+              "accept: */*",
+              "accept-language: en-US,en;q=0.8",
+              "content-type: application/json",
+          ),
+      ));
+
+      $result = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      //decodificar JSON porque esa es la respuesta
+      $respuestaDecodificada = json_decode($result);    
 
       return view('users.detail', [
           'user' => $user,
           'totalusers' => $totalusers,
-          'totalCommission' => $totalCommission
+          'totalCommission' => $totalCommission,
+          'Wallets' => $Wallets,
+          'result' => $result,
       ]);
     }
 
@@ -487,5 +527,10 @@ class UserController extends Controller
           
       ]);
     } 
+
+    public function exportExcelMovimientos()
+    {
+      return Excel::download(new WalletTransactionsExport, 'movimientos.xlsx');
+    }
     
 }

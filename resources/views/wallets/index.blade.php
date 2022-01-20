@@ -201,7 +201,7 @@
                           ?>                          
                         </ul> 
                         <ul>
-                          Total:  &nbsp;
+                          Saldo:  &nbsp;
                           <?php 
                             if ($result) {
                               $url = ($result);
@@ -288,7 +288,7 @@
 
 
                             <div class="col-md-4">
-                              <button type="submit" class="btn btn-outline-default" ><i class="ni ni-satisfied"></i> Enviar retiro</button>
+                              <button type="submit" class="btn btn-outline-default" ><i class="ni ni-satisfied"></i> Enviar Traslado</button>
                             </div>
 
                               ';
@@ -296,7 +296,7 @@
 
                                 echo '                                
                                   <div class="card-body">                                  
-                                    <h5>Es necesario tener una membresia activa y saldo suficiente para retirar.</h5>                                 
+                                    <h5>Es necesario tener como minimo 50 en saldo y una membresia activa para retirar.</h5>                                 
                                   </div>
                               ';
                               
@@ -391,6 +391,7 @@
                   </td>                            
                  </tr>
                  @endforeach
+                </tbody>
             </table>
 
                     
@@ -400,6 +401,14 @@
                 <hr style="width:50%;" />
 
             {{ $Wallets->appends(request()->input())->links() }}
+
+      </div>
+    </div>
+  </div>
+  </div>
+    </div>
+
+
 
 
         <hr class="my-3"> 

@@ -239,7 +239,7 @@ class WalletTransactionsController extends Controller
         $totalusers = $totalusers = $this->countUsers();
 
         return redirect()->route('home')->with([
-                    'message' => 'Solicitud de retiro enviado correctamente!',
+                    'message' => '¡' . $name .' ' . '¡solicitud de traslado enviada correctamente!',
                     'totalusers' => $totalusers,
                     'totalCommission' => $totalCommission
         ]); 
@@ -247,7 +247,7 @@ class WalletTransactionsController extends Controller
         }
 
         return redirect()->route('home')->with([
-                    'message' => 'El usuario no tine una membresia activa para poder hacer retiros!'
+                    'message' => '¡' . $name . ' ' . '¡es necesario tener mínimo una membresía activa para poder hacer traslados!'
                     //'totalusers' => $totalusers
         ]);  
        
@@ -336,7 +336,7 @@ class WalletTransactionsController extends Controller
         $totalusers = $totalusers = $this->countUsers();
 
         return redirect()->route('home')->with([
-                    'message' => 'Solicitud de Retiro editada correctamente!',
+                    'message' => 'Solicitud de traslado editada correctamente!',
                     'totalusers' => $totalusers,
                     'totalCommission' => $totalCommission
         ]);
@@ -345,7 +345,7 @@ class WalletTransactionsController extends Controller
 
     public function exportExcel()
     {
-      return Excel::download(new WalletTransactionsExport, 'Wallets.xlsx');
+      return Excel::download(new WalletTransactionsExport, 'Traslados.xlsx');
     }
 
     public function editsaldos(Request $request)

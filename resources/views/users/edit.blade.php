@@ -448,6 +448,16 @@
           </div>
         </div>
 
+        <div class="col-md-12">
+          <p>Ingrese una nueva contraseña, sólo si desea cambiar la contraseña del usuario.</p>
+          <div class="input-group input-group-alternative mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+            </div>
+            <input class="form-control" placeholder="Contraseña" type="password" name="password" autocomplete="new-password" value="" autofocus >
+          </div>
+        </div>
+
         <div class="col-md-4">
           <button type="submit" class="btn btn-outline-default" ><i class="ni ni-satisfied"></i> Editar Usuario</button>
         </div>

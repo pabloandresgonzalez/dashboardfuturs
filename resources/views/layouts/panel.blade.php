@@ -25,7 +25,7 @@
   <script type="text/javascript">
     $(document).ready(function() {
         setTimeout(function() {
-            $(".alert").fadeOut(6000);
+            $(".alert").fadeOut(9000);
         });
     });
   </script>

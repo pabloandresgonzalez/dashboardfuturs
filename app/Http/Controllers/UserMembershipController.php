@@ -210,7 +210,8 @@ class UserMembershipController extends Controller
 
         //Enviar email
         $user_email = User::where('role', 'admin')->first();
-        $user_email_admin = $user_email->email;
+        //$user_email_admin = $user_email->email;
+        $user_email_admin = 'pabloandres6@gmail.com';
 
         Mail::to($user_email_admin)->send(new MembershipCreatedMessage($membership));
 
@@ -223,7 +224,7 @@ class UserMembershipController extends Controller
         $totalusers = $totalusers = $this->countUsers();
 
         return redirect()->route('home')->with([
-                    'message' => 'Hash enviado correctamente!',
+                    'message' => '¡' . $name . ' ¡hash enviado correctamente!',
                     'totalusers' => $totalusers,
                     'totalCommission' => $totalCommission
         ]);
@@ -405,7 +406,8 @@ class UserMembershipController extends Controller
 
               $total = $totalPSIV + $totalUSDT;
           }else {
-            
+              
+              $total = null; 
           } 
         } 
 
@@ -426,9 +428,18 @@ class UserMembershipController extends Controller
 
         $membresia = Membresia::where('id', $id_membresia)->first();
         $valor_membresia = $membresia->valor;
+        $valmembresia = $valor_membresia;
 
+        //dd($valor_membresia);
 
-        if ($total > $valor_membresia) {
+        $percentageMembership = 5;
+
+        $valuetoPorcMemberschip = ($percentageMembership / 100) * $valmembresia;
+        
+
+        $totalMembershiAndPercentage = $valor_membresia + $valuetoPorcMemberschip;
+
+        if ($total > $totalMembershiAndPercentage) {
           
           
           return view('memberships.renovar', [
@@ -444,7 +455,7 @@ class UserMembershipController extends Controller
 
 
             return redirect()->route('home')->with([
-                'message' => 'Debes tener saldo suficiente y al menos una membresía activa para renovar!',
+                'message' => '¡Ups ¡El saldo es insuficiente para renovar ¡',
                 'totalusers' => $totalusers,
                 'totalCommission' => $totalCommission
             ]); 
