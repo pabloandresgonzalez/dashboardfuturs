@@ -61,23 +61,7 @@
                       </select>
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="input-group input-group-alternative mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-credit-card"></i></span>
-                    </div>
-                      <input class="form-control" placeholder="WalletPSIV" type="text" name="WalletPSIV" value="" required autocomplete="wallet" autofocus>
-                  </div>
-                </div> 
-                <div class="col-md-6">
-                  <div class="input-group input-group-alternative mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-credit-card"></i></span>
-                    </div>
-                      <input class="form-control" placeholder="WalletUSDT" type="text" name="WalletUSDT" value="" required autocomplete="wallet" autofocus>
-                  </div>
-                </div> 
-
+                
                 
                 <div class="col-md-4">
                   <button type="" class="btn btn-outline-default" ><i class="ni ni-satisfied"></i> Renovar</button>

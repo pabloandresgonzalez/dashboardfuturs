@@ -60,10 +60,10 @@
                 <div class="card bg-secondary shadow border-0">
                     <div class="card-header bg-transparent pb-5">
                         <div class="text-muted text-center mt-2 mb-3"><small>Depósito PSIV</small><br><br>
-                          <img src="{{ asset('img/brand/qrPhoenixsiv.jpeg') }}">                      
+                          <img src="{{ asset('img/brand/qrpsiv.PNG') }}">                      
                         </div> 
                         <div class="text-center text-muted mb-4">
-                            <small>PhkRersUqTWvpuhxX4WPavRMf9kXGWV19m</small>
+                            <small>0xeB4e247A9C0ca606aE0300218014A71A4BA93319</small>
                         </div>                      
                     </div>
                     <div class="card-body px-lg-5 py-lg-5">                        

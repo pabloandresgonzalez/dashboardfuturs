@@ -226,7 +226,7 @@ class WalletTransactionsController extends Controller
         //enviar email
         $user_email = User::where('role', 'admin')->first();
         $user_email_admin = $user_email->email;
-        //$useremail = 'pabloandres6@gmail.com';
+        //$user_email_admin = 'pabloandres6@gmail.com';
 
         Mail::to($email)->send(new TransactionSentMessage($Wallet));
 
@@ -323,7 +323,7 @@ class WalletTransactionsController extends Controller
         //enviar email
         $user_email = User::where('role', 'admin')->first();
         $user_email_admin = $user_email->email;
-        //$useremail = 'pabloandres6@gmail.com';
+        //$user_email_admin = 'pabloandres6@gmail.com';
 
         Mail::to($email)->send(new StatusChangeTransactionMessage($Wallet));
 
