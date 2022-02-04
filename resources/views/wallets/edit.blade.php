@@ -38,11 +38,20 @@
             <div class="col-xl-8 order-xl-2 mb-5 mb-xl-0">
                 <div class="card pub-prestamo">
                   <div class="card-header">
-                    <h3 class="mb-0"><i class="ni ni-credit-card"></i> &nbsp;Cambiar estado del traslado - {{ $Wallets->id }}</h3>
+                    <h3 class="mb-0"><i class="ni ni-credit-card"></i> &nbsp;Cambiar estado del traslado - {{ $Wallets->id }}</h3>                    
                   </div>
 
                   
                     <div class="card-body">
+
+                      <div>
+                        <h5> &nbsp;Wallet - {{ $Wallets->wallet }}</h5>
+                        <h5> &nbsp;Billetera - {{ $Wallets->currency }}</h5>
+                        <h5> &nbsp;Hash - {{ $Wallets->hash }}</h5>
+                        <h5> &nbsp;Email usuario - {{ $Wallets->email }}</h5>
+                        <h5> &nbsp;Detalle - {{ $Wallets->detail }}</h5>
+                      </div>
+                    
                     
                       <form class="row g-3" action="{{ url('/wallet/'.$Wallets->id) }}" enctype="multipart/form-data" method="post">
                         @csrf
