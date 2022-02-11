@@ -162,7 +162,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-          
+               
       // Total comission del usuario 
       $totalCommission = $this->totalCommission();
 
