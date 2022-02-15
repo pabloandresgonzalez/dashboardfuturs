@@ -33,6 +33,11 @@
         <i class="ni ni-chat-round text-primary"></i> Contacto
       </a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" href="">
+        <i class="ni ni-hat-3 text-danger"></i> Centro de apoyo
+      </a>
+    </li>
   </ul>
   <hr class="my-3">
   <h6 class="navbar-heading text-muted">Resportes</h6>
@@ -59,6 +64,11 @@
     <li class="nav-item">
       <a class="nav-link" href="https://wa.me/593987347130?text=%20Hola! %20quiero%20ponerme%20en%20contacto%20con%20FUTURS,%20Gracias">
         <i class="ni ni-chat-round text-primary"></i> Contacto
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="">
+        <i class="ni ni-hat-3 text-danger"></i> Centro de apoyo
       </a>
     </li>
   </ul>

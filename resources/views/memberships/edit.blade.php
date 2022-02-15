@@ -72,7 +72,7 @@
           </div>
         </div>
         
-        <div class="col-md-6">
+        <div class="col-md-12">
         <div class="input-group input-group-alternative mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text"><i class="ni ni-active-40"></i></span>
@@ -84,28 +84,8 @@
             </select>
           </div>
         </div>
-
-        <div class="col-md-6">
-          <div class="input-group input-group-alternative mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="ni ni-image"></i>&nbsp;Solo archivo de imagen</span>
-            </div>
-            <input class="form-control" placeholder="image"  type="file" name="image"  autocomplete="image" autofocus>
-          </div>
-        </div>
         
         <div class="col-md-6">
-          <?php
-
-        if ($memberships->status === 'Pendiente') {
-          echo '
-            <small>Fecha de activación</small>
-          ';
-        } else {
-          
-        }     
-        
-        ?> 
           <div class="input-group input-group-alternative mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
@@ -114,27 +94,7 @@
           </div>
         </div>
 
-          
-        <div class="col-md-6">
-          <?php
-          if ($memberships->status === 'Pendiente') {
-            echo '
-              <small>La fecha de cierre la asigna el sistema, ingrese una fecha solo si es un caso especial.</small>
-            ';
-          } else {
-            
-          }
-          ?>
-          <div class="input-group input-group-alternative mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-            </div>                    
-            <input class="form-control" placeholder="Fecha de cierre, ej. <?php echo $fecha_actual; ?>" type="text" name="closedAt" value="" autocomplete="closedAt" autofocus>             
-          </div>
-        </div> 
-
         <?php
-
         if ($memberships->status === 'Pendiente') {
           echo '
             <div class="col-md-4">
@@ -143,8 +103,7 @@
           ';
         } else {
           echo '<label>&nbsp; El estado de la membresia es  <strong>'.$memberships->status.'</strong>, ya no es &nbsp;posible hacer mas cambios.</label>';
-        }       
-        
+        }
         ?>
 
       </form>

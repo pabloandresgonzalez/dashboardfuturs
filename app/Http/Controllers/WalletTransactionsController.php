@@ -91,7 +91,8 @@ class WalletTransactionsController extends Controller
       curl_close($curl);
 
       //decodificar JSON porque esa es la respuesta
-      $respuestaDecodificada = json_decode($result);  
+      $respuestaDecodificada = json_decode($result); 
+      //dd($respuestaDecodificada); 
 
       $Wallets = wallet_transactions::where('user', $user->id)->orderBy('id', 'desc')
         ->paginate(50);
@@ -428,12 +429,12 @@ class WalletTransactionsController extends Controller
         $Wallet->approvedBy = $id;
         $Wallet->wallet = null;
 
-        if ($type === "Resta saldo") {
+        if ($type === "Traslado") {
           $Wallet->inOut = 0;
         } else {
           $Wallet->inOut = 1;
         }
-        
+                
         //$Wallet->inOut = 0;
         $Wallet->status = 'Aprobada';     
         $Wallet->detail = $request->input('detail');
