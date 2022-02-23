@@ -24,7 +24,7 @@
 
       
           <div class="row mt-5">
-            <div class="col-xl-8 mb-5 mb-xl-0">
+            <div class="col-xl-6 mb-5 mb-xl-0">
                 <div class="card shadow">
                     <div class="card-header border-0">
                         <div class="row align-items-center">
@@ -50,7 +50,7 @@
 
                 </div>
             </div>
-            <div class="col-xl-4">
+            <div class="col-xl-6">
                 <div class="card shadow">
                     <div class="card-header border-0">
                         <div class="row align-items-center">
