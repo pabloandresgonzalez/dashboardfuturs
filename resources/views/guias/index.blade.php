@@ -116,7 +116,7 @@
 			</div>&nbsp;&nbsp;&nbsp;
 			<div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
 			  <div class="card-body">
-				    <h1 class="card-title text-white">¿ Como solicito de un traslado en el portal ?</h1>
+				    <h1 class="card-title text-white">¿ Como solicito un traslado en el portal ?</h1>
 				    <p class="card-text">En billetera podemos solicitar traslados de saldo, mira como...</p>	    
 				    <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#modal-form14"  href="#">Instrucciones</button>
 			  	</div>
@@ -130,7 +130,7 @@
 			</div>&nbsp;&nbsp;&nbsp;
 			<div class="card text-white bg-info mb-3" style="max-width: 18rem;">
 			  <div class="card-body">
-				    <h1 class="card-title text-white">¿ En donde puedo ver los Términos y condiciones ?</h1>
+				    <h1 class="card-title text-white">¿ En dónde puedo ver los Términos y condiciones ?</h1>
 				    <p class="card-text">Podemos ver los términos y condiciones en dos lugares en el portal...</p>	    
 				    <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#modal-form16"  href="#">Instrucciones</button>
 			  	</div>
@@ -154,11 +154,12 @@
 	                    <div class="card-body px-lg-5 py-lg-5">                      
 	                    		<small></small>
 	                           		Clic en registro
+	                           		<br><br>
 	                             	<a href="{{ asset('img/brand/img-guia-st1.PNG') }}" target="_blank"><img src="{{ asset('img/brand/img-guia-st1.PNG') }}" targer="http://127.0.0.1:8000/img/brand/img-guia-st1.PNG"></a>
 	                             </strong>
-	                             <br><br>
-	                             
+	                             <br><br>	                             
 	                             	Diligenciar todos los campos del formulario de registro, en el primer campo es importante poner el código de quien lo refiere, este código se lo puede solicitar a la persona que lo contacto, después de llenar todos los campos hacemos clic en registrarse. 
+	                             	<br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st2.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st2.PNG') }}"
 	                             ></a>                                   
 
@@ -184,10 +185,12 @@
 	                    <div class="card-body px-lg-5 py-lg-5">                      
 	                    		<small></small>
 	                           		Clic en registro
+	                           		<br><br>
 	                             	<a href="{{ asset('img/brand/img-guia-st3.PNG') }}" target="_blank"><img src="{{ asset('img/brand/img-guia-st3.PNG') }}" targer="http://127.0.0.1:8000/img/brand/img-guia-st3.PNG"></a>
 	                             </strong>
 	                             <br><br>
 	                             	Ingresar el email con el que se registró, la contraseña, aceptar términos y condiciones con el botón de verificación y después hacer clic en ingresar. 
+	                            <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st4.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st4.PNG') }}"
 	                             ></a>                                                                
 
@@ -213,14 +216,17 @@
 	                    <div class="card-body px-lg-5 py-lg-5">                      
 	                    		<small></small>
 	                           		Clic en Mi perfil
+	                           		<br><br>
 	                             	<a href="{{ asset('img/brand/img-guia-st5.PNG') }}" target="_blank"><img src="{{ asset('img/brand/img-guia-st5.PNG') }}" targer="http://127.0.0.1:8000/img/brand/img-guia-st5.PNG"></a>
 	                             </strong>
 	                             <br><br>
-	                             	Después hacemos clic en link 
+	                             	Después hacemos clic en link
+	                             <br><br> 
 	                             <a href="{{ asset('img/brand/img-guia-st6.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st6.PNG') }}"
 	                             ></a>       
 	                             <br><br>
-	                             	Nos arrojara una ventana emergente en donde podremos copia el enlace y compartirlo, por favor copiar el enlace completo
+	                             	Nos arrojara una ventana emergente en donde podremos copiar el enlace y compartirlo, por favor copiar el enlace completo
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st7.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st7.PNG') }}"
 	                             ></a>                                                          
 
@@ -246,10 +252,12 @@
 	                    <div class="card-body px-lg-5 py-lg-5">                      
 	                    		<small></small>
 	                           		Clic en Mi perfil
+	                           		<br><br>
 	                             	<a href="{{ asset('img/brand/img-guia-st5.PNG') }}" target="_blank"><img src="{{ asset('img/brand/img-guia-st5.PNG') }}" targer="http://127.0.0.1:8000/img/brand/img-guia-st5.PNG"></a>
 	                             </strong>
 	                             <br><br>
-	                             	Adjuntamos la imagen que queremos dejar de perfil y hacemos clic en editar usuario. 
+	                             	Adjuntamos la imagen que queremos dejar de perfil y hacemos clic en editar usuario.
+	                             <br><br> 
 	                             <a href="{{ asset('img/brand/img-guia-st8.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st8.PNG') }}"
 	                             ></a>       
 	                             <br><br>                                                      
@@ -276,10 +284,12 @@
 	                    <div class="card-body px-lg-5 py-lg-5">                      
 	                    		<small></small>
 	                           		Clic en escritorio
+	                           		<br><br>
 	                             	<a href="{{ asset('img/brand/img-guia-st9.PNG') }}" target="_blank"><img src="{{ asset('img/brand/img-guia-st9.PNG') }}" targer="http://127.0.0.1:8000/img/brand/img-guia-st9.PNG"></a>
 	                             </strong>
 	                             <br><br>
-	                             	Es un espacio que se destinó para futuras actualizaciones. 
+	                             	Es un espacio que se destinó para futuras actualizaciones.
+	                             <br><br> 
 	                             <a href="{{ asset('img/brand/img-guia-st10.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st10.PNG') }}"
 	                             ></a>       
 	                             <br><br>                                                          
@@ -306,10 +316,12 @@
 	                    <div class="card-body px-lg-5 py-lg-5">                      
 	                    		<small></small>
 	                           		Clic en escritorio
+	                           		<br><br>
 	                             	<a href="{{ asset('img/brand/img-guia-st9.PNG') }}" target="_blank"><img src="{{ asset('img/brand/img-guia-st9.PNG') }}" targer="http://127.0.0.1:8000/img/brand/img-guia-st9.PNG"></a>
 	                             </strong>
 	                             <br><br>
-	                             	Podremos ver el escritorio. 
+	                             	Podremos ver el escritorio.
+	                             <br><br> 
 	                             <a href="{{ asset('img/brand/img-guia-st10.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st10.PNG') }}"
 	                             ></a>       
 	                             <br><br>                                                          
@@ -336,10 +348,12 @@
 	                    <div class="card-body px-lg-5 py-lg-5">                      
 	                    		<small></small>
 	                           		Clic en noticias
+	                           		<br><br>
 	                             	<a href="{{ asset('img/brand/img-guia-st11.PNG') }}" target="_blank"><img src="{{ asset('img/brand/img-guia-st11.PNG') }}" targer="http://127.0.0.1:8000/img/brand/img-guia-st11.PNG"></a>
 	                             </strong>
 	                             <br><br>
 	                             	Después podremos ver las ultimas noticias o información mas relevante sobre el portal.
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st12.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st12.PNG') }}"
 	                             ></a>       
 	                             <br><br>                                                          
@@ -366,31 +380,38 @@
 	                    <div class="card-body px-lg-5 py-lg-5">                      
 	                    		<small></small>
 	                           		Clic en tienda
+	                           		<br><br>
 	                             	<a href="{{ asset('img/brand/img-guia-st13.PNG') }}" target="_blank"><img src="{{ asset('img/brand/img-guia-st13.PNG') }}" targer="http://127.0.0.1:8000/img/brand/img-guia-st13.PNG"></a>
 	                             </strong>
 	                             <br><br>
 	                             	Clic en la membresía y divisa que se quiere comprar
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st14.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st14.PNG') }}"
 	                             ></a>       
 	                             <br><br>
 	                             	Se visualiza el código QR o la wallet donde se consignará el valor de esta, y se da clic en registrar has de pago
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st15.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st15.PNG') }}"
 	                             ></a>       
 	                             <br><br>
 	                             Se despliega un formulario para diligenciar los datos del has de pago y la membresía que se va a adquirir,</n>
 								 seleccionamos el valor de la membresía 
+								 <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st16.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st16.PNG') }}"
 	                             ></a>   
 	                             <br><br>
 	                             Si contamos con una imagen del pago la adjuntamos y si no dejamos ese campo en blanco 
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st17.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st17.PNG') }}"
 	                             ></a>   
 	                             <br><br>
 	                             Digitamos los dos has de pago que nos arroje el sistema en donde se hizo el giro o la consignación 
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st18.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st18.PNG') }}"
 	                             ></a>   
 	                             <br><br> 
 	                             Esperamos al que el portal nos indique que el proceso transcurrió con éxito y también a que el administrador del portal valide la información quien después procederá a activar la membresía, el portal le enviara una notificación por correo con información del cambio de estado de su membresía
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st19.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st19.PNG') }}"
 	                             ></a>   
 	                             <br><br>                                                       
@@ -417,26 +438,32 @@
 	                    <div class="card-body px-lg-5 py-lg-5">                      
 	                    		<small></small>
 	                           		Clic en mis membresías
+	                           		<br><br>
 	                             	<a href="{{ asset('img/brand/img-guia-st20.PNG') }}" target="_blank"><img src="{{ asset('img/brand/img-guia-st20.PNG') }}" targer="http://127.0.0.1:8000/img/brand/img-guia-st20.PNG"></a>
 	                             </strong>
 	                             <br><br>
 	                             	Podemos visualizar los datos de mis membresías y los días que restan para que se cierre dicha membresía
+	                             	<br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st21.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st21.PNG') }}"
 	                             ></a>       
 	                             <br><br>
-	                             	Para ver el historial de pago diario de una membresía hacemos clic en Historial diarios 
+	                             	Para ver el historial de pago diario de una membresía hacemos clic en Historial diarios
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st22.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st22.PNG') }}"
 	                             ></a>       
 	                             <br><br>
 	                             Nos mostrara una tabla con el historial de pago diario de la membresía seleccionada 
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st23.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st23.PNG') }}"
 	                             ></a>   
 	                             <br><br>
-	                             Para ver el historial de pago por activación hacemos clic en Historial activación  
+	                             Para ver el historial de pago por activación hacemos clic en Historial activación
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st24.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st24.PNG') }}"
 	                             ></a>   
 	                             <br><br>
 	                             Nos mostrara una tabla con el historial de los pagos por activación 
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st25.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st25.PNG') }}"
 	                             ></a>   
 	                             <br><br>                                                   
@@ -463,26 +490,32 @@
 	                    <div class="card-body px-lg-5 py-lg-5">                      
 	                    		<small></small>
 	                           		Clic en mis membresías
+	                           		<br><br>
 	                             	<a href="{{ asset('img/brand/img-guia-st20.PNG') }}" target="_blank"><img src="{{ asset('img/brand/img-guia-st20.PNG') }}" targer="http://127.0.0.1:8000/img/brand/img-guia-st20.PNG"></a>
 	                             </strong>
 	                             <br><br>
 	                             	Podemos visualizar los datos de mis membresías y los días que restan para que se cierre dicha membresía
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st21.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st21.PNG') }}"
 	                             ></a>       
 	                             <br><br>
 	                             	Para ver el historial de pago diario de una membresía hacemos clic en Historial diarios 
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st22.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st22.PNG') }}"
 	                             ></a>       
 	                             <br><br>
-	                             Nos mostrara una tabla con el historial de pago diario de la membresía seleccionada 
+	                             Nos mostrara una tabla con el historial de pago diario de la membresía seleccionada
+	                             <br><br> 
 	                             <a href="{{ asset('img/brand/img-guia-st23.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st23.PNG') }}"
 	                             ></a>   
 	                             <br><br>
-	                             Para ver el historial de pago por activación hacemos clic en Historial activación  
+	                             Para ver el historial de pago por activación hacemos clic en Historial activación 
+	                             <br><br> 
 	                             <a href="{{ asset('img/brand/img-guia-st24.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st24.PNG') }}"
 	                             ></a>   
 	                             <br><br>
 	                             Nos mostrara una tabla con el historial de los pagos por activación 
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st25.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st25.PNG') }}"
 	                             ></a>   
 	                             <br><br>                                                   
@@ -509,22 +542,27 @@
 	                    <div class="card-body px-lg-5 py-lg-5">                      
 	                    		<small></small>
 	                           		Clic en mis membresías
+	                           		<br><br>
 	                             	<a href="{{ asset('img/brand/img-guia-st20.PNG') }}" target="_blank"><img src="{{ asset('img/brand/img-guia-st20.PNG') }}" targer="http://127.0.0.1:8000/img/brand/img-guia-st20.PNG"></a>
 	                             </strong>
 	                             <br><br>
-	                             	En mis membresías seleccionó la membresía que quiero renovar, esta debe estar en estado cerrada y le doy clic en el enlace que dice renovar
+	                             	En mis membresías seleccionó la membresía que quiero renovar, esta debe estar en estado cerrado y le doy clic en el enlace que dice renovar
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st26.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st26.PNG') }}"
 	                             ></a>       
 	                             <br><br>
-	                             	En la pantalla que se nos presenta validamos que se ala membresía que elegimos y le damos clic en renovar  
+	                             	En la pantalla que se nos presenta validamos que sea la membresía que elegimos y le damos clic en renovar  
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st27.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st27.PNG') }}"
 	                             ></a>       
 	                             <br><br>
 	                             Esperamos a que el portal nos indique que la operación fue exitosa 
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st28.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st28.PNG') }}"
 	                             ></a>   
 	                             <br><br>
-	                             Después vamos a mis membresías y validamos que tengamos la membresía activa   
+	                             Después vamos a mis membresías y validamos que tengamos la membresía activa  
+	                             <br><br> 
 	                             <a href="{{ asset('img/brand/img-guia-st29.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st29.PNG') }}"
 	                             ></a>   
 	                             <br><br>                                                  
@@ -551,14 +589,17 @@
 	                    <div class="card-body px-lg-5 py-lg-5">                      
 	                    		<small></small>
 	                           		Clic en red 
+	                           		<br><br>
 	                             	<a href="{{ asset('img/brand/img-guia-st30.PNG') }}" target="_blank"><img src="{{ asset('img/brand/img-guia-st30.PNG') }}" targer="http://127.0.0.1:8000/img/brand/img-guia-st30.PNG"></a>
 	                             </strong>
 	                             <br><br>
 	                             	Aquí podremos ver nuestra red
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st31.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st31.PNG') }}"
 	                             ></a>       
 	                             <br><br>
-	                             	y los pagos por activación    
+	                             	y los pagos por activación
+	                             <br><br>    
 	                             <a href="{{ asset('img/brand/img-guia-st32.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st32.PNG') }}"
 	                             ></a>       
 	                             <br><br>
@@ -580,24 +621,28 @@
 	                <div class="card bg-secondary shadow border-0">
 	                    <div class="card-header bg-transparent pb-5">
 	                        <div class="text-muted text-center mt-2 mb-3"><small>Billetera</small><br><br>
-	                          <video width="300px" src="{{ asset('img/brand/Billetera futurs.mp4') }}" controls> Video no es soportado... </video><br> billetera y traslados                   
+	                          <video width="300px" src="{{ asset('img/brand/Billetera futurs.mp4') }}" controls> Video no es soportado... </video><br> Billetera y traslados                   
 	                        </div>                      
 	                    </div>
 	                    <div class="card-body px-lg-5 py-lg-5">                      
 	                    		<small></small>
 	                           		Clic en billetera
+	                           		<br><br>
 	                             	<a href="{{ asset('img/brand/img-guia-st33.PNG') }}" target="_blank"><img src="{{ asset('img/brand/img-guia-st33.PNG') }}" targer="http://127.0.0.1:8000/img/brand/img-guia-st33.PNG"></a>
 	                             </strong>
 	                             <br><br>
 	                             	Se nos despliega la pantalla con el balance de la cuenta al lado izquierdo
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st34.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st34.PNG') }}"
 	                             ></a>       
 	                             <br><br>
-	                             	Al lado derecho, si cumplimos con las condiciones del portal, podremos ver un formulario para realizar la solicitud de traslado de saldo  
+	                             	Al lado derecho, si cumplimos con las condiciones del portal, podremos ver un formulario para realizar la solicitud de traslado de saldo 
+	                             <br><br> 
 	                             <a href="{{ asset('img/brand/img-guia-st35.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st35.PNG') }}"
 	                             ></a>       
 	                             <br><br>
 	                             Y al final de la ventana los movimientos que se han realizado por parte del usuario 
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st37.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st37.PNG') }}"
 	                             ></a>   
 	                             <br><br>                                                 
@@ -618,20 +663,23 @@
 	                <div class="card bg-secondary shadow border-0">
 	                    <div class="card-header bg-transparent pb-5">
 	                        <div class="text-muted text-center mt-2 mb-3"><small>Billetera</small><br><br>
-	                          <video width="300px" src="{{ asset('img/brand/Traslado Futurs.mp4') }}" controls> Video no es soportado... </video><br> hacer un traslado                   
+	                          <video width="300px" src="{{ asset('img/brand/Traslado Futurs.mp4') }}" controls> Video no es soportado... </video><br> Hacer un traslado                   
 	                        </div>                      
 	                    </div>
 	                    <div class="card-body px-lg-5 py-lg-5">                      
 	                    		<small></small>
 	                           		Clic en billetera
+	                           		<br><br>
 	                             	<a href="{{ asset('img/brand/img-guia-st33.PNG') }}" target="_blank"><img src="{{ asset('img/brand/img-guia-st33.PNG') }}" targer="http://127.0.0.1:8000/img/brand/img-guia-st33.PNG"></a>
 	                             </strong>
 	                             <br><br>
 	                             	En el formulario del lado derecho, se diligencian los campos, doy clic en enviar traslado, espero a que el portal me indique que la operación fue procesada con éxito y valido la notificación que me llegara al correo sobre el estado de mi traslado, después de que el administrador valide la información cambiara de estado la solicitud y será notificado por correo electrónico
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st38.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st38.PNG') }}"
 	                             ></a>       
 	                             <br><br>
 	                             	Si quiero verificar mi movimiento de saldo, puedo ir al final de la ventana y validarlo en el historial de movimientos 
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st39.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st39.PNG') }}"
 	                             ></a>       
 	                             <br><br>                                               
@@ -652,16 +700,18 @@
 	                <div class="card bg-secondary shadow border-0">
 	                    <div class="card-header bg-transparent pb-5">
 	                        <div class="text-muted text-center mt-2 mb-3"><small>Contacto</small><br><br>
-	                          <video width="300px" src="{{ asset('img/brand/Traslado Futurs.mp4') }}" controls> Video no es soportado... </video><br> Enviar correo al adminnistrador                   
+	                          <video width="300px" src="{{ asset('img/brand/correo.mp4') }}" controls> Video no es soportado... </video><br> Enviar correo al adminnistrador                   
 	                        </div>                      
 	                    </div>
 	                    <div class="card-body px-lg-5 py-lg-5">                      
 	                    		<small></small>
 	                           		Clic en contacto
+	                           		<br><br>
 	                             	<a href="{{ asset('img/brand/img-guia-st40.PNG') }}" target="_blank"><img src="{{ asset('img/brand/img-guia-st40.PNG') }}" targer="http://127.0.0.1:8000/img/brand/img-guia-st40.PNG"></a>
 	                             </strong>
 	                             <br><br>
 	                             	Se presentará un formulario para escribir el mensaje, después le damos clic en el botón de enviar
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st41.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st41.PNG') }}"
 	                             ></a>       
 	                             <br><br>  
@@ -683,17 +733,19 @@
 	                      
 	                <div class="card bg-secondary shadow border-0">
 	                    <div class="card-header bg-transparent pb-5">
-	                        <div class="text-muted text-center mt-2 mb-3"><small>T y c</small><br><br>
-	                          Terminos y condiciones                   
+	                        <div class="text-muted text-center mt-2 mb-3"><small>T & C</small><br><br>
+	                          Ver los términos y condiciones                
 	                        </div>                      
 	                    </div>
 	                    <div class="card-body px-lg-5 py-lg-5">                      
 	                    		<small></small>
 	                           		 En el formulario de inicio de sesión del portal, hacer clic en acepto términos y condiciones 
+	                           		 <br><br>
 	                             	<a href="{{ asset('img/brand/img-guia-st44.PNG') }}" target="_blank"><img src="{{ asset('img/brand/img-guia-st44.PNG') }}" targer="http://127.0.0.1:8000/img/brand/img-guia-st44.PNG"></a>
 	                             </strong>
 	                             <br><br>
-	                             	Al final de cada pagina al lado derecho
+	                             	Al final de cada página, en la parte inferior derecha
+	                             <br><br>
 	                             <a href="{{ asset('img/brand/img-guia-st43.PNG') }}" target="_blank"><img width="300px" style="img.style.transform = 'scale(1.9)'" src="{{ asset('img/brand/img-guia-st43.PNG') }}"
 	                             ></a>       
 	                             <br><br>                                              

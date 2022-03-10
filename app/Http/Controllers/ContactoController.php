@@ -26,10 +26,13 @@ class ContactoController extends Controller
     	// Total comission del usuario 
 		$totalCommission = $this->totalCommission();
 
+    // Total produccion del usuario 
+      $totalProduction = $this->totalProduction();
+
 		// Total usuarios
 		$totalusers = $totalusers = $this->countUsers();
 
-		return view('contacto.index', compact('user', 'totalusers', 'totalCommission'));
+		return view('contacto.index', compact('user', 'totalusers', 'totalCommission', 'totalProduction'));
     }
 
     public function store(Request $request)
@@ -78,8 +81,24 @@ class ContactoController extends Controller
       // Total usuarios
       $totalCommission = DB::table("network_transactions")
       ->where('user', $id)
+      ->where('type', 'Activation')
       ->get()->sum("value");
 
       return $totalCommission;
+    }
+
+    private function totalProduction()
+    {
+      // Conseguir usuario identificado
+      $user = \Auth::user();
+      $id = $user->id;
+
+      // Total usuarios
+      $totalProduction = DB::table("network_transactions")
+      ->where('user', $id)
+      ->where('type', 'Daily')
+      ->get()->sum("value");
+
+      return $totalProduction;
     }
 }

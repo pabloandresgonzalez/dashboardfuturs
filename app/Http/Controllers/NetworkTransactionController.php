@@ -30,10 +30,13 @@ class NetworkTransactionController extends Controller
         // Total comission del usuario 
         $totalCommission = $this->totalCommission();
 
+        // Total produccion del usuario 
+        $totalProduction = $this->totalProduction();
+
         // Total usuarios
         $totalusers = $totalusers = $this->countUsers();
 
-        return view('networktransaction.index', compact('networktransactions', 'totalusers', 'totalCommission'));        
+        return view('networktransaction.index', compact('networktransactions', 'totalusers', 'totalCommission', 'totalProduction'));        
 
     }
 
@@ -54,10 +57,13 @@ class NetworkTransactionController extends Controller
         // Total comission del usuario 
         $totalCommission = $this->totalCommission();
 
+        // Total produccion del usuario 
+        $totalProduction = $this->totalProduction();
+
         // Total usuarios
         $totalusers = $totalusers = $this->countUsers();
 
-        return view('networktransaction.indexactivacion', compact('networktransactions', 'totalusers', 'totalCommission'));        
+        return view('networktransaction.indexactivacion', compact('networktransactions', 'totalusers', 'totalCommission', 'totalProduction'));        
 
     }
 
@@ -77,14 +83,30 @@ class NetworkTransactionController extends Controller
     private function totalCommission()
     {
         // Conseguir usuario identificado
-        $user = \Auth::user();
+        $user = \Auth::user();        
         $id = $user->id;
 
         // Total usuarios
         $totalCommission = DB::table("network_transactions")
         ->where('user', $id)
+        ->where('type', 'Activation') 
         ->get()->sum("value");
 
         return $totalCommission;
+    }
+
+    private function totalProduction()
+    {
+      // Conseguir usuario identificado
+      $user = \Auth::user();
+      $id = $user->id;
+
+      // Total usuarios
+      $totalProduction = DB::table("network_transactions")
+      ->where('user', $id)
+      ->where('type', 'Daily')
+      ->get()->sum("value");
+
+      return $totalProduction;
     }
 }

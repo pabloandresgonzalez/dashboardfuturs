@@ -30,6 +30,9 @@ class UserController extends Controller
       // Total comission del usuario 
       $totalCommission = $this->totalCommission();
 
+      // Total produccion del usuario 
+      $totalProduction = $this->totalProduction();
+
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
 
@@ -46,7 +49,8 @@ class UserController extends Controller
       return view('users.index', [
       'users' => $users,
       'totalusers' => $totalusers,
-      'totalCommission' => $totalCommission
+      'totalCommission' => $totalCommission,
+      'totalProduction' => $totalProduction
       ]);  
 
     }
@@ -56,10 +60,13 @@ class UserController extends Controller
       // Total comission del usuario 
       $totalCommission = $this->totalCommission();
 
+      // Total produccion del usuario 
+      $totalProduction = $this->totalProduction();
+
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
 
-      return view('users.create', compact('totalusers', 'totalCommission'));
+      return view('users.create', compact('totalusers', 'totalCommission', 'totalProduction'));
 
     }
 
@@ -69,6 +76,9 @@ class UserController extends Controller
       // Total comission del usuario 
       $totalCommission = $this->totalCommission();
 
+      // Total produccion del usuario 
+      $totalProduction = $this->totalProduction();
+
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
 
@@ -77,7 +87,9 @@ class UserController extends Controller
       return view('users.edit', [
         'user' => $user,
         'totalusers' => $totalusers,
-        'totalCommission' => $totalCommission
+        'totalCommission' => $totalCommission,
+        'totalProduction' => $totalProduction
+
       ]);
     }
 
@@ -116,10 +128,26 @@ class UserController extends Controller
 
       // Total usuarios
       $totalCommission = DB::table("network_transactions")
-      ->where('user', $id)
+      ->where('user', $id) 
+      ->where('type', 'Activation')      
       ->get()->sum("value");
 
       return $totalCommission;
+    }
+
+    private function totalProduction()
+    {
+      // Conseguir usuario identificado
+      $user = \Auth::user();
+      $id = $user->id;
+
+      // Total usuarios
+      $totalProduction = DB::table("network_transactions")
+      ->where('user', $id)
+      ->where('type', 'Daily')
+      ->get()->sum("value");
+
+      return $totalProduction;
     }
 
     private function perfomrValidationCreate(Request $request)
@@ -165,6 +193,9 @@ class UserController extends Controller
                
       // Total comission del usuario 
       $totalCommission = $this->totalCommission();
+
+      // Total produccion del usuario 
+      $totalProduction = $this->totalProduction();
 
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
@@ -223,7 +254,8 @@ class UserController extends Controller
       return redirect('user')->with([                
                 'message' => 'La informacion de '.$user->name.', fue actualizada correctamente!',
                 'totalusers' => $totalusers,
-                'totalCommission' => $totalCommission
+                'totalCommission' => $totalCommission,
+                'totalProduction' => $totalProduction
         ]);
 
     }
@@ -233,6 +265,9 @@ class UserController extends Controller
 
       // Total comission del usuario 
       $totalCommission = $this->totalCommission();
+
+      // Total produccion del usuario 
+      $totalProduction = $this->totalProduction();
 
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
@@ -312,7 +347,8 @@ class UserController extends Controller
         return redirect('user')->with([
                 'message' => 'La informacion de '.$user->name.', fue actualizada correctamente!',
                 'totalusers' => $totalusers,
-                'totalCommission' => $totalCommission
+                'totalCommission' => $totalCommission,
+                'totalProduction' => $totalProduction
         ]);
 
     }
@@ -322,6 +358,9 @@ class UserController extends Controller
 
       // Total comission del usuario 
       $totalCommission = $this->totalCommission();
+
+      // Total produccion del usuario 
+      $totalProduction = $this->totalProduction();
 
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
@@ -403,7 +442,8 @@ class UserController extends Controller
         return redirect('home')->with([
                 'message' => $user->name.', tu informacion fue actualizada correctamente!',
                 'totalusers' => $totalusers,
-                'totalCommission' => $totalCommission
+                'totalCommission' => $totalCommission,
+                'totalProduction' => $totalProduction
         ]);
 
     }
@@ -417,13 +457,17 @@ class UserController extends Controller
       // Total comission del usuario 
       $totalCommission = $this->totalCommission();
 
+      // Total produccion del usuario 
+      $totalProduction = $this->totalProduction();
+
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
 
       return Response()->view('users.indexperfil', [
         'user' => $user,
         'totalusers' => $totalusers,
-        'totalCommission' => $totalCommission
+        'totalCommission' => $totalCommission,
+        'totalProduction' => $totalProduction
       ]);
 
     }
@@ -433,6 +477,9 @@ class UserController extends Controller
 
       // Total comission del usuario 
       $totalCommission = $this->totalCommission();
+
+      // Total produccion del usuario 
+      $totalProduction = $this->totalProduction();
 
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
@@ -480,6 +527,7 @@ class UserController extends Controller
           'totalCommission' => $totalCommission,
           'Wallets' => $Wallets,
           'result' => $result,
+          'totalProduction' => $totalProduction
       ]);
     }
 
@@ -499,16 +547,16 @@ class UserController extends Controller
       // Total comission del usuario 
       $totalCommission = $this->totalCommission();
 
+      // Total produccion del usuario 
+      $totalProduction = $this->totalProduction();
+
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
       
       $misusers1 = DB::table('users')
             ->where('ownerId', $id)
             ->join('user_memberships', 'user_memberships.user', '=', 'users.id')
-            //->join('orders', 'users.id', '=', 'orders.user_id')
-            //->select('users.*', 'contacts.phone', 'orders.price')
             ->get();
-      //dd($misusers1);
 
       $networktransactions = DB::select('SELECT u.*, nt.*   
         FROM network_transactions as nt
@@ -523,7 +571,8 @@ class UserController extends Controller
           'totalusers' => $totalusers,
           'misusers1' => $misusers1,
           'networktransactions' => $networktransactions,
-          'totalCommission' => $totalCommission
+          'totalCommission' => $totalCommission,
+          'totalProduction' => $totalProduction
           
       ]);
     } 

@@ -24,13 +24,16 @@ class NewsController extends Controller
       // Total comission del usuario 
       $totalCommission = $this->totalCommission();
 
+      // Total produccion del usuario 
+      $totalProduction = $this->totalProduction();
+
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers(); 
 
       $news = News::orderBy('created_at', 'Desc')->paginate(30);
       $data = ['news' => $news];
 
-      return view('news.index', compact('news', 'totalusers', 'totalCommission'));
+      return view('news.index', compact('news', 'totalusers', 'totalCommission', 'totalProduction'));
 
   }
 
@@ -39,10 +42,13 @@ class NewsController extends Controller
       // Total comission del usuario 
       $totalCommission = $this->totalCommission();
 
+      // Total produccion del usuario 
+      $totalProduction = $this->totalProduction();
+
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers(); 
 
-      return view('news.create', compact('totalusers', 'totalCommission'));
+      return view('news.create', compact('totalusers', 'totalCommission', 'totalProduction'));
 
   }
 
@@ -68,10 +74,26 @@ class NewsController extends Controller
     // Total usuarios
     $totalCommission = DB::table("network_transactions")
     ->where('user', $id)
+    ->where('type', 'Activation')
     ->get()->sum("value");
 
     return $totalCommission;
   }
+
+  private function totalProduction()
+    {
+      // Conseguir usuario identificado
+      $user = \Auth::user();
+      $id = $user->id;
+
+      // Total usuarios
+      $totalProduction = DB::table("network_transactions")
+      ->where('user', $id)
+      ->where('type', 'Daily')
+      ->get()->sum("value");
+
+      return $totalProduction;
+    }
 
   public function perfomrValidationCreate(Request $request)
   {
@@ -105,6 +127,9 @@ class NewsController extends Controller
 
     // Total comission del usuario 
     $totalCommission = $this->totalCommission();
+
+    // Total produccion del usuario 
+    $totalProduction = $this->totalProduction();
 
     // Total usuarios
     $totalusers = $totalusers = $this->countUsers();
@@ -140,7 +165,8 @@ class NewsController extends Controller
     return redirect('news')->with([
             'message' => 'La news '.$news->title.' fue creada correctamente!',
             'totalusers' => $totalusers,
-            'totalCommission' => $totalCommission
+            'totalCommission' => $totalCommission,
+            'totalProduction' => $totalProduction
     ]);
 
   }
@@ -151,13 +177,16 @@ class NewsController extends Controller
     // Total comission del usuario 
     $totalCommission = $this->totalCommission();
 
+    // Total produccion del usuario 
+    $totalProduction = $this->totalProduction();
+
     // Total usuarios
     $totalusers = $totalusers = $this->countUsers(); 
 
     $news = News::where('isActive', '1')->orderBy('id', 'Desc')->paginate(10);
     $data = ['news' => $news];      
 
-    return view('news.indexuser', compact('news', 'totalusers', 'totalCommission'));
+    return view('news.indexuser', compact('news', 'totalusers', 'totalCommission', 'totalProduction'));
 
   }
 
@@ -169,13 +198,17 @@ class NewsController extends Controller
     // Total comission del usuario 
     $totalCommission = $this->totalCommission();
 
+    // Total produccion del usuario 
+    $totalProduction = $this->totalProduction();
+
     // Total usuarios
     $totalusers = $totalusers = $this->countUsers(); 
 
     return view('news.edit', [
       'news' => $news,
       'totalusers' => $totalusers,
-      'totalCommission' => $totalCommission
+      'totalCommission' => $totalCommission,
+      'totalProduction' => $totalProduction
     ]);
 
   }
@@ -225,13 +258,17 @@ class NewsController extends Controller
     // Total comission del usuario 
     $totalCommission = $this->totalCommission();
 
+    // Total produccion del usuario 
+    $totalProduction = $this->totalProduction();
+
     // Total usuarios
     $totalusers = $totalusers = $this->countUsers();
 
     return redirect('news')->with([
             'message' => 'La news '.$news->title.' fue editada correctamente!',
             'totalusers' => $totalusers,
-            'totalCommission' => $totalCommission
+            'totalCommission' => $totalCommission,
+            'totalProduction' => $totalProduction
     ]);
 
   }
@@ -244,13 +281,17 @@ class NewsController extends Controller
     // Total comission del usuario 
     $totalCommission = $this->totalCommission();
 
+    // Total produccion del usuario 
+    $totalProduction = $this->totalProduction();
+
     // Total usuarios
     $totalusers = $totalusers = $this->countUsers(); 
 
     return view('news.detail', [
         'news' => $news,
         'totalusers' => $totalusers,
-        'totalCommission' => $totalCommission
+        'totalCommission' => $totalCommission,
+        'totalProduction' => $totalProduction
     ]);
   }
 

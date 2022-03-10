@@ -41,13 +41,7 @@
                         </a>                        
                       </div>
                     </div>
-                  </div><!--
-                  <div class="card-header text-center border-0 pt-8 pt-md-2 pb-0 pb-md-4">
-                    <div class="d-flex justify-content-between">
-                <a href="#" data-toggle="modal" class="btn btn-sm btn-info mr-4" >{{ $misuser->user_email }}</a>
-              
-              </div>
-                  </div>-->
+                  </div>
                   <br><br>
                   <div class="card-body pt-0 pt-md-2">
                     <div class="row">
@@ -55,15 +49,15 @@
                         <div class="card-profile-stats d-flex justify-content-center mt-md-5">
                           <div>
                             <h5>{{ $misuser->name }}</h5>
-                            <span class="description">Membresia: {{ $misuser->membership }}</span>
+                            <span class="description">Membresia {{ $misuser->membership }}</span>
                           </div>                          
                         </div>
                       </div>
                     </div>
                     <div class="text-center">
-                      <h3>
-                        <span class="font-weight-light">Estado: {{ $misuser->status }}</span>
-                      </h3>
+                      <h4>
+                        <span class="font-weight-light">Estado  {{ $misuser->status }}</span>
+                      </h4>
                       <div class="h5 font-weight-300">
                         <i class="ni location_pin mr-2"></i>
                         <div></div>
@@ -124,29 +118,19 @@
                   </td> 
                  </tr>
                   @endforeach
-            </table>
-            <br>     
-
-            
-
+              </tbody>
+            </table>            
+            <br>  
     </div>
-  </div>
-
-
-
-
-
-
   </div>
 </div>
 
-  <br>
-        <hr class="my-3">
-           <h5 style="text-align: center;"> &nbsp; Red de miembros <br><h5/>
+    <hr class="my-3">
+       <h5 style="text-align: center;"> &nbsp; Red de miembros <h5/>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+    <main class="py-4">
+        @yield('content')
+    </main>
 
 
 @endsection

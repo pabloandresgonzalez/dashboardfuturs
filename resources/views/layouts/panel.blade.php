@@ -244,7 +244,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Comisión</h5>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Historical commissions</h5>
                       <span class="h2 font-weight-bold mb-0"><?php echo "$ " . $totalCommission;  ?></span>                      
                     </div>
                     <div class="col-auto">
@@ -254,8 +254,8 @@
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-warning mr-2"><i class="fas fa-dollar-sign"></i> <?php echo $totalCommission;  ?></span>
-                    <span class="text-nowrap">Commission</span>
+                    <span class="text-warning mr-2"><i class="fas fa-dollar-sign"></i> <?php echo $totalProduction;  ?></span>
+                    <span class="text-nowrap">Historical production</span>
                   </p>
                 </div>
               </div>
@@ -265,7 +265,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Balance</h5>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Saldo disponible</h5>
                       <span class="h2 font-weight-bold mb-0">
                       <?php  
                         if ($result) {

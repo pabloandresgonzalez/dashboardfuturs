@@ -32,7 +32,7 @@
 
       <div class="card pub-prestamo">
         <div class="card-header">
-          <i class="ni ni-money-coins"></i> &nbsp;Detalle de pagos x activacion </h3>
+          <i class="ni ni-money-coins"></i> &nbsp;Detalle de pagos por activación </h3>
         </div>
        
           <div class="table-responsive">

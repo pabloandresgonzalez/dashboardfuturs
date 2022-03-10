@@ -51,13 +51,17 @@ class UserMembershipController extends Controller
         // Total comission del usuario 
         $totalCommission = $this->totalCommission();
 
+        // Total produccion del usuario 
+        $totalProduction = $this->totalProduction();
+
         // Total usuarios
         $totalusers = $totalusers = $this->countUsers();
 
         return view('memberships.index', [
         'memberships' => $memberships,
         'totalusers' => $totalusers,
-        'totalCommission' => $totalCommission
+        'totalCommission' => $totalCommission,
+        'totalProduction' => $totalProduction
         ]);
 
     }
@@ -80,11 +84,14 @@ class UserMembershipController extends Controller
         // Total comission del usuario 
         $totalCommission = $this->totalCommission();
 
+        // Total produccion del usuario 
+        $totalProduction = $this->totalProduction();
+
         // Total usuarios
         $totalusers = $totalusers = $this->countUsers();
 
 
-        return view('memberships.create', compact('membresias', 'totalusers', 'totalCommission'));
+        return view('memberships.create', compact('membresias', 'totalusers', 'totalCommission', 'totalProduction'));
 
     }
 
@@ -96,6 +103,9 @@ class UserMembershipController extends Controller
         // Total comission del usuario 
         $totalCommission = $this->totalCommission();
 
+        // Total produccion del usuario 
+        $totalProduction = $this->totalProduction();
+
         // Total usuarios
         $totalusers = $totalusers = $this->countUsers();
 
@@ -103,7 +113,8 @@ class UserMembershipController extends Controller
           'memberships' => $memberships,
           'fecha_actual' => $fecha_actual,
           'totalusers' => $totalusers,
-          'totalCommission' => $totalCommission
+          'totalCommission' => $totalCommission,
+          'totalProduction' => $totalProduction
       ]);
 
     }
@@ -130,9 +141,25 @@ class UserMembershipController extends Controller
       // Total usuarios
       $totalCommission = DB::table("network_transactions")
       ->where('user', $id)
+      ->where('type', 'Activation')
       ->get()->sum("value");
 
       return $totalCommission;
+    }
+
+    private function totalProduction()
+    {
+      // Conseguir usuario identificado
+      $user = \Auth::user();
+      $id = $user->id;
+
+      // Total usuarios
+      $totalProduction = DB::table("network_transactions")
+      ->where('user', $id)
+      ->where('type', 'Daily')
+      ->get()->sum("value");
+
+      return $totalProduction;
     }
 
     public function store(Request $request)
@@ -220,13 +247,17 @@ class UserMembershipController extends Controller
         // Total comission del usuario 
         $totalCommission = $this->totalCommission();
 
+        // Total produccion del usuario 
+        $totalProduction = $this->totalProduction();
+
         // Total usuarios
         $totalusers = $totalusers = $this->countUsers();
 
         return redirect()->route('home')->with([
                     'message' => '¡' . $name . ' ¡hash enviado correctamente!',
                     'totalusers' => $totalusers,
-                    'totalCommission' => $totalCommission
+                    'totalCommission' => $totalCommission,
+                    'totalProduction' => $totalProduction
         ]);
 
     }
@@ -321,13 +352,17 @@ class UserMembershipController extends Controller
         // Total comission del usuario 
         $totalCommission = $this->totalCommission();
 
+        // Total produccion del usuario 
+        $totalProduction = $this->totalProduction();
+
         // Total usuarios
         $totalusers = $totalusers = $this->countUsers();
 
         return redirect()->route('home')->with([
                     'message' => 'Membership editado correctamente!',
                     'totalusers' => $totalusers,
-                    'totalCommission' => $totalCommission
+                    'totalCommission' => $totalCommission,
+                    'totalProduction' => $totalProduction
         ]);
 
     }
@@ -346,6 +381,9 @@ class UserMembershipController extends Controller
       // Total comission del usuario 
       $totalCommission = $this->totalCommission();
 
+      // Total produccion del usuario 
+      $totalProduction = $this->totalProduction();
+
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
 
@@ -355,7 +393,8 @@ class UserMembershipController extends Controller
           'user' => $user,
           'totalusers' => $totalusers,
           'username' => $username,
-          'totalCommission' => $totalCommission
+          'totalCommission' => $totalCommission,
+          'totalProduction' => $totalProduction
       ]);
 
     }
@@ -369,10 +408,13 @@ class UserMembershipController extends Controller
 
     public function orden($id)
     {
-        $membership = UserMembership::find($id);
+      $membership = UserMembership::find($id);
 
       // Total comission del usuario 
       $totalCommission = $this->totalCommission();
+
+      // Total produccion del usuario 
+      $totalProduction = $this->totalProduction();
 
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
@@ -380,7 +422,8 @@ class UserMembershipController extends Controller
         return view('memberships.soporte', [
             'membership' => $membership,
             'totalusers' => $totalusers,
-            'totalCommission' => $totalCommission           
+            'totalCommission' => $totalCommission,
+            'totalProduction' => $totalProduction           
         ]);
 
     }
@@ -390,13 +433,16 @@ class UserMembershipController extends Controller
         // Total comission del usuario 
         $totalCommission = $this->totalCommission();
 
+        // Total produccion del usuario 
+        $totalProduction = $this->totalProduction();
+
         // Total usuarios
         $totalusers = $totalusers = $this->countUsers();
 
         $membership = UserMembership::findOrFail($id);        
         //$networktransaction = NetworkTransaction::findOrFail($request->user);
         //dd($membership);
-        return view('networktransaction.index', compact('totalusers', 'totalCommission'));
+        return view('networktransaction.index', compact('totalusers', 'totalCommission', 'totalProduction'));
 
     }
 
@@ -456,6 +502,9 @@ class UserMembershipController extends Controller
         // Total comission del usuario 
         $totalCommission = $this->totalCommission();
 
+        // Total produccion del usuario 
+        $totalProduction = $this->totalProduction();
+
         // Total usuarios
         $totalusers = $totalusers = $this->countUsers();
 
@@ -490,7 +539,9 @@ class UserMembershipController extends Controller
                 'result' => $result,
                 'totalusers' => $totalusers,
                 'valor_membresia' => $valor_membresia,
-                'totalCommission' => $totalCommission
+                'totalCommission' => $totalCommission,
+                'totalProduction' => $totalProduction
+
                 ]);             
 
         }
@@ -499,7 +550,8 @@ class UserMembershipController extends Controller
             return redirect()->route('home')->with([
                 'message' => '¡Ups ¡El saldo es insuficiente para renovar ¡',
                 'totalusers' => $totalusers,
-                'totalCommission' => $totalCommission
+                'totalCommission' => $totalCommission,
+                'totalProduction' => $totalProduction
             ]); 
 
     }
@@ -515,6 +567,9 @@ class UserMembershipController extends Controller
 
         // Total comission del usuario 
         $totalCommission = $this->totalCommission();
+
+        // Total produccion del usuario 
+        $totalProduction = $this->totalProduction();
 
         // Total usuarios
         $totalusers = $totalusers = $this->countUsers();
@@ -585,10 +640,11 @@ class UserMembershipController extends Controller
         if ($valor_membresia > $valor_saldo) {
             
             return redirect()->route('home')->with([
-                    'message' => 'Saldo insuficiente para renovar!',
+                    'message' => '¡Ups ¡Saldo insuficiente para renovar!',
                     'totalusers' => $totalusers,
                     'valor_membresia' => $valor_membresia,
-                    'totalCommission' => $totalCommission
+                    'totalCommission' => $totalCommission,
+                    'totalProduction' => $totalProduction
                 ]); 
 
         }
@@ -727,9 +783,10 @@ class UserMembershipController extends Controller
         
 
         return redirect()->route('home')->with([
-                    'message' => 'Hash de renovación enviado correctamente!',
+                    'message' => '¡' . $name . ' Hash de renovación enviado correctamente!',
                     'totalusers' => $totalusers,
-                    'totalCommission' => $totalCommission
+                    'totalCommission' => $totalCommission,
+                    'totalProduction' => $totalProduction
                     
         ]);
 
@@ -742,13 +799,17 @@ class UserMembershipController extends Controller
       // Total comission del usuario 
       $totalCommission = $this->totalCommission();
 
+      // Total produccion del usuario 
+      $totalProduction = $this->totalProduction();
+
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
 
       return view('memberships.detail', [
           'membership' => $membership,
           'totalusers' => $totalusers,
-          'totalCommission' => $totalCommission
+          'totalCommission' => $totalCommission,
+          'totalProduction' => $totalProduction
       ]);
     }
 

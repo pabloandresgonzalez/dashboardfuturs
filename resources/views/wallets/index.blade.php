@@ -398,7 +398,6 @@
                     </div>
                   </div> 
                 </div>
-                <hr style="width:50%;" />
 
             {{ $Wallets->appends(request()->input())->links() }}
 
@@ -406,11 +405,7 @@
     </div>
   </div>
   </div>
-    </div>
 
-
-
-
-        <hr class="my-3"> 
+  <hr class="my-3"> 
 
 @endsection

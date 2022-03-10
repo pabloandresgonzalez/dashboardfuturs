@@ -12,7 +12,7 @@
                 <a href="" class="nav-link" target="">Terminos y Condiciones</a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link" target="">Centro de apoyo</a>
+                <a href="{{ route('guia.index') }}" class="nav-link" target="">Centro de apoyo</a>
               </li>
             </ul>
           </div>

@@ -27,9 +27,9 @@
       <a class="nav-link" href="https://wa.me/593987347130?text=%20Hola! %20Requiero%20de%20su%20ayuda%20para%20un%20soporte%20en%20FUTURS,%20Gracias">
         <i class="ni ni-support-16 text-info"></i> Ayuda
       </a>
-    </li>
+    </li>    
     <li class="nav-item">
-      <a class="nav-link" href="{{ route('contacto.index') }}"><i class="ni ni-email-83 text-blue"></i> Contacto
+      <a class="nav-link" href="{{ route('contacto.index') }}"><i class="ni ni-email-83 "></i> Contacto
       </a>
     </li>
     <li class="nav-item">
