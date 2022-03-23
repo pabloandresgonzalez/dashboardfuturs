@@ -75,7 +75,6 @@
       </div>
     </div>
     <br>
-
     <div class="card-header">
           <i class="ni ni-money-coins"></i> &nbsp;Historial de pagos</h3>
         </div> 
@@ -131,6 +130,7 @@
     <main class="py-4">
         @yield('content')
     </main>
+
 
 
 @endsection

@@ -27,11 +27,14 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-      // Total comission del usuario 
+      // Total comission del usuario mes en curso
       $totalCommission = $this->totalCommission();
 
-      // Total produccion del usuario 
+      // Hitorial de produccion 
       $totalProduction = $this->totalProduction();
+
+      // Total produccion del usuario mes en curso
+      $totalProductionMes = $this->totalProductionMes();
 
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
@@ -50,34 +53,40 @@ class UserController extends Controller
       'users' => $users,
       'totalusers' => $totalusers,
       'totalCommission' => $totalCommission,
-      'totalProduction' => $totalProduction
+      'totalProduction' => $totalProduction,
+      'totalProductionMes' => $totalProductionMes
       ]);  
 
     }
 
     public function create()
     {
-      // Total comission del usuario 
+      // Total comission del usuario mes en curso
       $totalCommission = $this->totalCommission();
 
-      // Total produccion del usuario 
+      // Hitorial de produccion 
       $totalProduction = $this->totalProduction();
+
+      // Total produccion del usuario mes en curso
+      $totalProductionMes = $this->totalProductionMes();
 
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
 
-      return view('users.create', compact('totalusers', 'totalCommission', 'totalProduction'));
+      return view('users.create', compact('totalusers', 'totalCommission', 'totalProduction', 'totalProductionMes'));
 
     }
 
     public function edit($id)
-    {
-      
-      // Total comission del usuario 
+    {      
+      // Total comission del usuario mes en curso
       $totalCommission = $this->totalCommission();
 
-      // Total produccion del usuario 
+      // Hitorial de produccion 
       $totalProduction = $this->totalProduction();
+
+      // Total produccion del usuario mes en curso
+      $totalProductionMes = $this->totalProductionMes();
 
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
@@ -88,7 +97,8 @@ class UserController extends Controller
         'user' => $user,
         'totalusers' => $totalusers,
         'totalCommission' => $totalCommission,
-        'totalProduction' => $totalProduction
+        'totalProduction' => $totalProduction,
+        'totalProductionMes' => $totalProductionMes
 
       ]);
     }
@@ -126,11 +136,21 @@ class UserController extends Controller
       $user = \Auth::user();
       $id = $user->id;
 
-      // Total usuarios
+      /*// Total, de comisión por activación de membresías de usuarios referidos 
       $totalCommission = DB::table("network_transactions")
-      ->where('user', $id) 
+      ->where('user', $id)
       ->where('type', 'Activation')      
-      ->get()->sum("value");
+      ->get()->sum("value");*/
+
+      $totalCommission1 = DB::select("SELECT * FROM network_transactions 
+        WHERE YEAR(created_at) = YEAR(CURRENT_DATE()) 
+        AND MONTH(created_at)  = MONTH(CURRENT_DATE())
+        AND type = 'Activation'
+        AND status = 'Activa'
+        AND user = ?", [$id]);
+
+      $valores = array_column($totalCommission1, 'value');
+      $totalCommission = array_sum($valores);
 
       return $totalCommission;
     }
@@ -148,6 +168,25 @@ class UserController extends Controller
       ->get()->sum("value");
 
       return $totalProduction;
+    }
+
+    private function totalProductionMes()
+    {
+      // Conseguir usuario identificado
+      $user = \Auth::user();
+      $id = $user->id;
+
+      $totalProductionMes1 = DB::select("SELECT * FROM network_transactions 
+        WHERE YEAR(created_at) = YEAR(CURRENT_DATE()) 
+        AND MONTH(created_at)  = MONTH(CURRENT_DATE())
+        AND type = 'Daily'
+        AND status = 'Activa'
+        AND user = ?", [$id]);
+
+      $valores = array_column($totalProductionMes1, 'value');
+      $totalProductionMes = array_sum($valores);
+
+      return $totalProductionMes;
     }
 
     private function perfomrValidationCreate(Request $request)
@@ -191,11 +230,14 @@ class UserController extends Controller
     public function store(Request $request)
     {
                
-      // Total comission del usuario 
+      // Total comission del usuario mes en curso
       $totalCommission = $this->totalCommission();
 
-      // Total produccion del usuario 
+      // Hitorial de produccion 
       $totalProduction = $this->totalProduction();
+
+      // Total produccion del usuario mes en curso
+      $totalProductionMes = $this->totalProductionMes();
 
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
@@ -255,7 +297,8 @@ class UserController extends Controller
                 'message' => 'La informacion de '.$user->name.', fue actualizada correctamente!',
                 'totalusers' => $totalusers,
                 'totalCommission' => $totalCommission,
-                'totalProduction' => $totalProduction
+                'totalProduction' => $totalProduction,
+                'totalProductionMes' => $totalProductionMes
         ]);
 
     }
@@ -263,11 +306,14 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
 
-      // Total comission del usuario 
+      // Total comission del usuario mes en curso
       $totalCommission = $this->totalCommission();
 
-      // Total produccion del usuario 
+      // Hitorial de produccion 
       $totalProduction = $this->totalProduction();
+
+      // Total produccion del usuario mes en curso
+      $totalProductionMes = $this->totalProductionMes();
 
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
@@ -348,7 +394,8 @@ class UserController extends Controller
                 'message' => 'La informacion de '.$user->name.', fue actualizada correctamente!',
                 'totalusers' => $totalusers,
                 'totalCommission' => $totalCommission,
-                'totalProduction' => $totalProduction
+                'totalProduction' => $totalProduction,
+                'totalProductionMes' => $totalProductionMes
         ]);
 
     }
@@ -356,11 +403,14 @@ class UserController extends Controller
     public function updateUser(Request $request, $id)
     {
 
-      // Total comission del usuario 
+      // Total comission del usuario mes en curso
       $totalCommission = $this->totalCommission();
 
-      // Total produccion del usuario 
+      // Hitorial de produccion 
       $totalProduction = $this->totalProduction();
+
+      // Total produccion del usuario mes en curso
+      $totalProductionMes = $this->totalProductionMes();
 
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
@@ -443,8 +493,105 @@ class UserController extends Controller
                 'message' => $user->name.', tu informacion fue actualizada correctamente!',
                 'totalusers' => $totalusers,
                 'totalCommission' => $totalCommission,
-                'totalProduction' => $totalProduction
+                'totalProduction' => $totalProduction,
+                'totalProductionMes' => $totalProductionMes
         ]);
+
+    }
+
+    public function updateUserconfiguracion(Request $request, $id)
+    {
+      
+      // Total comission del usuario mes en curso
+      $totalCommission = $this->totalCommission();
+
+      // Hitorial de produccion 
+      $totalProduction = $this->totalProduction();
+
+      // Total produccion del usuario mes en curso
+      $totalProductionMes = $this->totalProductionMes();  
+
+      // Total usuarios
+      $totalusers = $totalusers = $this->countUsers();
+
+      $user = User::findOrFail($id);
+      $name = $user->name;
+      $lastname = $user->lastname;
+      $typeDoc = $user->typeDoc;
+      $numberDoc = $user->numberDoc;
+      $role = $user->role;
+      //$phone = $user->phone;
+      //$cellphone = $user->cellphone;
+      $country = $user->country;
+      $level = $user->level;
+      $isActive = $user->isActive;
+      $ownerId = $user->ownerId;
+      $email = $user->email;
+
+
+      //Validacion del formulario
+      $validate = $this->validate($request, [          
+        'phone' => 'required|string|max:255',
+        'cellphone' => 'required|string|max:255',
+        'email' => 'required|string|max:255',
+      ]);
+
+
+      //Recoger los datos del formulario
+      $user->name = $name;
+      $user->lastname = $lastname;
+      $user->typeDoc = $typeDoc;
+      $user->numberDoc = $numberDoc;
+      $user->role = $role;
+      $user->phone = $request->input('phone');
+      $user->cellphone = $request->input('cellphone');
+      $user->country = $country;
+      $user->level = $level;
+      $user->isActive = $isActive;
+      $user->ownerId = $ownerId;
+      $user->email = $request->input('email');
+      $user->password = bcrypt($request->input('password'));
+
+
+      //Ejecutar consulta y actualizar registro de BD
+      $user->save();
+
+
+        return redirect('home')->with([
+                'message' => $user->name.', tu informacion fue actualizada correctamente!',
+                'totalusers' => $totalusers,
+                'totalCommission' => $totalCommission,
+                'totalProduction' => $totalProduction,
+                'totalProductionMes' => $totalProductionMes
+        ]);
+
+    }
+
+    public function indexperfilconfiguracion()
+    {
+      // Conseguir usuario identificado
+      $user = \Auth::user();
+      $id = $user->id;
+
+      // Total comission del usuario mes en curso
+      $totalCommission = $this->totalCommission();
+
+      // Hitorial de produccion 
+      $totalProduction = $this->totalProduction();
+
+      // Total produccion del usuario mes en curso
+      $totalProductionMes = $this->totalProductionMes();
+
+      // Total usuarios
+      $totalusers = $totalusers = $this->countUsers();
+
+      return Response()->view('users.indexconfiguracion', [
+        'user' => $user,
+        'totalusers' => $totalusers,
+        'totalCommission' => $totalCommission,
+        'totalProduction' => $totalProduction,
+        'totalProductionMes' => $totalProductionMes
+      ]);
 
     }
 
@@ -454,11 +601,14 @@ class UserController extends Controller
       //Conseguir usuario identificado
       $user = \Auth::user();
 
-      // Total comission del usuario 
+      // Total comission del usuario mes en curso
       $totalCommission = $this->totalCommission();
 
-      // Total produccion del usuario 
+      // Hitorial de produccion 
       $totalProduction = $this->totalProduction();
+
+      // Total produccion del usuario mes en curso
+      $totalProductionMes = $this->totalProductionMes();
 
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
@@ -467,7 +617,8 @@ class UserController extends Controller
         'user' => $user,
         'totalusers' => $totalusers,
         'totalCommission' => $totalCommission,
-        'totalProduction' => $totalProduction
+        'totalProduction' => $totalProduction,
+        'totalProductionMes' => $totalProductionMes
       ]);
 
     }
@@ -475,11 +626,14 @@ class UserController extends Controller
     public function detail($id)
     {
 
-      // Total comission del usuario 
+      // Total comission del usuario mes en curso
       $totalCommission = $this->totalCommission();
 
-      // Total produccion del usuario 
+      // Hitorial de produccion 
       $totalProduction = $this->totalProduction();
+
+      // Total produccion del usuario mes en curso
+      $totalProductionMes = $this->totalProductionMes();
 
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
@@ -527,7 +681,8 @@ class UserController extends Controller
           'totalCommission' => $totalCommission,
           'Wallets' => $Wallets,
           'result' => $result,
-          'totalProduction' => $totalProduction
+          'totalProduction' => $totalProduction,
+          'totalProductionMes' => $totalProductionMes
       ]);
     }
 
@@ -544,18 +699,22 @@ class UserController extends Controller
       $user = \Auth::user();
       $id = $user->id;
 
-      // Total comission del usuario 
+      // Total comission del usuario mes en curso
       $totalCommission = $this->totalCommission();
 
-      // Total produccion del usuario 
+      // Hitorial de produccion 
       $totalProduction = $this->totalProduction();
+
+      // Total produccion del usuario mes en curso
+      $totalProductionMes = $this->totalProductionMes();
 
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
       
       $misusers1 = DB::table('users')
-            ->where('ownerId', $id)
-            ->join('user_memberships', 'user_memberships.user', '=', 'users.id')
+            ->where('ownerId', $id)         
+            ->join('user_memberships', 'user_memberships.user', '=', 'users.id') 
+            ->where('status', 'Activo')           
             ->get();
 
       $networktransactions = DB::select('SELECT u.*, nt.*   
@@ -572,7 +731,8 @@ class UserController extends Controller
           'misusers1' => $misusers1,
           'networktransactions' => $networktransactions,
           'totalCommission' => $totalCommission,
-          'totalProduction' => $totalProduction
+          'totalProduction' => $totalProduction,
+          'totalProductionMes' => $totalProductionMes
           
       ]);
     } 

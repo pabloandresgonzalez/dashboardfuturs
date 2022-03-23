@@ -238,15 +238,16 @@
                         <?php
                           if (isset($result)) {
                   
-                            if (isset($data['USDT']['total'])) {
+                            if (isset($data['USDT']['total']) & isset($data['PSIV']['total'])) {
 
                                 //$balancecho = $data['BTC']['balance']; 
                                 //$exhange = $data['BTC']['exhange']; 
 
-                                  $total = $data['USDT']['total'];
+                                  $totalPSIV = $data['PSIV']['total'];
+                                  $totalUSDT = $data['USDT']['total'];
 
 
-                              if ($total > 50) {
+                              if ($totalUSDT > 25 & $totalPSIV > 25) {
                                 echo '
 
                             <div class="col-md-6">
@@ -296,7 +297,7 @@
 
                                 echo '                                
                                   <div class="card-body">                                  
-                                    <h5>Es necesario tener como minimo 50 en saldo y una membresia activa para retirar.</h5>                                 
+                                    <h5>Es necesario tener como minimo 50 en saldo,  y una membresia activa para retirar.</h5>                                 
                                   </div>
                               ';
                               

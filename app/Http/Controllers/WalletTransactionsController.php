@@ -37,11 +37,14 @@ class WalletTransactionsController extends Controller
         ->orderBy('created_at', 'desc')
         ->paginate(50);
 
-        // Total comission del usuario 
+        // Total comission del usuario mes en curso
         $totalCommission = $this->totalCommission();
 
-        // Total produccion del usuario 
+        // Hitorial de produccion 
         $totalProduction = $this->totalProduction();
+
+        // Total produccion del usuario mes en curso
+        $totalProductionMes = $this->totalProductionMes();
 
         // Total usuarios
         $totalusers = $totalusers = $this->countUsers();
@@ -50,7 +53,8 @@ class WalletTransactionsController extends Controller
         'Wallets' => $Wallets,
         'totalusers' => $totalusers,
         'totalCommission' => $totalCommission,
-        'totalProduction' => $totalProduction
+        'totalProduction' => $totalProduction,
+        'totalProductionMes' => $totalProductionMes
         ]);
 
 
@@ -101,11 +105,14 @@ class WalletTransactionsController extends Controller
       $Wallets = wallet_transactions::where('user', $user->id)->orderBy('id', 'desc')
         ->paginate(50);
 
-      // Total comission del usuario 
+      // Total comission del usuario mes en curso
       $totalCommission = $this->totalCommission();
 
-      // Total produccion del usuario 
+      // Hitorial de produccion 
       $totalProduction = $this->totalProduction();
+
+      // Total produccion del usuario mes en curso
+      $totalProductionMes = $this->totalProductionMes();
 
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
@@ -117,7 +124,8 @@ class WalletTransactionsController extends Controller
           'result' => $result,
           'totalusers' => $totalusers,
           'totalCommission' => $totalCommission,
-          'totalProduction' => $totalProduction
+          'totalProduction' => $totalProduction,
+          'totalProductionMes' => $totalProductionMes
         ]); 
     }
 
@@ -140,11 +148,21 @@ class WalletTransactionsController extends Controller
       $user = \Auth::user();
       $id = $user->id;
 
-      // Total usuarios
+      /*// Total, de comisión por activación de membresías de usuarios referidos 
       $totalCommission = DB::table("network_transactions")
       ->where('user', $id)
-      ->where('type', 'Activation')
-      ->get()->sum("value");
+      ->where('type', 'Activation')      
+      ->get()->sum("value");*/
+
+      $totalCommission1 = DB::select("SELECT * FROM network_transactions 
+        WHERE YEAR(created_at) = YEAR(CURRENT_DATE()) 
+        AND MONTH(created_at)  = MONTH(CURRENT_DATE())
+        AND type = 'Activation'
+        AND status = 'Activa'
+        AND user = ?", [$id]);
+
+      $valores = array_column($totalCommission1, 'value');
+      $totalCommission = array_sum($valores);
 
       return $totalCommission;
     }
@@ -164,6 +182,25 @@ class WalletTransactionsController extends Controller
       return $totalProduction;
     }
 
+    private function totalProductionMes()
+    {
+      // Conseguir usuario identificado
+      $user = \Auth::user();
+      $id = $user->id;
+
+      $totalProductionMes1 = DB::select("SELECT * FROM network_transactions 
+        WHERE YEAR(created_at) = YEAR(CURRENT_DATE()) 
+        AND MONTH(created_at)  = MONTH(CURRENT_DATE())
+        AND type = 'Daily'
+        AND status = 'Activa'
+        AND user = ?", [$id]);
+
+      $valores = array_column($totalProductionMes1, 'value');
+      $totalProductionMes = array_sum($valores);
+
+      return $totalProductionMes;
+    }
+
     public function store(Request $request)
     {
 
@@ -172,6 +209,42 @@ class WalletTransactionsController extends Controller
       $id = $user->id;
       $name = $user->name;
       $email = $user->email;
+
+      $id = $user->id;
+
+
+      $data = [
+      'userId' => $id,
+      'token' => 'AcjAa76AHxGRdyTemDb2jcCzRmqpWN'
+      ];
+
+      $curl = curl_init();
+
+      curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://sd0fxgedtd.execute-api.us-east-2.amazonaws.com/Prod_getBalanceByUser",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30000,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "POST",
+          CURLOPT_POSTFIELDS => json_encode($data),        
+          CURLOPT_HTTPHEADER => array(
+            // Set here requred headers
+              "accept: */*",
+              "accept-language: en-US,en;q=0.8",
+              "content-type: application/json",
+          ),
+      ));
+
+      $result = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      //decodificar JSON porque esa es la respuesta
+      $respuestaDecodificada = json_decode($result); 
+      //dd($respuestaDecodificada); 
 
                 
       $rules = ([
@@ -203,7 +276,6 @@ class WalletTransactionsController extends Controller
         $Wallet = new wallet_transactions();
         $Wallet->user = $id;
         $Wallet->email = $email;
-        $Wallet->value = $request->input('value');
 
 
         $dia1 = date('Y-m-01');
@@ -220,8 +292,9 @@ class WalletTransactionsController extends Controller
        
 
         $percentageda = 12;
-        $percentagedp = 8;
+        $percentagedp = 8;        
         $valretiro = $request->input('value'); 
+      
 
         $toPorretiroda = ($percentageda / 100) * $valretiro;
         $toPorretirodp = ($percentagedp / 100) * $valretiro;
@@ -229,12 +302,15 @@ class WalletTransactionsController extends Controller
 
         if ($diff->days < 15) {
           $Wallet->fee = $toPorretiroda;
+          $Wallet->value = $request->input('value') - $toPorretiroda;
         } else {
           $Wallet->fee = $toPorretirodp;
+          $Wallet->value = $request->input('value') - $toPorretiroda;
         }
         
 
         //$Wallet->fee = 5;
+
         $Wallet->type = "Traslado";
         $Wallet->hash = '';
         $Wallet->currency = $request->input('currency');
@@ -257,11 +333,14 @@ class WalletTransactionsController extends Controller
 
         Mail::to($user_email_admin)->send(new TransactionMessageCreated($Wallet));
 
-        // Total comission del usuario 
+        // Total comission del usuario mes en curso
         $totalCommission = $this->totalCommission();
 
-        // Total produccion del usuario 
+        // Hitorial de produccion 
         $totalProduction = $this->totalProduction();
+
+        // Total produccion del usuario mes en curso
+        $totalProductionMes = $this->totalProductionMes();
 
         // Total usuarios
         $totalusers = $totalusers = $this->countUsers();
@@ -270,7 +349,8 @@ class WalletTransactionsController extends Controller
                     'message' => '¡' . $name .' ' . '¡solicitud de traslado enviada correctamente!',
                     'totalusers' => $totalusers,
                     'totalCommission' => $totalCommission,
-                    'totalProduction' => $totalProduction
+                    'totalProduction' => $totalProduction,
+                    'totalProductionMes' => $totalProductionMes
         ]); 
 
         }
@@ -287,11 +367,14 @@ class WalletTransactionsController extends Controller
         
         $Wallets = wallet_transactions::find($id);
 
-        // Total comission del usuario 
+        // Total comission del usuario mes en curso
         $totalCommission = $this->totalCommission();
 
-        // Total produccion del usuario 
+        // Hitorial de produccion 
         $totalProduction = $this->totalProduction();
+
+        // Total produccion del usuario mes en curso
+        $totalProductionMes = $this->totalProductionMes();
 
         // Total usuarios
         $totalusers = $totalusers = $this->countUsers();
@@ -300,7 +383,8 @@ class WalletTransactionsController extends Controller
           'Wallets' => $Wallets,
           'totalusers' => $totalusers,
           'totalCommission' => $totalCommission,
-          'totalProduction' => $totalProduction
+          'totalProduction' => $totalProduction,
+          'totalProductionMes' => $totalProductionMes
       ]);
 
     }
@@ -368,11 +452,14 @@ class WalletTransactionsController extends Controller
 
         Mail::to($user_email_admin)->send(new StatusChangeTransactionMessageAdmin($Wallet));        
 
-        // Total comission del usuario 
+        // Total comission del usuario mes en curso
         $totalCommission = $this->totalCommission();
 
-        // Total produccion del usuario 
+        // Hitorial de produccion 
         $totalProduction = $this->totalProduction();
+
+        // Total produccion del usuario mes en curso
+        $totalProductionMes = $this->totalProductionMes();
 
         // Total usuarios
         $totalusers = $totalusers = $this->countUsers();
@@ -381,7 +468,8 @@ class WalletTransactionsController extends Controller
                     'message' => 'Solicitud de traslado editada correctamente!',
                     'totalusers' => $totalusers,
                     'totalCommission' => $totalCommission,
-                    'totalProduction' => $totalProduction
+                    'totalProduction' => $totalProduction,
+                    'totalProductionMes' => $totalProductionMes
         ]);
 
     }
@@ -401,11 +489,14 @@ class WalletTransactionsController extends Controller
 
       $fecha_actual = date("Y-m-d H:i:s");
 
-      // Total comission del usuario 
+      // Total comission del usuario mes en curso
       $totalCommission = $this->totalCommission();
 
-      // Total produccion del usuario 
+      // Hitorial de produccion 
       $totalProduction = $this->totalProduction();
+
+      // Total produccion del usuario mes en curso
+      $totalProductionMes = $this->totalProductionMes();
 
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
@@ -415,7 +506,8 @@ class WalletTransactionsController extends Controller
           'fecha_actual' => $fecha_actual,
           'totalusers' => $totalusers,
           'totalCommission' => $totalCommission,
-          'totalProduction' => $totalProduction
+          'totalProduction' => $totalProduction,
+          'totalProductionMes' => $totalProductionMes
       ]);
 
     }
@@ -429,11 +521,14 @@ class WalletTransactionsController extends Controller
       $name = $user->name;
       $email = $user->email;
 
-      // Total comission del usuario 
+      // Total comission del usuario mes en curso
       $totalCommission = $this->totalCommission();
 
-      // Total produccion del usuario 
+      // Hitorial de produccion 
       $totalProduction = $this->totalProduction();
+
+      // Total produccion del usuario mes en curso
+      $totalProductionMes = $this->totalProductionMes();
 
       // Total usuarios
       $totalusers = $totalusers = $this->countUsers();
@@ -494,7 +589,8 @@ class WalletTransactionsController extends Controller
                     'message' => 'Asignación de saldo enviada correctamente!',
                     'totalusers' => $totalusers,
                     'totalCommission' => $totalCommission,
-                    'totalProduction' => $totalProduction
+                    'totalProduction' => $totalProduction,
+                    'totalProductionMes' => $totalProductionMes
         ]);
 
     }

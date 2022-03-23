@@ -28,7 +28,7 @@
         <i class="ni ni-support-16 text-info"></i> Ayuda
       </a>
     </li>    
-    <li class="nav-item">
+    <li class="nav-item ">
       <a class="nav-link" href="{{ route('contacto.index') }}"><i class="ni ni-email-83 "></i> Contacto
       </a>
     </li>
@@ -52,9 +52,9 @@
       </a>
     </li>
   </ul>
-  @else
+  @else  
   <h6 class="navbar-heading text-muted">Soporte</h6>
-  <ul class="navbar-nav mb-md-3">
+    <ul class="navbar-nav mb-md-3">
     <li class="nav-item">
       <a class="nav-link" href="https://wa.me/593987347130?text=%20Hola! %20Requiero%20de%20su%20ayuda%20para%20un%20soporte%20en%20FUTURS,%20Gracias">
         <i class="ni ni-support-16 text-info"></i> Ayuda
@@ -71,5 +71,6 @@
       </a>
     </li>
   </ul>
+                  
   @endif
 
