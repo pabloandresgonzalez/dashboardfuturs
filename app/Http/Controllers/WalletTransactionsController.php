@@ -244,8 +244,11 @@ class WalletTransactionsController extends Controller
 
       //decodificar JSON porque esa es la respuesta
       $respuestaDecodificada = json_decode($result); 
-      //dd($respuestaDecodificada); 
-
+      
+      $url = ($result);
+      $data = json_decode($url, true);
+      $totalPSIV = $data['PSIV']['total'];
+      $totalUSDT = $data['USDT']['total'];
                 
       $rules = ([
           
@@ -293,19 +296,26 @@ class WalletTransactionsController extends Controller
 
         $percentageda = 12;
         $percentagedp = 8;        
-        $valretiro = $request->input('value'); 
-      
+        $valretiro = $request->input('value');  
 
-        $toPorretiroda = ($percentageda / 100) * $valretiro;
-        $toPorretirodp = ($percentagedp / 100) * $valretiro;
+        if ($valretiro > $totalPSIV || $valretiro > $totalUSDT) {
 
+          return redirect()->route('home')->with([
+                    'message' => '¡' . $name . ' ' . '¡El valor del traslado no puede ser mayor al saldo disponible!'
+                    //'totalusers' => $totalusers
+          ]); 
+
+        } else {
+
+          $toPorretiroda = ($percentageda * $valretiro) / 100;
+          $toPorretirodp = ($percentagedp * $valretiro) / 100;
 
         if ($diff->days < 15) {
           $Wallet->fee = $toPorretiroda;
-          $Wallet->value = $request->input('value') - $toPorretiroda;
+          $Wallet->value = $valretiro - $toPorretiroda;
         } else {
           $Wallet->fee = $toPorretirodp;
-          $Wallet->value = $request->input('value') - $toPorretiroda;
+          $Wallet->value = $valretiro - $toPorretiroda;
         }
         
 
@@ -351,9 +361,11 @@ class WalletTransactionsController extends Controller
                     'totalCommission' => $totalCommission,
                     'totalProduction' => $totalProduction,
                     'totalProductionMes' => $totalProductionMes
-        ]); 
+        ]);
 
         }
+                  
+      }
 
         return redirect()->route('home')->with([
                     'message' => '¡' . $name . ' ' . '¡es necesario tener mínimo una membresía activa para poder hacer traslados!'
@@ -426,9 +438,11 @@ class WalletTransactionsController extends Controller
         if ($request->input('status') === 'Rechazado') {
           $Wallet->value = 0;
           $Wallet->fee = 0;
+          $Wallet->status = '';
         } else {
           $Wallet->value = $value;
           $Wallet->fee = $fee;
+          $Wallet->status = $request->input('status');
         }        
         
         $Wallet->type = $type;
@@ -436,8 +450,7 @@ class WalletTransactionsController extends Controller
         $Wallet->currency = $currency;
         $Wallet->approvedBy = $iduser; 
         $Wallet->$wallet;
-        $Wallet->inOut = 0;
-        $Wallet->status = $request->input('status');     
+        $Wallet->inOut = 0;     
         $Wallet->detail = $detail . ', ' . $request->input('hash');
        
 
