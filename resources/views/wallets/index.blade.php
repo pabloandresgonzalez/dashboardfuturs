@@ -247,7 +247,7 @@
                                   $totalUSDT = $data['USDT']['total'];
 
 
-                              if ($totalUSDT > 25 & $totalPSIV > 25) {
+                              if ($totalUSDT > 25 || $totalPSIV > 25) {
                                 echo '
 
                             <div class="col-md-6">
