@@ -69,26 +69,21 @@
                       if ($membership->status === 'Activo') {
                         $fecha_actual = date("Y-m-d");
                         $fecha_final = $membership->closedAt;
-                                                
+                        
                         $fecha11 = strtotime($fecha_actual); 
                         $fecha22 = strtotime($fecha_final);
 
-                        // Obtiene los dias faltantes sin sabados ni domingos 
-                        for($fecha11;$fecha11<=$fecha22;$fecha11=strtotime('+1 day ' . date('Y-m-d',$fecha11))){ 
+                          // Obtiene los dias faltantes sin sabados ni domingos 
+                          for($fecha11;$fecha11<=$fecha22;$fecha11=strtotime('+1 day ' . date('Y-m-d',$fecha11))){ 
                             if((strcmp(date('D',$fecha11),'Sun')!=0) and (strcmp(date('D',$fecha11),'Sat')!=0)){
-                                //echo date('Y-m-d ',$fecha11). '<br>';
+                                echo date('Y-m-d ',$fecha11). '<br>';
                                 $datos[] = date('Y-m-d ',$fecha11);
                             }
+                          }
+                        } else {
+                          echo $membership->status;
                         }
 
-                        if ($datos) {
-                          echo count($datos). ' Dias';
-                        }                          
-                          echo ' ';                          
-                      }else {
-                        echo $membership->status;
-                      }
-                      
                       ?>
                   </td>
                   <td>
@@ -121,7 +116,7 @@
                   </td> 
                   <td>
                     <a href="{{ route('networktransactionactivacion', ['id' =>$membership->id]) }}" class="btn btn-outline-secondary"><i class="ni ni-archive-2"></i> Historial activación</a>
-                  </td>            
+                  </td>         
                  </tr>                 
                  @endforeach
               </tbody>

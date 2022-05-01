@@ -50,25 +50,23 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        //dd($data);
-
-            return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'lastname' => ['required', 'string', 'max:255'],
-            'typeDoc' => ['required', 'string', 'max:255'],
-            'numberDoc' => ['required', 'string', 'max:255', 'unique:users'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone' => ['required', 'string', 'max:255'],
-            'cellphone' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'country' => ['required', 'string', 'max:255'],
-            //'level' => ['required', 'string', 'max:255'],
-            //'photo' => ['required', 'string', 'max:255'],
-            //'photoDoc' => ['required', 'string', 'max:255'],
-            //'isActive' => ['required', 'Boolean', 'max:255'],
-            'ownerId' => ['required', 'string', 'max:255'],
-            //'role' => ['required', 'string', 'max:255'],
-            ]);
+        return Validator::make($data, [
+        'name' => ['required', 'string', 'max:255'],
+        'lastname' => ['required', 'string', 'max:255'],
+        'typeDoc' => ['required', 'string', 'max:255'],
+        'numberDoc' => ['required', 'string', 'max:255', 'unique:users'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        'phone' => ['required', 'string', 'max:255'],
+        'cellphone' => ['required', 'string', 'max:255'],
+        'password' => ['required', 'string', 'min:8', 'confirmed'],
+        'country' => ['required', 'string', 'max:255'],
+        //'level' => ['required', 'string', 'max:255'],
+        //'photo' => ['required', 'string', 'max:255'],
+        //'photoDoc' => ['required', 'string', 'max:255'],
+        //'isActive' => ['required', 'Boolean', 'max:255'],
+        //'ownerId' => ['required', 'string', 'max:255'],
+        //'role' => ['required', 'string', 'max:255'],
+        ]);
 
     }
 
@@ -80,13 +78,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $urlphoto = asset('img/theme/avatar.png');
-        $urlphotoDoc = asset('img/theme/avatar.png');
+        $urlphoto = null;
+        $urlphotoDoc = null;
         $role = 'user';
+        $data1 = $data['ownerId'];
+
+        if (empty($data1)) 
+        {
+            $ownerId = 'd33b3162-2057-4079-8447-bcfd3e52960c';
+        } else {
+            $ownerId = $data['ownerId'];
+        }
 
 
         return User::create([
-            'ownerId' => $data['ownerId'],
+            'ownerId' => $ownerId,
             'role' => $role,
             'name' => $data['name'],
             'lastname' => $data['lastname'],

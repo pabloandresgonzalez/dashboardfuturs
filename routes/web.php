@@ -48,6 +48,7 @@ Route::get('/membership/{membership}', [App\Http\Controllers\UserMembershipContr
 Route::put('/membershiprenovar/{membership}', [App\Http\Controllers\UserMembershipController::class, 'renovar']);
 Route::get('/membership/{membership}/detail', [App\Http\Controllers\UserMembershipController::class, 'detail']);//detalle
 
+
 //News
 Route::get('/newsuser', [App\Http\Controllers\NewsController::class, 'indexuser']);
 Route::get('/news/avatar/{filename?}', [App\Http\Controllers\NewsController::class, 'getImagevideo'])->name('new.avatar');
@@ -66,6 +67,8 @@ Route::post('/wallet', [App\Http\Controllers\WalletTransactionsController::class
 Route::get('/contacto', [App\Http\Controllers\ContactoController::class, 'index'])->name('contacto.index');
 Route::post('/contacto', [App\Http\Controllers\ContactoController::class, 'store'])->name('contacto.store');
 Route::get('/guia', [App\Http\Controllers\GuiaController::class, 'index'])->name('guia.index');
+Route::get('/walletsaldouser', [App\Http\Controllers\WalletTransactionsController::class, 'editsaldouser'])->name('walletsaldouser');
+Route::put('/wallets/asaldototal', [App\Http\Controllers\WalletTransactionsController::class, 'storeUser']);
 
 
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -113,6 +116,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/wallets/export-excel', [App\Http\Controllers\WalletTransactionsController::class, 'exportExcel']);
     Route::get('/walletsaldos', [App\Http\Controllers\WalletTransactionsController::class, 'editsaldos'])->name('walletsaldos'); 
     Route::put('/wallets/asaldo', [App\Http\Controllers\WalletTransactionsController::class, 'storeAdmin']);
+
 
    
     
