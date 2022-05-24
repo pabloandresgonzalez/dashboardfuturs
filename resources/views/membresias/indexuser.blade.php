@@ -39,8 +39,8 @@
                           <h4 class="card-title">{{ $membresia->detail }}</h4> 
                           <h5 class="card-title">{{ $membresia->isActive }}</h5> 
                           <h5 class="card-title">Valor {{ $membresia->valor }}</h5>             
-                          <a data-toggle="modal" data-target="#modal-form1"  href="#" class="badge badge-warning"><i class="ni ni-cart"></i>&nbsp; Pago con PSIV</a> |
-                          <a data-toggle="modal" data-target="#modal-form" href="#" class="badge badge-warning"><i class="ni ni-cart"></i>&nbsp;Pago con USDT</a> 
+                          <a data-toggle="modal" data-target="#modal-form1-{{$membresia->id}}"  href="#" class="badge badge-warning"><i class="ni ni-cart"></i>&nbsp; Pago con PSIV</a> |
+                          <a data-toggle="modal" data-target="#modal-form-{{$membresia->id}}" href="#" class="badge badge-warning"><i class="ni ni-cart"></i>&nbsp;Pago con USDT</a> 
                         </div>
                       </div>
                       <hr>
@@ -50,7 +50,7 @@
 
 
 
-          <div class="modal fade" id="modal-form1" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+          <div class="modal fade" id="modal-form1-{{$membresia->id}}" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
           <div class="modal-dialog modal- modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
               
@@ -64,7 +64,13 @@
                         </div> 
                         <div class="text-center text-muted mb-4">
                             <small>0xeB4e247A9C0ca606aE0300218014A71A4BA93319</small>
-                        </div>                      
+                            <br>
+                            <small>Valor {{ $membresia->valor }}</small>
+                        </div>  
+                        <br>
+                        <div class="text-center text-muted mb-4">
+                            <strong>Valor membresía + administración <br><br><?php echo $membresia->valor + $membresia->valor * 5 / 100; ?></strong>                            
+                        </div>                     
                     </div>
                     <div class="card-body px-lg-5 py-lg-5">                        
 
@@ -80,7 +86,7 @@
           </div>
 
 
-          <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+          <div class="modal fade" id="modal-form-{{$membresia->id}}" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
             <div class="modal-dialog modal- modal-dialog-centered modal-sm" role="document">
               <div class="modal-content">
                 
@@ -94,7 +100,13 @@
                               </div> 
                               <div class="text-center text-muted mb-4">
                                   <small>TC5QbZxSNhCjxkhmpKk54pohjbuiXvtfbS</small>
-                              </div>                      
+                                  <br>
+                                <small>Valor {{ $membresia->valor }}</small>
+                              </div> 
+                              <br>
+                              <div class="text-center text-muted mb-4">
+                                  <strong>Valor membresía + administración <br><br><?php echo $membresia->valor + $membresia->valor * 5 / 100; ?></strong>                            
+                              </div>                     
                           </div>
                           <div class="card-body px-lg-5 py-lg-5">                        
 

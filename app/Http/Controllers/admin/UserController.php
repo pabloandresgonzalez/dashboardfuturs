@@ -673,7 +673,13 @@ class UserController extends Controller
       curl_close($curl);
 
       //decodificar JSON porque esa es la respuesta
-      $respuestaDecodificada = json_decode($result);    
+      $respuestaDecodificada = json_decode($result);  
+
+      //decodificar JSON porque esa es la respuesta
+      $respuestaDecodificada = json_decode($result);
+
+      $membreshipsactivas = UserMembership::where('user', $user->id)
+        ->where('status', 'Activo')->get();  
 
       return view('users.detail', [
           'user' => $user,
@@ -682,7 +688,8 @@ class UserController extends Controller
           'Wallets' => $Wallets,
           'result' => $result,
           'totalProduction' => $totalProduction,
-          'totalProductionMes' => $totalProductionMes
+          'totalProductionMes' => $totalProductionMes,
+          'membreshipsactivas' => $membreshipsactivas
       ]);
     }
 
