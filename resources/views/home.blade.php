@@ -11,14 +11,20 @@
                 <div class="card-body">
 
                     @if(session('message'))
-                        <div class="alert alert-success">
+                        <div class="alert alert-success alert-dismissible">
                           {{ session('message') }}
+                          <button type="button" class="close" data-dismiss="alert">
+                              <span>x</span>
+                          </button>
                         </div>
                     @endif
                     
                     @if (session('status'))
-                        <div class="alert alert-success" role="alert">
+                        <div class="alert alert-success alert-dismissible" role="alert" >
                             {{ session('status') }}
+                            <button type="button" class="close" data-dismiss="alert">
+                              <span>x</span>
+                            </button>
                         </div>
                     @endif
 
