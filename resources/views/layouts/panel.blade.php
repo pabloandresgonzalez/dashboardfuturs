@@ -16,7 +16,7 @@
   <link href="{{ asset('vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
   <!-- Argon CSS -->
   <link href="{{ asset('css/argon.css?v=1.0.0') }}" rel="stylesheet">
-
+  <link href="{{ asset('css/style.css') }}" rel="stylesheet">
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
@@ -153,19 +153,51 @@
       <div class="container-fluid">
         <!-- Brand -->
           <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="#">Panel</a>
-       <!-- Form -->
-        <!--
-        <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-          <div class="form-group mb-0">
-            <div class="input-group input-group-alternative">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-search"></i></span>
-              </div>
-              <input class="form-control" placeholder="Search" type="text">
-            </div>
+
+          <!-- partial:index.partial.html -->
+          <div class="slider">
+          <div class="slide-track">
+          <div class="slide">
+          ARS | (USD)<?php echo $data ['ARS']['last'];?>
           </div>
-        </form>
-         -->
+          <div class="slide">
+          AUD | (USD)<?php echo $data ['AUD']['last'];?>
+          </div>
+          <div class="slide">
+          BRL | (USD)<?php echo $data ['BRL']['last'];?>
+          </div>
+          <div class="slide">
+          BTC | (USD)<?php echo $data ['USD']['last'];?>
+          </div>
+          <div class="slide">
+          CAD | (USD)<?php echo $data ['CAD']['last'];?>
+          </div>
+          <div class="slide">
+          CHF | (USD)<?php echo $data ['CHF']['last'];?>
+          </div>
+          <div class="slide">
+          CLP | (USD)<?php echo $data ['CLP']['last'];?>
+          </div>
+          <div class="slide">
+          CNY | (USD)<?php echo $data ['CNY']['last'];?>
+          </div>
+          <div class="slide">
+          CZK | (USD)<?php echo $data ['CZK']['last'];?>
+          </div>
+          <div class="slide">
+          EUR | (USD)<?php echo $data ['EUR']['last'];?>
+          </div>
+          <div class="slide">
+          TWD | (USD)<?php echo $data ['TWD']['last'];?>
+          </div>
+          <div class="slide">
+          BTC | (USD)<?php echo $data ['USD']['last'];?>
+          </div>
+
+
+
+          </div>
+          </div>
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
           <li class="nav-item dropdown">

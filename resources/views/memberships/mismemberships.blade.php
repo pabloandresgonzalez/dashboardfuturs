@@ -110,7 +110,7 @@
                     ?>
                   días restantes</a>
                 </td>
-
+                
 
       <div class="modal fade" id="modal-form-{{$membership->id}}" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
           <div class="modal-dialog modal- modal-dialog-centered modal-sm" role="document">
