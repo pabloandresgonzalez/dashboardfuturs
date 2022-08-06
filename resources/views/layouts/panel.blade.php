@@ -153,92 +153,93 @@
       <div class="container-fluid">
         <!-- Brand -->
           <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="#">Panel</a>
+          <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="#"> &nbsp; &nbsp;</a>
 
           <!-- partial:index.partial.html -->
           <div class="slider">
           <div class="slide-track">
           <div class="slide">
-          ARS/(USD)<?php echo $data ['ARS']['last'];?>
+          ARS<?php echo $data ['ARS']['last'];?> 
           </div>
           <div class="slide">
-          AUD/(USD)<?php echo $data ['AUD']['last'];?>
+          AUD<?php echo $data ['AUD']['last'];?> 
           </div>
           <div class="slide">
-          BRL/(USD)<?php echo $data ['BRL']['last'];?>
+          BRL<?php echo $data ['BRL']['last'];?> 
           </div>
           <div class="slide">
-          CAD/(USD)<?php echo $data ['CAD']['last'];?>
+          CAD<?php echo $data ['CAD']['last'];?> 
           </div>
           <div class="slide">
-          CHF/(USD)<?php echo $data ['CHF']['last'];?>
+          CHF<?php echo $data ['CHF']['last'];?> 
           </div>
           <div class="slide">
-          CLP/(USD)<?php echo $data ['CLP']['last'];?>
+          CLP<?php echo $data ['CLP']['last'];?> 
           </div>
           <div class="slide">
-          CNY/(USD)<?php echo $data ['CNY']['last'];?>
+          CNY<?php echo $data ['CNY']['last'];?> 
           </div>
           <div class="slide">
-          CZK/(USD)<?php echo $data ['CZK']['last'];?>
+          CZK<?php echo $data ['CZK']['last'];?> 
           </div>
           <div class="slide">
-          DKK/(USD)<?php echo $data ['DKK']['last'];?>
+          DKK<?php echo $data ['DKK']['last'];?> 
           </div>
           <div class="slide">
-          EUR/(USD)<?php echo $data ['EUR']['last'];?>
+          EUR<?php echo $data ['EUR']['last'];?> 
           </div>
           <div class="slide">
-          GBP/(USD)<?php echo $data ['GBP']['last'];?>
+          GBP<?php echo $data ['GBP']['last'];?> 
           </div>
           <div class="slide">
-          HKD/(USD)<?php echo $data ['HKD']['last'];?>
+          HKD<?php echo $data ['HKD']['last'];?> 
           </div>
           <div class="slide">
-          HRK/(USD)<?php echo $data ['HRK']['last'];?>
+          HRK<?php echo $data ['HRK']['last'];?> 
           </div>
           <div class="slide">
-          HUF/(USD)<?php echo $data ['HUF']['last'];?>
+          HUF<?php echo $data ['HUF']['last'];?> 
           </div>
           <div class="slide">
-          TWD/(USD)<?php echo $data ['TWD']['last'];?>
+          TWD<?php echo $data ['TWD']['last'];?> 
           </div>
           <div class="slide">
-          INR/(USD)<?php echo $data ['INR']['last'];?>
+          INR<?php echo $data ['INR']['last'];?> 
           </div>
           <div class="slide">
-          ISK/(USD)<?php echo $data ['ISK']['last'];?>
+          ISK<?php echo $data ['ISK']['last'];?> 
           </div>
           <div class="slide">
-          JPY/(USD)<?php echo $data ['JPY']['last'];?>
+          JPY<?php echo $data ['JPY']['last'];?> 
           </div>
           <div class="slide">
-          KRW/(USD)<?php echo $data ['KRW']['last'];?>
+          KRW<?php echo $data ['KRW']['last'];?> 
           </div>
           <div class="slide">
-          NZD/(USD)<?php echo $data ['NZD']['last'];?>
+          NZD<?php echo $data ['NZD']['last'];?> 
           </div>
           <div class="slide">
-          PLN/(USD)<?php echo $data ['PLN']['last'];?>
+          PLN<?php echo $data ['PLN']['last'];?> 
           </div> 
           <div class="slide">
-          RON/(USD)<?php echo $data ['RON']['last'];?>
+          RON<?php echo $data ['RON']['last'];?> 
           </div>
           <div class="slide">
-          RUB/(USD)<?php echo $data ['RUB']['last'];?>
+          RUB<?php echo $data ['RUB']['last'];?> 
           </div>
           <div class="slide">
-          SEK/(USD)<?php echo $data ['SEK']['last'];?>
+          SEK<?php echo $data ['SEK']['last'];?> 
           </div>
           <div class="slide">
-          SGD/(USD)<?php echo $data ['SGD']['last'];?>
+          SGD<?php echo $data ['SGD']['last'];?> 
           </div>
           <div class="slide">
-          THB/(USD)<?php echo $data ['THB']['last'];?>
+          THB<?php echo $data ['THB']['last'];?> 
           </div>
           <div class="slide">
-          BTC/(USD)<?php echo $data ['USD']['last'];?>
+          BTC<?php echo $data ['USD']['last'];?> 
           </div>
-
+          
           </div>
           </div>
         <!-- User -->
